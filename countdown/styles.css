@@ -1,0 +1,85 @@
+*{
+	margin:0;
+	padding: 0;
+
+}
+body{
+	font-family: Helvetica, Arial, sans-serif;
+	background-color: #525b63;
+	display:flex;
+	height: 100vh;
+	justify-content: center;
+}
+	.section-center{
+		display: flex;
+		width: 900px;
+		height: 300px;
+		flex-direction:row;
+		margin-top:5rem;
+	}
+
+		.gift-img img{
+			height:300px;
+			margin-right: 2rem;
+		}
+
+		.gift-info{
+			height: 300px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			align-content: space-between;
+		}
+
+			.gift-info h3{
+				color:#023c6e;
+				text-transform: uppercase;
+				text-align: center;
+				font-size: 2rem;
+			}
+
+			.giveaway{
+				text-transform: uppercase;
+				color: #000f1c;
+			}
+
+			p{
+				color:#000f1c;
+			}
+
+		.deadline{
+			display: flex;
+			justify-content: space-between;
+		}
+
+			.deadline-format{
+				display: flex;
+				width: 100%;
+				justify-content: space-around;
+			}
+				.deadline-format div{
+					position: relative;
+					display: inline-block;
+					background-color: #292b2c;
+					width:100px;
+					height: 100px;
+					color:white;
+					text-transform: uppercase;
+					text-align: center;
+				}
+
+				.deadline-format h4{
+					font-size: 2em;
+					line-height: 4rem;
+				}
+					.deadline-format h4::before{
+						position: absolute;
+						top:2px;
+						left:45px;
+						content: "";
+						height: 10px;
+						width: 10px;
+						border-radius: 100%;
+						background-image: url('prego.png');
+						background-size: 100% 100%;
+					}
