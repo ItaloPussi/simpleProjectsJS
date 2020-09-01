@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>ListMe</title>
+
+		<link rel="stylesheet" href="styles.css">
+		<link rel="stylesheet"       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+>
+
+		<script src="app.js" defer="defer"></script>
+	</head>
+	<body onload="recoverLocalStorageData()">
+
+		<section class="section-center">
+			<form class="list-form">
+				<p class="alert"></p>
+				<h3>ListMe</h3>
+				<div class="form-control">
+					<input type="text" id="itemInput" placeholder="e.g Read a Book" />
+					<button type="submit" class="submit">submit</button>
+					<button type="button" class="cancel hidden">Cancelar</button>
+				</div>
+			</form>
+
+			<div class="list-container">
+				<div class="list-items">
+					
+				</div>
+				<button type="button" class="clear-btn">clear items</button>
+			</div>
+		</section>
+	</body>
+</html>
