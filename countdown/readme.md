@@ -14,6 +14,12 @@ Para fins de testes e garantir o funcionamento constante, ao inicializar o conta
 Caso queira altera-lo, basta alterar a variável *future date* disponível no arquivo *app.js*
 
 
+
+## Principais conceitos abordados
+	- Manipulação de datas;
+	- Manipulação de tempo;
+	- Sudo element;
+
 ## Contribuindo
 Encontrou algum BUG? Sinta-se livre para abrir uma issue. Pull requests também são bem-vindas.
 
