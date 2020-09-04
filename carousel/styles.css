@@ -1,0 +1,64 @@
+.slide-container{
+	position: relative;
+	width:80%;
+	max-width:600px;
+	height:300px;
+	overflow: hidden;
+	margin:0 auto;
+
+}
+.slide{
+	position: absolute;
+	width:100%;
+	height: 100%;
+	transition: 0.25s all ease-in-out;
+}
+
+button{
+	position: absolute;
+	z-index:100;
+	width:75;
+	height:75px;
+	line-height: 75px;
+	font-size: 3rem;
+	color:lightgrey;
+	background:transparent;
+	top:112.5px;
+	outline: none;
+	border:none;
+	cursor:pointer;
+}
+button:hover{
+	color:white;
+}
+.right{
+	right:0px;
+}
+
+.left{
+	left: 0;
+}
+
+.black{
+	background:black;
+}
+
+.yellow{
+	background:yellow;
+}
+
+.pink{
+	background:pink;
+}
+
+.green{
+	background:green;
+}
+
+.red{
+	background:red;
+}
+
+.slide{
+	transform: translateX(0%);
+}
