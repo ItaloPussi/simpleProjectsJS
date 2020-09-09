@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Randomizer</title>
+	<link rel="stylesheet" href="style.css">
+	<script src="app.js" defer="defer"></script>
+</head>
+<body onload="recoveryLocalStorageData()">
+
+	<div class="container">
+		<h1>Randomizer</h1>
+		<form class="form-container">
+			<input type="text" id="input" placeholder="Adicione um item">
+			<button type="submit">Adicionar</button>
+		</form>
+		
+		<ul class="items-container"></ul>
+
+		<button type="button" class="randomButton">Randomizer</button>
+
+		<div class="result"></div>
+	</div>
+	
+</body>
+</html>
