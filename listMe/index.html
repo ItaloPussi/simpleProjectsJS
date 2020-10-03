@@ -16,11 +16,35 @@
 		<section class="section-center">
 			<form class="list-form">
 				<p class="alert"></p>
-				<h3>ListMe</h3>
+				<h3>ListMe
+					<button type="button" class="reset-btn">
+						<img src="img/reset.png" alt="">
+					</button>
+
+				</h3>
+
 				<div class="form-control">
 					<input type="text" id="itemInput" placeholder="e.g Read a Book" />
 					<button type="submit" class="submit">submit</button>
 					<button type="button" class="cancel hidden">Cancelar</button>
+				</div>
+				<div class="frequency-control">
+					<label for="only">
+						<input type="radio" name="frequency" id="only" checked="checked" value="1">Only
+					</label>
+
+					<label for="daily">
+						<input type="radio" name="frequency" id="daily" value="2">Daily
+					</label>
+					<label for="weekly">
+						<input type="radio" name="frequency" id="weekly" value="3">Weekly
+					</label>
+					<label for="monthly">
+						<input type="radio" name="frequency" id="monthly" value="4">monthly
+					</label>
+					<label for="biweekly">
+						<input type="radio" name="frequency" id="biweekly" value="5">Biweekly
+					</label>
 				</div>
 			</form>
 

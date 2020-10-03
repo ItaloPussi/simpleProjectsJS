@@ -215,10 +215,27 @@ Grocery List
   color: var(--clr-primary-1);
   margin-bottom: 1.5rem;
   text-align: center;
+  position:relative;
 }
 .form-control {
   display: flex;
   justify-content: center;
+}
+
+.frequency-control{
+  width:100%;
+  display: inline-block;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.frequency-control *{
+  cursor:pointer;
+}
+
+input[type="radio"]{
+  margin-right:5px;
 }
 #itemInput {
   padding: 0.25rem;
@@ -345,6 +362,18 @@ Grocery List
   cursor: pointer;
   transition: var(--transition);
   margin-top: 1.25rem;
+}
+.reset-btn{
+  position: absolute;
+  right:0;
+  outline:0;
+  border:none;
+  width:16px;
+  cursor:pointer;
+  transition:all 0.3s linear;
+}
+.reset-btn:hover{
+  transform:rotateZ(60deg);
 }
 .clear-btn:hover {
   color: var(--clr-red-dark);
