@@ -28,6 +28,7 @@
 					<button type="submit" class="submit">submit</button>
 					<button type="button" class="cancel hidden">Cancelar</button>
 				</div>
+
 				<div class="frequency-control">
 					<label for="only">
 						<input type="radio" name="frequency" id="only" checked="checked" value="1">Only
@@ -40,11 +41,25 @@
 						<input type="radio" name="frequency" id="weekly" value="3">Weekly
 					</label>
 					<label for="monthly">
-						<input type="radio" name="frequency" id="monthly" value="4">monthly
+						<input type="radio" name="frequency" id="monthly" value="4">Monthly
 					</label>
 					<label for="biweekly">
 						<input type="radio" name="frequency" id="biweekly" value="5">Biweekly
 					</label>
+				</div>
+				<div class="dynamic-container">
+					<label for="dynamic">
+						<input type="checkbox" name="dynamic" id="dynamic">Dynamic
+					</label>
+					<div class="dynamic-options hidden">
+						<label for="current">
+							<input type="number" name="current" id="current" >Current Day
+						</label>
+
+						<label for="max">
+							<input type="number" name="max" id="max" min="1" >Max days
+						</label>
+					</div>
 				</div>
 			</form>
 

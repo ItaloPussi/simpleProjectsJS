@@ -7,7 +7,11 @@ const alert = document.querySelector('.alert')
 const form = document.querySelector('.list-form')
 const itemIpt = document.querySelector('#itemInput')
 const radioIpts = document.querySelectorAll("input[name= frequency")
+
 const onlyRadio = document.querySelector("#only")
+
+const dynamicBox= document.querySelector("#dynamic")
+const dynamicOptions= document.querySelector(".dynamic-options")
 const submitBtn = document.querySelector('.submit')
 const cancelBtn = document.querySelector('.cancel')
 const clearBtn = document.querySelector('.clear-btn')
@@ -25,6 +29,15 @@ form.addEventListener('submit', addItem)
 cancelBtn.addEventListener('click', resetParams)
 clearBtn.addEventListener('click', clearAllItems)
 resetBtn.addEventListener("click", resetItems)
+dynamicBox.addEventListener("change", handleDynamicOptionsDisplay)
+
+function handleDynamicOptionsDisplay(){
+	let toBeDisabled = dynamicBox.checked ? true : false
+	dynamicOptions.classList.toggle("hidden")
+	radioIpts.forEach(radio=>{
+ 		radio.disabled = toBeDisabled
+ 	})
+}
 
 function resetItems(){
 	const items = [...list.children]
@@ -35,7 +48,7 @@ function resetItems(){
 		if(item.getAttribute("data-frequency") == 2 && item.children[0].classList.value.includes("completed")){
 			item.children[0].classList.remove("completed")
 		}
-		if(item.getAttribute("data-frequency") > 2){
+		if(item.getAttribute("data-frequency") > 2 && item.getAttribute("data-frequency")!=6){
 			const dt = new Date()
 			let day = dt.getFullYear() + "/" + (dt.getMonth() + 1) + "/" + dt.getDate()
 			day = new Date(day)
@@ -57,12 +70,22 @@ function resetItems(){
 				item.style.display = "none"
 			}
 		}
+		if(item.getAttribute("data-frequency") == 6 && item.children[0].classList.value.includes("completed")){
+			if(item.getAttribute("data-current") == item.getAttribute("data-max")){
+				list.removeChild(item)
+				return false
+			}
+			item.children[0].textContent = item.children[0].textContent.replace(item.getAttribute("data-current"), parseInt(item.getAttribute("data-current")) + 1)
+			item.setAttribute("data-current",parseInt(item.getAttribute("data-current")) + 1)
+			item.children[0].classList.remove("completed")
+
+		}
 
 	})
 	handleLocalStorage()
 }
 //Create a element by receiving a value and a valid ID
-function createElement(textValue, elementDataID,status, frequency, frequencyDate){
+function createElement(textValue, elementDataID,status, frequency, frequencyDate, dynamics){
 	const element = document.createElement('article')
 		element.classList.add('list-item')
 
@@ -74,7 +97,7 @@ function createElement(textValue, elementDataID,status, frequency, frequencyDate
 		attrFrequency.value = frequency
 		element.setAttributeNode(attrFrequency)
 
-		if(frequency > 2){
+		if(frequency > 2 && frequency != 6){
 			const dt = new Date()
 
 			if(frequencyDate){
@@ -97,6 +120,32 @@ function createElement(textValue, elementDataID,status, frequency, frequencyDate
 			}
 		}
 
+		if(frequency == 6 && !dynamics){
+			const current = document.querySelector("input[name=current]").value
+			const max = document.querySelector("input[name=max]").value
+				
+			textValue = textValue.replace("$", current)
+			textValue+=` (${max})`
+
+			const currentAttb = document.createAttribute("data-current")
+			currentAttb.value = current
+			element.setAttributeNode(currentAttb)
+
+			const maxAttb = document.createAttribute("data-max")
+			maxAttb.value = max
+			element.setAttributeNode(maxAttb)
+	
+		}else if(frequency == 6 && dynamics){
+
+			const currentAttb = document.createAttribute("data-current")
+			currentAttb.value = dynamics.currentValue
+			element.setAttributeNode(currentAttb)
+
+			const maxAttb = document.createAttribute("data-max")
+			maxAttb.value = dynamics.maxValue
+			element.setAttributeNode(maxAttb)
+		}
+
 		element.innerHTML = `
 			<p class="title ${status ? 'completed' : ''}" onClick=changeStatus(${elementDataID})>${textValue}</p>
 			<div class="btn-container">
@@ -117,12 +166,12 @@ function createElement(textValue, elementDataID,status, frequency, frequencyDate
 //Handle the submit action triggered by the user
 function addItem(e){
 	e.preventDefault()
-	const selectedFrequency = document.querySelector('input[type = radio]:checked').value
+	const selectedFrequency = dynamicBox.checked ? 6 : document.querySelector('input[type = radio]:checked').value
 
 	const valueIpt = itemIpt.value
 
 	if (valueIpt && !editFlag){
-		createElement(valueIpt, currentId, false,selectedFrequency)
+		createElement(valueIpt, currentId, false,selectedFrequency, false, false)
 		displayAlert('Item add with success!', 'success')
 		resetParams()
 		localStorage.setItem('currentId', currentId)
@@ -154,7 +203,7 @@ function editItem(targetId){
  	itemIpt.value = editElement.textContent
  	itemIpt.focus()
  	cancelBtn.classList.remove('hidden')
-
+ 	dynamicBox.disabled = true
  	radioIpts.forEach(radio=>{
  		radio.disabled = true
  	})
@@ -208,6 +257,9 @@ function resetParams(){
 	submitBtn.textContent = "submit"
 	cancelBtn.classList.add('hidden')
 	onlyRadio.checked = true
+	dynamicBox.checked = false;
+	dynamicOptions.classList.add("hidden")
+	dynamicBox.disabled = false
 	radioIpts.forEach(radio=>{
  		radio.disabled = false
  	})
@@ -217,12 +269,20 @@ function resetParams(){
 function handleLocalStorage(){
 	const items = [...list.children]
 	const itemsContent = items.map(item =>{
+		dynamics = false;
+		if(item.getAttribute("data-frequency")==6){
+			dynamics = {
+				"currentValue": item.getAttribute("data-current"),
+				"maxValue": item.getAttribute("data-max")
+			}
+		}
 		return {
 			"id":item.getAttribute('data-id'),
 			"value": item.children[0].textContent,
 			"completed": item.children[0].classList.length>1 ? true : false,
 			"frequency": item.getAttribute("data-frequency"),
-			"frequencyDate": item.getAttribute("data-frequencyDate") ? item.getAttribute("data-frequencyDate") : false
+			"frequencyDate": item.getAttribute("data-frequencyDate") ? item.getAttribute("data-frequencyDate") : false,
+			dynamics
 		}
 	})
 	localStorage.setItem('items',JSON.stringify(itemsContent))
@@ -235,7 +295,7 @@ function recoverLocalStorageData(){
 		return false;
 	}
 	items.map(item=>{
-		createElement(item.value,item.id,item.completed, item.frequency, item.frequencyDate)
+		createElement(item.value,item.id,item.completed, item.frequency, item.frequencyDate, item.dynamics)
 	})
 }
 
