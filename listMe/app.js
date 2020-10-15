@@ -9,6 +9,7 @@ const itemIpt = document.querySelector('#itemInput')
 const radioIpts = document.querySelectorAll("input[name= frequency")
 
 const onlyRadio = document.querySelector("#only")
+const typeSelect = document.querySelector("#task-type")
 
 const dynamicBox= document.querySelector("#dynamic")
 const dynamicOptions= document.querySelector(".dynamic-options")
@@ -22,7 +23,7 @@ let editElement;
 let editFlag = false;
 let editId = "";
 let currentId = localStorage.getItem('items') ? Number(localStorage.getItem('currentId'))+1 : 0;
-
+let selectedType = ''
 
 //Event listeners
 form.addEventListener('submit', addItem)
@@ -31,6 +32,21 @@ clearBtn.addEventListener('click', clearAllItems)
 resetBtn.addEventListener("click", resetItems)
 dynamicBox.addEventListener("change", handleDynamicOptionsDisplay)
 
+typeSelect.addEventListener("change", (e)=>{
+	selectedType = e.target.value
+	handleDisplayTasksWithSelectedType()
+})
+
+function handleDisplayTasksWithSelectedType(){
+	const items = [...list.children]
+	items.map(item=>{
+		if((item.dataset.type != selectedType) && selectedType != ''){
+			item.style.display= "none"
+		}else{
+			item.style.display= "flex"
+		}
+	})
+}
 function handleDynamicOptionsDisplay(){
 	let toBeDisabled = dynamicBox.checked ? true : false
 	dynamicOptions.classList.toggle("hidden")
@@ -75,7 +91,7 @@ function resetItems(){
 				list.removeChild(item)
 				return false
 			}
-			item.children[0].textContent = item.children[0].textContent.replace(item.getAttribute("data-current"), parseInt(item.getAttribute("data-current")) + 1)
+			item.children[0].children[1].textContent = item.children[0].children[1].textContent.replace(item.getAttribute("data-current"), parseInt(item.getAttribute("data-current")) + 1)
 			item.setAttribute("data-current",parseInt(item.getAttribute("data-current")) + 1)
 			item.children[0].classList.remove("completed")
 
@@ -85,7 +101,7 @@ function resetItems(){
 	handleLocalStorage()
 }
 //Create a element by receiving a value and a valid ID
-function createElement(textValue, elementDataID,status, frequency, frequencyDate, dynamics){
+function createElement(textValue, elementDataID,status, frequency, frequencyDate, dynamics, taskType){
 	const element = document.createElement('article')
 		element.classList.add('list-item')
 
@@ -96,6 +112,10 @@ function createElement(textValue, elementDataID,status, frequency, frequencyDate
 		const attrFrequency = document.createAttribute("data-frequency")
 		attrFrequency.value = frequency
 		element.setAttributeNode(attrFrequency)
+
+		const attrType = document.createAttribute("data-type")
+		attrType.value = taskType
+		element.setAttributeNode(attrType)
 
 		if(frequency > 2 && frequency != 6){
 			const dt = new Date()
@@ -147,7 +167,10 @@ function createElement(textValue, elementDataID,status, frequency, frequencyDate
 		}
 
 		element.innerHTML = `
-			<p class="title ${status ? 'completed' : ''}" onClick=changeStatus(${elementDataID})>${textValue}</p>
+			<p class="title ${status ? 'completed' : ''}" onClick=changeStatus(${elementDataID})>
+				<span class="type" data-type="${taskType}" ></span>
+				<span class="text">${textValue}</span>
+			</p>
 			<div class="btn-container">
 				<button class="edit-btn" onClick=editItem(${elementDataID})>
 					<i class="fas fa-edit"></i>
@@ -166,12 +189,18 @@ function createElement(textValue, elementDataID,status, frequency, frequencyDate
 //Handle the submit action triggered by the user
 function addItem(e){
 	e.preventDefault()
+
+	if(selectedType === ""){
+		displayAlert("Please select a valid type", "danger")
+		return false;
+	}
+
 	const selectedFrequency = dynamicBox.checked ? 6 : document.querySelector('input[type = radio]:checked').value
 
 	const valueIpt = itemIpt.value
 
 	if (valueIpt && !editFlag){
-		createElement(valueIpt, currentId, false,selectedFrequency, false, false)
+		createElement(valueIpt, currentId, false,selectedFrequency, false, false, parseInt(selectedType))
 		displayAlert('Item add with success!', 'success')
 		resetParams()
 		localStorage.setItem('currentId', currentId)
@@ -263,6 +292,9 @@ function resetParams(){
 	radioIpts.forEach(radio=>{
  		radio.disabled = false
  	})
+ 	typeSelect.value = ''
+ 	selectedType = ''
+ 	handleDisplayTasksWithSelectedType()
 }
 
 //Control the data input on LocalStorage
@@ -282,7 +314,8 @@ function handleLocalStorage(){
 			"completed": item.children[0].classList.length>1 ? true : false,
 			"frequency": item.getAttribute("data-frequency"),
 			"frequencyDate": item.getAttribute("data-frequencyDate") ? item.getAttribute("data-frequencyDate") : false,
-			dynamics
+			dynamics,
+			"type": item.getAttribute("data-type")
 		}
 	})
 	localStorage.setItem('items',JSON.stringify(itemsContent))
@@ -295,7 +328,7 @@ function recoverLocalStorageData(){
 		return false;
 	}
 	items.map(item=>{
-		createElement(item.value,item.id,item.completed, item.frequency, item.frequencyDate, item.dynamics)
+		createElement(item.value,item.id,item.completed, item.frequency, item.frequencyDate, item.dynamics, item.type)
 	})
 }
 

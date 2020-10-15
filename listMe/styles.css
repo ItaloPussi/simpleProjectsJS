@@ -14,7 +14,7 @@ Variables
 
 :root {
   /* dark shades of primary color*/
-  --clr-primary-1: hsl(205, 86%, 17%);
+  --clr-primary-1: rgba(0,51,87, 0.6);
   --clr-primary-2: hsl(205, 77%, 27%);
   --clr-primary-3: hsl(205, 72%, 37%);
   --clr-primary-4: hsl(205, 63%, 48%);
@@ -387,5 +387,46 @@ input[type="number"]{
 }
 .clear-btn:hover {
   color: var(--clr-red-dark);
+}
+
+#task-type{
+  color: var(--clr-grey-2);
+  border-color:var(--clr-primary-1);
+  outline: none;
+}
+
+.type{
+  width:10px;
+  height:10px;
+  display:inline-block;
+  border-radius: 100%;
+}
+
+.type[data-type="1"]{
+  background-color: rgba(255,0,0, 0.3);
+}
+
+.type[data-type="2"]{
+  background-color: rgba(0,255,0, 0.4);
+}
+
+.type[data-type="3"]{
+  background-color: rgba(0,0,255, 0.4);
+}
+
+.type[data-type="4"]{
+  background-color: rgba(255,0,255, 0.4);
+}
+
+.type[data-type="5"]{
+  background-color: rgba(0,255,255, 0.4);
+}
+
+.type[data-type="6"]{
+  background-color: rgba(255,255,0, 1);
+}
+
+.type[data-type="7"]{
+  background-color: rgba(0,0,0, 0.4);
 }
 
