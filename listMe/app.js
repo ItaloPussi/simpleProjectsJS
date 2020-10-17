@@ -10,6 +10,7 @@ const radioIpts = document.querySelectorAll("input[name= frequency")
 
 const onlyRadio = document.querySelector("#only")
 const typeSelect = document.querySelector("#task-type")
+const pickerDate = document.querySelector("#pickDate")
 
 const dynamicBox= document.querySelector("#dynamic")
 const dynamicOptions= document.querySelector(".dynamic-options")
@@ -17,6 +18,7 @@ const submitBtn = document.querySelector('.submit')
 const cancelBtn = document.querySelector('.cancel')
 const clearBtn = document.querySelector('.clear-btn')
 const resetBtn = document.querySelector('.reset-btn')
+const archiveBtn = document.querySelector('.archive-btn')
 
 // variables
 let editElement;
@@ -24,6 +26,7 @@ let editFlag = false;
 let editId = "";
 let currentId = localStorage.getItem('items') ? Number(localStorage.getItem('currentId'))+1 : 0;
 let selectedType = ''
+let showAllTasks = false
 
 //Event listeners
 form.addEventListener('submit', addItem)
@@ -31,20 +34,53 @@ cancelBtn.addEventListener('click', resetParams)
 clearBtn.addEventListener('click', clearAllItems)
 resetBtn.addEventListener("click", resetItems)
 dynamicBox.addEventListener("change", handleDynamicOptionsDisplay)
+archiveBtn.addEventListener("click", handleDisplayAllTasks)
 
 typeSelect.addEventListener("change", (e)=>{
 	selectedType = e.target.value
 	handleDisplayTasksWithSelectedType()
 })
 
+pickerDate.min = pickerDate.value = getTodayDateFormated().replaceAll("/", "-")
+
+function handleDisplayAllTasks(){
+	showAllTasks = !showAllTasks
+	if(showAllTasks){
+		typeSelect.disabled= true
+		archiveBtn.style.transform = "rotateZ(10deg)"
+		const items = [...list.children]
+		items.map(item=>{
+			if((item.dataset.type != selectedType) && selectedType != ''){
+				item.style.display= "none"
+			}else{
+				item.style.display = "flex"
+			}
+		})
+	}else{
+		archiveBtn.style.transform = "rotateZ(0deg)"
+		typeSelect.disabled = false
+
+		handleDisplayTasksWithSelectedType()
+	}
+}
 function handleDisplayTasksWithSelectedType(){
 	const items = [...list.children]
 	items.map(item=>{
 		if((item.dataset.type != selectedType) && selectedType != ''){
 			item.style.display= "none"
 		}else{
-			item.style.display= "flex"
+			const displayDay = new Date(item.dataset.displayday)
+			const frequencyDate = new Date(item.dataset.frequencydate)
+			if((!compareTwoDates(displayDay,getTodayDateFormated(true))) && (!compareTwoDates(frequencyDate,getTodayDateFormated(true)))){
+				item.style.display = "flex"
+			}else{
+				item.style.display = "none"
+			}
 		}
+
+		
+		
+		
 	})
 }
 function handleDynamicOptionsDisplay(){
@@ -58,85 +94,104 @@ function handleDynamicOptionsDisplay(){
 function resetItems(){
 	const items = [...list.children]
 	items.forEach(item=>{
-		if(item.getAttribute("data-frequency") == 1 && item.children[0].classList.value.includes("completed")){
+		const itemDataFrequency = item.getAttribute("data-frequency")
+		const itemIsCompleted = item.children[0].classList.value.includes("completed")
+		item.children[0].classList.remove("completed")
+
+		if(itemDataFrequency == 1 && itemIsCompleted){
 			list.removeChild(item)
 		}
-		if(item.getAttribute("data-frequency") == 2 && item.children[0].classList.value.includes("completed")){
-			item.children[0].classList.remove("completed")
-		}
-		if(item.getAttribute("data-frequency") > 2 && item.getAttribute("data-frequency")!=6){
-			const dt = new Date()
-			let day = dt.getFullYear() + "/" + (dt.getMonth() + 1) + "/" + dt.getDate()
-			day = new Date(day)
+		if(itemDataFrequency > 2 && itemDataFrequency!=6){
+			let day = getTodayDateFormated(true)
 			
-			if(item.getAttribute("data-frequency") == 3){
+			if(itemDataFrequency == 3){
 				day.setDate(day.getDate() + 7)
 			}
-			if(item.getAttribute("data-frequency") == 4){
+			if(itemDataFrequency == 4){
 				day.setDate(day.getDate() + 30)
 			}
-			if(item.getAttribute("data-frequency") == 5){
+			if(itemDataFrequency == 5){
 				day.setDate(day.getDate() + 15)
 			}
 
-			if(item.children[0].classList.value.includes("completed")){
+			if(itemIsCompleted){
 				day = day.getFullYear() + "/" + (day.getMonth() + 1) + "/" + day.getDate()
 				item.setAttribute("data-frequencyDate", day)
-				item.children[0].classList.remove("completed")
 				item.style.display = "none"
 			}
 		}
-		if(item.getAttribute("data-frequency") == 6 && item.children[0].classList.value.includes("completed")){
+		if(itemDataFrequency == 6 && itemIsCompleted){
 			if(item.getAttribute("data-current") == item.getAttribute("data-max")){
 				list.removeChild(item)
 				return false
 			}
 			item.children[0].children[1].textContent = item.children[0].children[1].textContent.replace(item.getAttribute("data-current"), parseInt(item.getAttribute("data-current")) + 1)
 			item.setAttribute("data-current",parseInt(item.getAttribute("data-current")) + 1)
-			item.children[0].classList.remove("completed")
 
 		}
 
 	})
 	handleLocalStorage()
 }
+
+function getTodayDateFormated(returnDataObject){
+	const dt = new Date()
+	const today = `${dt.getFullYear()}/${(dt.getMonth() + 1)}/${dt.getDate()}`
+	if(returnDataObject){
+		return new Date(today)
+	}
+	return today
+}
+
+function compareTwoDates(date1, date2){
+	return date1>date2
+}
+
+function createAttb(element, attbName, attbValue){
+	const attr = document.createAttribute(`${attbName}`)
+	attr.value = attbValue
+	element.setAttributeNode(attr)
+	return element
+}
+
 //Create a element by receiving a value and a valid ID
-function createElement(textValue, elementDataID,status, frequency, frequencyDate, dynamics, taskType){
-	const element = document.createElement('article')
+function createElement(textValue, elementDataID,status, frequency, frequencyDate, dynamics, taskType, initialDisplayDay){
+	let element = document.createElement('article')
 		element.classList.add('list-item')
 
-		const attrId = document.createAttribute('data-id')
-		attrId.value = elementDataID;
-		element.setAttributeNode(attrId)
+		element = createAttb(element, "data-id", elementDataID)
+		element = createAttb(element, "data-frequency", frequency)
+		element = createAttb(element, "data-type", taskType)
 
-		const attrFrequency = document.createAttribute("data-frequency")
-		attrFrequency.value = frequency
-		element.setAttributeNode(attrFrequency)
 
-		const attrType = document.createAttribute("data-type")
-		attrType.value = taskType
-		element.setAttributeNode(attrType)
+		if(!initialDisplayDay){
+			const date = new Date(pickerDate.value)
+			initialDisplayDay = compareTwoDates(getTodayDateFormated(true), date) ? getTodayDateFormated(false) : pickerDate.value
+		}
+
+		if(initialDisplayDay){
+			const date = new Date(initialDisplayDay)
+			if(compareTwoDates(date,getTodayDateFormated(true))){
+				element.style.display = "none"
+			}
+
+			element = createAttb(element, "data-displayDay", initialDisplayDay)
+		}
+
+
 
 		if(frequency > 2 && frequency != 6){
-			const dt = new Date()
+			frequencyDayValue = frequencyDate ? frequencyDate : getTodayDateFormated(false)  
+
+			element = createAttb(element, "data-frequencyDate", frequencyDayValue)
 
 			if(frequencyDate){
-				const frequencyDay = document.createAttribute("data-frequencyDate")
-				frequencyDay.value = frequencyDate
-				element.setAttributeNode(frequencyDay)
-				
-				const today =  new Date(dt.getFullYear() + "/" + (dt.getMonth() + 1) + "/" + dt.getDate())
+				const today =  getTodayDateFormated(true)
 				frequencyDate = new Date(frequencyDate)
 
-				if(frequencyDate > today){
+				if(compareTwoDates(frequencyDate, today)){
 					element.style.display = "none"
 				}
-			}else{
-				const frequencyDay = document.createAttribute("data-frequencyDate")
-				frequencyDay.value = dt.getFullYear() + "/" + (dt.getMonth() + 1) + "/" + dt.getDate()
-				element.setAttributeNode(frequencyDay)
-
-
 			}
 		}
 
@@ -147,23 +202,14 @@ function createElement(textValue, elementDataID,status, frequency, frequencyDate
 			textValue = textValue.replace("$", current)
 			textValue+=` (${max})`
 
-			const currentAttb = document.createAttribute("data-current")
-			currentAttb.value = current
-			element.setAttributeNode(currentAttb)
+			element = createAttb(element, "data-current", current)
+			element = createAttb(element, "data-max", max)
 
-			const maxAttb = document.createAttribute("data-max")
-			maxAttb.value = max
-			element.setAttributeNode(maxAttb)
-	
+
 		}else if(frequency == 6 && dynamics){
 
-			const currentAttb = document.createAttribute("data-current")
-			currentAttb.value = dynamics.currentValue
-			element.setAttributeNode(currentAttb)
-
-			const maxAttb = document.createAttribute("data-max")
-			maxAttb.value = dynamics.maxValue
-			element.setAttributeNode(maxAttb)
+			element = createAttb(element, "data-current", dynamics.currentValue)
+			element = createAttb(element, "data-max", dynamics.maxValue)
 		}
 
 		element.innerHTML = `
@@ -200,7 +246,7 @@ function addItem(e){
 	const valueIpt = itemIpt.value
 
 	if (valueIpt && !editFlag){
-		createElement(valueIpt, currentId, false,selectedFrequency, false, false, parseInt(selectedType))
+		createElement(valueIpt, currentId, false,selectedFrequency, false, false, parseInt(selectedType), false)
 		displayAlert('Item add with success!', 'success')
 		resetParams()
 		localStorage.setItem('currentId', currentId)
@@ -246,7 +292,8 @@ async function deleteItem(targetId){
 	list.removeChild(element)
 	if(list.children.length == 0){
 		container.classList.remove('show-container')
-		localStorage.clear()
+		localStorage.removeItem("items")
+		localStorage.removeItem("currentId")
 	}
 	displayAlert('Item removed with success', 'success')
 	handleLocalStorage()
@@ -310,12 +357,13 @@ function handleLocalStorage(){
 		}
 		return {
 			"id":item.getAttribute('data-id'),
-			"value": item.children[0].textContent,
+			"value": item.children[0].textContent.replaceAll("\n","").replaceAll("\t", ""),
 			"completed": item.children[0].classList.length>1 ? true : false,
 			"frequency": item.getAttribute("data-frequency"),
 			"frequencyDate": item.getAttribute("data-frequencyDate") ? item.getAttribute("data-frequencyDate") : false,
 			dynamics,
-			"type": item.getAttribute("data-type")
+			"type": item.getAttribute("data-type"),
+			"initialDisplayDay": item.getAttribute("data-displayDay"),
 		}
 	})
 	localStorage.setItem('items',JSON.stringify(itemsContent))
@@ -324,11 +372,10 @@ function handleLocalStorage(){
 //Retrieve the data from localStorage
 function recoverLocalStorageData(){
 	const items = JSON.parse(localStorage.getItem('items'))
-	if(!items){
-		return false;
-	}
+	if(!items) return
+
 	items.map(item=>{
-		createElement(item.value,item.id,item.completed, item.frequency, item.frequencyDate, item.dynamics, item.type)
+		createElement(item.value,item.id,item.completed, item.frequency, item.frequencyDate, item.dynamics, item.type, item.initialDisplayDay)
 	})
 }
 

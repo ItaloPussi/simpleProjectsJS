@@ -228,6 +228,14 @@ Grocery List
   justify-content: space-between;
   margin-top: 10px;
 }
+#date-control{
+  width:100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+
 .dynamic-options{
   flex:2;
   display: flex;
@@ -373,25 +381,44 @@ input[type="number"]{
   transition: var(--transition);
   margin-top: 1.25rem;
 }
+.archive-btn{
+  position: absolute;
+  left:0;
+  top:.7rem;
+  outline:0;
+  border:none;
+  font-size: 1rem;
+  cursor:pointer;
+  transition:all 0.3s linear;
+  color: var(--clr-primary-1);
+
+}
+
+.archive-btn:hover{
+  transform: rotateZ(10deg);
+}
+
 .reset-btn{
   position: absolute;
   right:0;
   outline:0;
   border:none;
-  width:16px;
+  font-size: 1rem;
   cursor:pointer;
   transition:all 0.3s linear;
+  color: var(--clr-primary-1);
 }
 .reset-btn:hover{
   transform:rotateZ(60deg);
 }
+
 .clear-btn:hover {
   color: var(--clr-red-dark);
 }
 
-#task-type{
+#task-type, #pickDate{
   color: var(--clr-grey-2);
-  border-color:var(--clr-primary-1);
+  border:1px solid var(--clr-primary-1);
   outline: none;
 }
 
