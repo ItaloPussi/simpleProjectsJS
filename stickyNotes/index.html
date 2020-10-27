@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Sticky Notes</title>
+	<link rel="stylesheet" href="style.css">
+	<link  href="http://fonts.googleapis.com/css?
+family=Reenie+Beanie:regular" 
+rel="stylesheet"
+type="text/css">
+	<script src="app.js" defer="defer"></script>
+</head>
+<body onload="recoveryLocalStorageData()">
+	<form class="add-item">
+		<input type="text" placeholder="TITLE" class="title">
+		<textarea placeholder="content" class="content"></textarea>
+		<button type="submit">ADD NOTE</button>
+	</form>
+
+	<ul class="notes-list">
+	</ul>
+</body>
+</html>
