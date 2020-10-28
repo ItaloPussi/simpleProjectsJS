@@ -5,8 +5,9 @@ const addItemButton = document.querySelector(".add-item button")
 const inputTitle = document.querySelector(".add-item .title")
 const textareaContent = document.querySelector(".add-item .content")
 
-function createNote(title, content, coords = false){
-	notesList.innerHTML +=`<li class="note-container"><a href="#" class="note"><h2 class="note-title">${title}</h2><p class="note-content">${content}</p></a>`
+function createNote(index=false,title, content, coords = false){
+	index = index!==false || index===0 ? index : notesList.children.length
+	notesList.innerHTML +=`<li class="note-container" data-index="${index}"><a href="#" class="note"><button type="button" class="delete-btn" onClick="deleteNote(${index})">X</button><h2 class="note-title">${title}</h2><p class="note-content">${content}</p></a>`
 	
 	const attbTop = document.createAttribute("data-top")
 	attbTop.value = `${coords ? coords.top : '10px'}`
@@ -20,6 +21,14 @@ function createNote(title, content, coords = false){
 	addEventsListenersToDrag()
 }
 
+function deleteNote(index){
+	Array.from(notesList.children).forEach(note=>{
+		if(note.dataset.index == index){
+			notesList.removeChild(note)
+		}
+	})
+	handleSaveLocalStorage()
+}
 function dragEnd(e){
 	this.style.top = `${e.pageY-60}px`
 	this.style.left = `${e.pageX-180}px`
@@ -36,8 +45,8 @@ function handleSaveLocalStorage(){
 	let notes = [...notesList.children]
 	notes = notes.map(note=>{
 		return{
-			title: note.children[0].children[0].textContent,
-			content: note.children[0].children[1].innerHTML,
+			title: note.children[0].children[1].textContent,
+			content: note.children[0].children[2].innerHTML,
 			coords: {
 				top: note.dataset.top,
 				left: note.dataset.left
@@ -52,7 +61,7 @@ function recoveryLocalStorageData(){
 	let notes = JSON.parse(localStorage.getItem("notes"))
 	if(notes==null) return
 	notes.forEach((note,index)=>{
-		createNote(note.title, note.content, note.coords)
+		createNote(index,note.title, note.content, note.coords)
 	})
 	addEventsListenersToDrag()
 
@@ -61,7 +70,7 @@ function recoveryLocalStorageData(){
 addItemButton.addEventListener("click",(e)=>{
 	e.preventDefault()
 	let content = textareaContent.value.replace(/\n\r?/g, '<br />')
-	createNote(inputTitle.value, content)
+	createNote(false,inputTitle.value, content)
 	inputTitle.value = ''
 	textareaContent.value = ''
 	handleSaveLocalStorage()

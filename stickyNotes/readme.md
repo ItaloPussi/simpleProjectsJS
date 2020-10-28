@@ -8,9 +8,10 @@ Nesse projeto foi simulado virtualmente o funcionamento dos famosos adesivos de 
 
 Caso deseje testar utilizar o programa pasta executar o arquivo ```index.html```.
 Coloque o que necessitar no adesivo fixado no lado esquerdo superior da tela. Após a criação é possível movimentar sua nota, clicando-a e arrastando para o local desejado.
+Aperte no X ao lado da nota para exclui-la.
 
 ## Status
-O projeto está 80% concluído, faltando apenas a possibilidade de edição e eliminação da nota.
+O projeto está 85% concluído, faltando apenas a possibilidade de edição e escolha de cor da nota.
 
 ## Principais conceitos abordados
 	- Position Absolute;
