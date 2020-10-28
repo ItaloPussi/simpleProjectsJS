@@ -43,25 +43,37 @@ typeSelect.addEventListener("change", (e)=>{
 
 pickerDate.min = pickerDate.value = getTodayDateFormated().replaceAll("/", "-")
 
+// Return or today as string or as a date object
+function getTodayDateFormated(returnDataObject){
+	const dt = new Date()
+	const today = `${dt.getFullYear()}/${(dt.getMonth() + 1)}/${dt.getDate()}`
+	return returnDataObject ? new Date(today) : today
+}
+
+// Verifiy if today is a weekday
+function todayIsWeekday(){
+	const weekday = getTodayDateFormated(true).getDay()
+	return weekday == 0 || weekday == 6 ? false : true
+}
+
+//Date one is greater than date two?
+function compareTwoDates(date1, date2){
+	return date1>date2
+}
+
 function handleDisplayAllTasks(){
 	showAllTasks = !showAllTasks
+	typeSelect.disabled= showAllTasks ? true : false
+	archiveBtn.style.transform = showAllTasks ? "rotateZ(10deg)" : "rotateZ(0deg)"
+
 	if(showAllTasks){
-		typeSelect.disabled= true
-		archiveBtn.style.transform = "rotateZ(10deg)"
 		const items = [...list.children]
 		items.map(item=>{
-			if((item.dataset.type != selectedType) && selectedType != ''){
-				item.style.display= "none"
-			}else{
-				item.style.display = "flex"
-			}
+			item.style.display = ((item.dataset.type != selectedType) && selectedType != '') ? "none" : "flex" 
 		})
-	}else{
-		archiveBtn.style.transform = "rotateZ(0deg)"
-		typeSelect.disabled = false
-
-		handleDisplayTasksWithSelectedType()
 	}
+	!showAllTasks && handleDisplayTasksWithSelectedType()
+
 }
 function handleDisplayTasksWithSelectedType(){
 	const items = [...list.children]
@@ -72,15 +84,16 @@ function handleDisplayTasksWithSelectedType(){
 			const displayDay = new Date(item.dataset.displayday)
 			const frequencyDate = new Date(item.dataset.frequencydate)
 			if((!compareTwoDates(displayDay,getTodayDateFormated(true))) && (!compareTwoDates(frequencyDate,getTodayDateFormated(true)))){
-				item.style.display = "flex"
+				if(item.dataset.frequency == 7 && !todayIsWeekday()){
+					return item.style.display = "none"
+				}else{
+					item.style.display = "flex"
+				}
 			}else{
 				item.style.display = "none"
 			}
 		}
-
-		
-		
-		
+	
 	})
 }
 function handleDynamicOptionsDisplay(){
@@ -134,18 +147,6 @@ function resetItems(){
 	handleLocalStorage()
 }
 
-function getTodayDateFormated(returnDataObject){
-	const dt = new Date()
-	const today = `${dt.getFullYear()}/${(dt.getMonth() + 1)}/${dt.getDate()}`
-	if(returnDataObject){
-		return new Date(today)
-	}
-	return today
-}
-
-function compareTwoDates(date1, date2){
-	return date1>date2
-}
 
 function createAttb(element, attbName, attbValue){
 	const attr = document.createAttribute(`${attbName}`)
@@ -179,8 +180,15 @@ function createElement(textValue, elementDataID,status, frequency, frequencyDate
 		}
 
 
+		if(frequency ==7 ){
+			const today = getTodayDateFormated(true)
+			weekday = parseInt(today.getDay())
 
-		if(frequency > 2 && frequency != 6){
+			if(!todayIsWeekday()){
+				element.style.display = "none"
+			}
+		}
+		if(frequency > 2 && frequency != 6 && frequency != 7){
 			frequencyDayValue = frequencyDate ? frequencyDate : getTodayDateFormated(false)  
 
 			element = createAttb(element, "data-frequencyDate", frequencyDayValue)
