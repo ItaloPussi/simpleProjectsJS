@@ -1,0 +1,82 @@
+*{
+	margin:0;
+	padding:0;
+	box-sizing:border-box;
+}
+
+body{
+	width:100vw;
+	height:100vh;
+	background-color:#666;
+	overflow: hidden;
+	display: flex;
+	align-items: top;
+	justify-content:center;
+}
+
+.container{
+	width:100%;
+	max-width: 380px;
+	display:flex;
+	flex-direction:column;
+	margin-top:150px;
+}
+
+.password-generated{
+	width:100%;
+	padding:10px;
+	text-align:center;
+	font-weight:bold;
+	font-size:1.2em;
+}	
+
+.password-generated::placeholderm{
+	color:#1d1d1d;
+
+}
+
+input,span{
+	margin: 15px 10px;
+}
+
+label{
+	font-size:1.2em;
+}
+
+#generate{
+	width:100%;
+	padding:10px;
+	background: #1d1d1d;
+	color:white;
+	cursor:pointer;
+}
+
+h2{
+	width:100%;
+	text-align:center;
+	color:#1d1d1d;
+	text-transform:uppercase;
+}
+
+#password-generated-container{
+	position: relative;
+}
+
+#password-generated-container button{
+	position: absolute;
+	top:20px;
+	right:0px;
+	cursor:pointer;
+	border:1px solid grey;
+	background: transparent;
+	display: none;
+}
+
+#password-generated-container:hover button{
+	display: inline-block;
+}
+
+textarea{
+	width:1;
+	height: 1;
+}
