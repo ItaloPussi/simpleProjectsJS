@@ -1,5 +1,4 @@
-# Sticky Notes
-
+# Password Generator
 🔐🔐🔑
 
 Na hora da segurança digital é cada vez mais importante garantir que nossas senhas estão seguras e fortes. Por isso, esse programa serve para gerar senhas aleatórias através de predefinições definidas pelo usuário.
