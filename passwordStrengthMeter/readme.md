@@ -5,7 +5,7 @@ Segurança digital e hacking estão cada dia mais na moda, então é cada vez ma
 
 ## Uso
 
-Caso deseje testar utilizar o programa pasta executar o arquivo ```index.html```.
+Caso deseje testar o programa basta executar o arquivo ```index.html```.
 Escreva sua senha no input central e observe sua força aumentar ou diminuir de acordo com os valores digitados.
 
 
