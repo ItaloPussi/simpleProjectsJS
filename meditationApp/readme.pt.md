@@ -7,9 +7,9 @@
 No mundo contemporâneo e agitado é cada vez mais necessário relaxar a mente. Use esse app para meditar e garantir uma redução de ansiedade com sons calmantes.
 
 ## Uso
-Primeiramente abra o arquivo ```index.html``` e escolha um tempo em minutos no lado esquerdo
-Depois escolha o som desejado no lado direito
-Finalmente aperte o botão Play no centro da tela
+Primeiramente abra o arquivo ```index.html``` e escolha um tempo em minutos no lado esquerdo <br />
+Depois escolha o som desejado no lado direito <br />
+Finalmente aperte o botão Play no centro da tela <br />
 
 ## Principais conceitos abordados
 	- Manipulação SVG;
