@@ -6,9 +6,9 @@
 In the busy and contemporary world it is increasingly necessary to relax the mind. Use this app to meditate and ensure an anxiety reduction with calming sounds.
 
 ## Use
-First thing first, open the ```index.html``` and pick a time on the left side
-After that, pick a sound on the right side
-And finally press the play button on the center
+First thing first, open the ```index.html``` and pick a time on the left side <br />
+After that, pick a sound on the right side <br />
+And finally press the play button on the center <br />
 
 ## Key concepts learned
 	- SVG Manipulation;
