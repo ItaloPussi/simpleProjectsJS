@@ -8,7 +8,7 @@ Um efeito bacana de digitação, feito com javascript e um pouquinho de CSS.
 Apenas abra o arquivo ```index.html``` e veja o lindo efeito!
 
 ## Principais conceitos abordados
-	- Animações
+	- Animações;
 	- Funções que auto se invocam; 
 	- setTimeout;
 
