@@ -1,9 +1,10 @@
 // Book Class: Represents a Book
 class Book {
-    constructor(title, author, isbn){
+    constructor(title, author, pages, note){
         this.title = title
         this.author = author
-        this.isbn = isbn
+        this.pages = pages
+        this.note = note
     }
 }
 
@@ -21,7 +22,8 @@ class UI {
         row.innerHTML = `
             <td>${book.title}</td>
             <td>${book.author}</td>
-            <td>${book.isbn}</td>
+            <td>${book.pages}</td>
+            <td>${book.note}</td>
             <td><a href="#" class="btn btn-danger btn-sm delete">X</a></td>
         `
         list.appendChild(row)
@@ -58,11 +60,11 @@ class Store{
         localStorage.setItem('books', JSON.stringify(books))
     }
 
-    static deleteBook(isbn){
+    static deleteBook(title){
         const books = Store.getBooks()
 
         books.forEach((book, index) =>{
-            if(book.isbn === isbn){
+            if(book.title === title){
                 books.splice(index,1)
             }
         })
@@ -83,15 +85,16 @@ form.addEventListener("submit", (e)=>{
     // Get form values
     const title = document.querySelector("#title").value
     const author = document.querySelector("#author").value
-    const isbn = document.querySelector("#isbn").value
+    const pages = document.querySelector("#pages").value
+    const note = document.querySelector("#note").value
 
     // Validate
-    if (title === '' || author === '' || isbn === ''){
+    if (title === '' || author === '' || pages === '' || note === ''){
         // Error message
         UI.showAlert("Please fill in all fields", "danger")
     }else{
         // Instantiate book
-        const book = new Book(title, author, isbn)
+        const book = new Book(title, author, pages, note)
 
         // Add Book to UI
         UI.addBookToList(book)
@@ -115,7 +118,7 @@ document.querySelector("#book-list").addEventListener("click", (e) =>{
     UI.deleteBook(e.target)
 
     // Remove book from store
-    Store.deleteBook(e.target.parentElement.previousElementSibling.textContent)
+    Store.deleteBook(e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.textContent)
 
     // Success Message
     UI.showAlert("Book deleted with success", "success")
