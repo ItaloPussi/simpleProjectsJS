@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://bootswatch.com/4/yeti/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/45e1853909.js" crossorigin="anonymous"></script>
+    <title>Date Facts</title>
+</head>
+<body class="bg-dark">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <div class="card bg-primary text-white mt-5 p-4">
+                    <h1>Year Facts</h1>
+                    <p>Enter a year and get a random fact</p>
+                    <input 
+                        type="number"
+                        min="1"
+                        max="9999"
+                        class="form-control form-control-lg" 
+                        id="yearInput"
+                        placeholder="Enter a year with 4 digits"
+                    >
+                    <div id="factYear" class="card-body d-none">
+                        <h4 class="card-title">
+                            Year Fact
+                        </h4>
+                        <p id="factTextYear" class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <div class="card bg-primary text-white mt-5 p-4">
+                    <h1>Day and Month Facts</h1>
+                    <p>Enter a day with 2 digits and a month with 2 digits and get a random fact</p>
+                    <input 
+                        type="number"
+                        min="1"
+                        max="31"
+                        class="form-control form-control-lg" 
+                        id="dayInput"
+                        placeholder="Enter a day with 2 digits"
+                    >
+                    <input 
+                        type="number"
+                        min="1"
+                        max="12"
+                        class="form-control form-control-lg mt-2" 
+                        id="monthInput"
+                        placeholder="Enter a month with 2 digits"
+                    >
+                    <div id="factDate" class="card-body d-none">
+                        <h4 class="card-title">
+                            Day and Month Fact
+                        </h4>
+                        <p id="factTextDate" class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="app.js" defer="defer"></script>
+</body>
+</html>
