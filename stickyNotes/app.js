@@ -7,7 +7,7 @@ const textareaContent = document.querySelector(".add-item .content")
 
 function createNote(index=false,title, content, color, coords = false){
 	index = index!==false || index===0 ? index : notesList.children.length
-	notesList.innerHTML +=`<li class="note-container ${color}" data-index="${index}"><a href="#" class="note"><button type="button" class="delete-btn" onClick="deleteNote(${index})">X</button><h2 class="note-title">${title}</h2><p class="note-content">${content}</p></a>`
+	notesList.innerHTML +=`<li class="note-container ${color}" data-index="${index}"><a href="#" class="note"><button type="button" class="delete-btn" onClick="deleteNote(${index})">X</button><h2 class="note-title">${title}</h2><p class="note-content">${content}</p><button class="copy-btn" onClick="copyNote(${index})"><img src="img/copy.png" /></button></a>`
 	
 	const attbColor = document.createAttribute("data-color")
 	attbColor.value = color
@@ -32,6 +32,18 @@ function deleteNote(index){
 		}
 	})
 	handleSaveLocalStorage()
+}
+
+function copyNote(index){
+	Array.from(notesList.children).forEach(note=>{
+		if(note.dataset.index == index){
+			const aux = document.getElementById("copy-aux")
+			aux.value = note.children[0].children[2].innerHTML
+			aux.select()
+			document.execCommand('copy')
+
+		}
+	})
 }
 function dragEnd(e){
 	this.style.top = `${e.pageY-60}px`
