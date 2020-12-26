@@ -28,6 +28,7 @@ ul{
 }
 ul .note-container a{
   text-decoration:none;
+  position: relative;
   color:#000;
   background:#ffb;
   display:block;
@@ -60,31 +61,38 @@ ul .note-container{
   transform-origin:top;
 }
 
-ul li:nth-child(even) a{
+ul li.yellow a{
+  background:#ffffa8;
+}
+ul li.green a{
   -o-transform:rotate(4deg);
   -webkit-transform:rotate(4deg);
   -moz-transform:rotate(4deg);
-  position:relative;
   top:5px;
-  background:#cfc;
+  background:#bdffbd;
 }
-ul li:nth-child(3n) a{
+ul li.purple a{
   -o-transform:rotate(-3deg);
   -webkit-transform:rotate(-3deg);
   -moz-transform:rotate(-3deg);
-  position:relative;
   top:-5px;
-  background:#ccf;
+  background:#c19bde;
 }
-ul li:nth-child(5n) a{
+ul li.lightblue a{
   -o-transform:rotate(5deg);
   -webkit-transform:rotate(5deg);
   -moz-transform:rotate(5deg);
-  position:relative;
   top:-10px;
   background:lightblue;
 }
 
+ul li.red a{
+  background: #fcb3b3;
+  -o-transform: rotate(2deg);
+  -webkit-transform: rotate(2deg);
+  -moz-transform: rotate(2deg);
+  top: 10px;
+}
 
 .add-item{
   width:200px;
@@ -119,7 +127,7 @@ ul li:nth-child(5n) a{
   min-height: 100px;
   max-height: 200px;
   height: 150px;
-
+  padding:10px;
   background-color: transparent;
 
 }
@@ -145,4 +153,46 @@ ul li:nth-child(5n) a{
   position: absolute;
   right:1em;
   top:.5em;
+}
+
+#color-select{
+  display: flex;
+  justify-content: space-around;
+  padding:10px 0;
+}
+
+#color-select label.active{
+  border:1px solid black;
+}
+
+#color-select label{
+  display:inline-block;
+  width:20px;
+  height:20px;
+  border-radius: 50%;
+  background:red;
+  cursor:pointer;
+  border:1px solid grey;
+}
+
+#color-select label.lightblue{
+  background:lightblue;
+}
+
+#color-select label.red{
+  background: #fcb3b3;
+}
+#color-select label.yellow {
+  background:#ffffa8;
+}
+
+#color-select label.green {
+  background: #bdffbd;
+}
+#color-select label.purple{
+  background:#c19bde;
+}
+
+#color-select label input{
+  visibility: hidden;
 }
