@@ -49,7 +49,8 @@ ul .note-container a{
 }
 
 ul .note-container a:hover{
-	transform:scale(1);
+  transform:scale(1);
+  opacity:1
 }
 ul .note-container a h2{
   font-size:1.3em;
@@ -69,7 +70,7 @@ ul li.green a{
   -webkit-transform:rotate(4deg);
   -moz-transform:rotate(4deg);
   top:5px;
-  background:#bdffbd;
+  background:#97db97;
 }
 ul li.purple a{
   -o-transform:rotate(-3deg);
@@ -92,6 +93,36 @@ ul li.red a{
   -webkit-transform: rotate(2deg);
   -moz-transform: rotate(2deg);
   top: 10px;
+}
+
+ul li.brown a{
+  background:#a87856;
+  -o-transform:rotate(2deg);
+  -webkit-transform:rotate(2deg);
+  -moz-transform:rotate(2deg);
+  opacity:0.8;
+}
+
+ul li.white a{
+  background:#fff;
+  -o-transform:rotate(5deg);
+  -webkit-transform:rotate(5deg);
+  -moz-transform:rotate(5deg);
+}
+
+ul li.darkblue a{
+  background:#7979d1;
+  -o-transform:rotate(-5deg);
+  -webkit-transform:rotate(-5deg);
+  -moz-transform:rotate(-5deg);
+}
+
+ul li.pink a{
+  background:#db84c8;
+}
+
+ul li.darkgreen a{
+  background:#54a854;
 }
 
 .add-item{
@@ -177,6 +208,7 @@ ul li.red a{
   display: flex;
   justify-content: space-around;
   padding:10px 0;
+  flex-wrap:wrap;
 }
 
 #color-select label.active{
@@ -187,6 +219,7 @@ ul li.red a{
   display:inline-block;
   width:20px;
   height:20px;
+  margin:5px 10px;
   border-radius: 50%;
   background:red;
   cursor:pointer;
@@ -205,11 +238,32 @@ ul li.red a{
 }
 
 #color-select label.green {
-  background: #bdffbd;
+  background: #97db97;
 }
 #color-select label.purple{
   background:#c19bde;
 }
+
+#color-select label.pink {
+  background:#db84c8;
+}
+
+#color-select label.white{
+  background:#fff;
+}
+
+#color-select label.brown{
+  background: #a87856;
+}
+
+#color-select label.darkblue{
+  background:#7979d1;
+}
+
+#color-select label.darkgreen{
+  background:#54a854;
+}
+
 
 #color-select label input{
   visibility: hidden;
