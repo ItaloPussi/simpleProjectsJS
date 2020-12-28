@@ -1,3 +1,19 @@
+:root{
+  --color-white: #fff;
+  --color-purple: #c19bde;
+  --color-yellow: #ffffa8;
+  --color-brown: #a87856;
+  --color-green: #97db97;
+  --color-darkgreen: #54a854;
+  --color-pink: #db84c8;
+  --color-red: #fcb3b3;
+  --color-lightblue: lightblue;
+  --color-darkblue: #7979d1;
+  --color-black: 000;
+  --bg-main: #666;
+  --bg-secundary: #ffb;
+}
+
 *{
 	margin:0;
 	padding:0;
@@ -5,32 +21,24 @@
 }
 
 body{
-	min-height: 100vh;
-	width:100vw;
-	max-width: 100vw;
-	background-color:#666;
-	margin: 3em;
-  position: relative
-
+	min-height: calc(100vh-3em);
+	min-width: calc(100vw-3em);
+	background-color: var(--bg-main);
+  margin: 3em;
+  position: relative;
+  overflow: auto;
 }
 
 ul, .note-container{
-	list-style:none;
+	list-style: none;
   transform-origin: top;
 }
 
-ul{
-	overflow: hidden;
-	padding:2em;
-	display: inline-block;
-	width:90%;
-
-}
 ul .note-container a{
-  text-decoration:none;
+  text-decoration: none;
   position: relative;
-  color:#000;
-  background:#ffb;
+  color: var(--color-black);
+  background: var(--bg-secundary);
   display:block;
   height:auto;
   width:12em;
@@ -38,96 +46,39 @@ ul .note-container a{
   padding:1.5em;
   border-radius: 20px 0;
   font-size:1.2em;
+
    /* Firefox */
-  -moz-box-shadow:5px 5px 7px rgba(33,33,33,1);
+  -moz-box-shadow: 5px 5px 7px rgba(33,33,33,1);
   /* Safari+Chrome */
   -webkit-box-shadow: 5px 5px 7px rgba(33,33,33,.7);
   /* Opera */
   box-shadow: 5px 5px 7px rgba(33,33,33,.7);
-  transform:scale(0.98);
+
+  transform: scale(0.98);
   transition: all 0.3s;
 }
 
 ul .note-container a:hover{
-  transform:scale(1);
-  opacity:1
+  transform: scale(1);
+  opacity: 1;
+  filter: initial;
 }
+
 ul .note-container a h2{
-  font-size:1.3em;
+  font-size: 1.3em;
 }
+
 ul .note-container{
-  margin:1em;
-  float:left;
-  position:absolute;
-  transform-origin:top;
+  margin: 1em;
+  float: left;
+  position: absolute;
 }
 
-ul li.yellow a{
-  background:#ffffa8;
-}
-ul li.green a{
-  -o-transform:rotate(4deg);
-  -webkit-transform:rotate(4deg);
-  -moz-transform:rotate(4deg);
-  top:5px;
-  background:#97db97;
-}
-ul li.purple a{
-  -o-transform:rotate(-3deg);
-  -webkit-transform:rotate(-3deg);
-  -moz-transform:rotate(-3deg);
-  top:-5px;
-  background:#c19bde;
-}
-ul li.lightblue a{
-  -o-transform:rotate(5deg);
-  -webkit-transform:rotate(5deg);
-  -moz-transform:rotate(5deg);
-  top:-10px;
-  background:lightblue;
-}
-
-ul li.red a{
-  background: #fcb3b3;
-  -o-transform: rotate(2deg);
-  -webkit-transform: rotate(2deg);
-  -moz-transform: rotate(2deg);
-  top: 10px;
-}
-
-ul li.brown a{
-  background:#a87856;
-  -o-transform:rotate(2deg);
-  -webkit-transform:rotate(2deg);
-  -moz-transform:rotate(2deg);
-  opacity:0.8;
-}
-
-ul li.white a{
-  background:#fff;
-  -o-transform:rotate(5deg);
-  -webkit-transform:rotate(5deg);
-  -moz-transform:rotate(5deg);
-}
-
-ul li.darkblue a{
-  background:#7979d1;
-  -o-transform:rotate(-5deg);
-  -webkit-transform:rotate(-5deg);
-  -moz-transform:rotate(-5deg);
-}
-
-ul li.pink a{
-  background:#db84c8;
-}
-
-ul li.darkgreen a{
-  background:#54a854;
-}
+/* Add item related stuff */
 
 .add-item{
   width:200px;
-  background:#ffb;
+  background: var(--bg-secundary);
   margin-left: 3em;
   border-radius: 20px 0;
 
@@ -174,6 +125,7 @@ ul li.darkgreen a{
   background-color: #ffc;
 }
 
+/* Delete btn symbol in card */
 .delete-btn{
   color:red;
   border:none;
@@ -186,6 +138,7 @@ ul li.darkgreen a{
   top:.5em;
 }
 
+/*  Copy btn symbol in card  */
 .copy-btn{
   color:blue;
   border:none;
@@ -204,6 +157,13 @@ ul li.darkgreen a{
   opacity:0.8;
 }
 
+/* Input that auxiliate the copy and paste in JS */
+#copy-aux{
+  position: absolute;
+  left:-4000px;
+}
+
+/*  Color select options */
 #color-select{
   display: flex;
   justify-content: space-around;
@@ -226,50 +186,112 @@ ul li.darkgreen a{
   border:1px solid grey;
 }
 
+/* Background changes (color-select) */
+
 #color-select label.lightblue{
-  background:lightblue;
+  background:var(--color-lightblue);
 }
 
 #color-select label.red{
-  background: #fcb3b3;
+  background:var(--color-red);
 }
 #color-select label.yellow {
-  background:#ffffa8;
+  background:var(--color-yellow);
 }
 
 #color-select label.green {
-  background: #97db97;
+  background:var(--color-green);
 }
 #color-select label.purple{
-  background:#c19bde;
+  background:var(--color-purple);
 }
 
 #color-select label.pink {
-  background:#db84c8;
+  background:var(--color-pink);
 }
 
 #color-select label.white{
-  background:#fff;
+  background:var(--color-white);
 }
 
 #color-select label.brown{
-  background: #a87856;
+  background:var(--color-brown);
 }
 
 #color-select label.darkblue{
-  background:#7979d1;
+  background:var(--color-darkblue);
 }
 
 #color-select label.darkgreen{
-  background:#54a854;
+  background:var(--color-darkgreen);
 }
-
 
 #color-select label input{
   visibility: hidden;
 }
 
-#copy-aux{
-  position: absolute;
-  left:-4000px;
+/* Background changes (card) */
+ul li.yellow a{
+  background: var(--color-yellow);
 }
+ul li.green a{
+  -o-transform:rotate(4deg);
+  -webkit-transform:rotate(4deg);
+  -moz-transform:rotate(4deg);
+  top:5px;
+  background:var(--color-green);
+}
+ul li.purple a{
+  -o-transform:rotate(-3deg);
+  -webkit-transform:rotate(-3deg);
+  -moz-transform:rotate(-3deg);
+  top:-5px;
+  background:var(--color-purple);
+}
+ul li.lightblue a{
+  -o-transform:rotate(5deg);
+  -webkit-transform:rotate(5deg);
+  -moz-transform:rotate(5deg);
+  top:-10px;
+  background:var(--color-lightblue);
+}
+
+ul li.red a{
+  background: var(--color-red);
+  -o-transform: rotate(2deg);
+  -webkit-transform: rotate(2deg);
+  -moz-transform: rotate(2deg);
+  top: 10px;
+}
+
+ul li.brown a{
+  background: var(--color-brown);
+  -o-transform:rotate(2deg);
+  -webkit-transform:rotate(2deg);
+  -moz-transform:rotate(2deg);
+  opacity:0.8;
+}
+
+ul li.white a{
+  background: var(--color-white);
+  -o-transform:rotate(5deg);
+  -webkit-transform:rotate(5deg);
+  -moz-transform:rotate(5deg);
+}
+
+ul li.darkblue a{
+  background: var(--color-darkblue);
+  -o-transform:rotate(-5deg);
+  -webkit-transform:rotate(-5deg);
+  -moz-transform:rotate(-5deg);
+}
+
+ul li.pink a{
+  background: var(--color-pink);
+  filter:grayscale(50%)
+}
+
+ul li.darkgreen a{
+  background: var(--color-darkgreen);
+}
+
