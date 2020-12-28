@@ -7,8 +7,28 @@ const textareaContent = document.querySelector(".add-item .content")
 
 function createNote(index=false,title, content, color, coords = false){
 	index = index!==false || index===0 ? index : notesList.children.length
-	notesList.innerHTML +=`<li class="note-container ${color}" data-index="${index}"><a href="#" class="note"><button type="button" class="delete-btn" onClick="deleteNote(${index})">X</button><h2 class="note-title">${title}</h2><p class="note-content">${content}</p><button class="copy-btn" onClick="copyNote(${index})"><img src="img/copy.png" /></button></a>`
+	isALink = content.includes("http") || content.includes("www.")
+
+	notesList.innerHTML +=`
+		<li class="note-container ${color}" data-index="${index}">
+			<a href="#" class="note">
+				<button type="button" class="delete-btn" onClick="deleteNote(${index})">X</button>
+				<h2 class="note-title">${title}</h2>
+				<p class="note-content">${content}</p>
+				<button class="copy-btn" onClick="copyNote(${index})">
+					<img src="img/copy.png" />
+				</button>
+				<button type="button" class="link-btn" onClick="window.open('${content}')">
+					<img src="img/clip.png" />
+				</button>
+			</a>
+		</li>`
 	
+
+	if(!isALink){
+		const linkElement = notesList.children[notesList.children.length-1].children[0].querySelector(".link-btn")
+		linkElement.remove()
+	}
 	const attbColor = document.createAttribute("data-color")
 	attbColor.value = color
 	notesList.children[notesList.children.length-1].setAttributeNode(attbColor)
@@ -25,7 +45,12 @@ function createNote(index=false,title, content, color, coords = false){
 	addEventsListenersToDrag()
 }
 
+
+function openLink(link){
+	
+}
 function deleteNote(index){
+	console.log(this)
 	Array.from(notesList.children).forEach(note=>{
 		if(note.dataset.index == index){
 			notesList.removeChild(note)
@@ -89,7 +114,7 @@ addItemButton.addEventListener("click",(e)=>{
 	e.preventDefault()
 	let content = textareaContent.value.replace(/\n\r?/g, '<br />')
 	let color = document.querySelector('input[name="color"]:checked').id;
-	console.log(color)
+
 	createNote(false,inputTitle.value, content, color)
 	inputTitle.value = ''
 	textareaContent.value = ''

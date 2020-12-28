@@ -34,7 +34,7 @@ ul, .note-container{
   transform-origin: top;
 }
 
-ul .note-container a{
+ul .note-container .note{
   text-decoration: none;
   position: relative;
   color: var(--color-black);
@@ -136,6 +136,7 @@ ul .note-container{
   position: absolute;
   right:1em;
   top:.5em;
+  z-index:100;
 }
 
 /*  Copy btn symbol in card  */
@@ -155,6 +156,21 @@ ul .note-container{
 .copy-btn img{
   height:100%;
   opacity:0.8;
+}
+
+.link-btn {
+  height:20px;
+  border:none;
+  background:none;
+  cursor:pointer;
+  position: absolute;
+  top:.5em;
+  left:3em;
+  opacity:0.8;
+  outline: none;
+}
+.link-btn img{
+  height:100%
 }
 
 /* Input that auxiliate the copy and paste in JS */
@@ -231,24 +247,24 @@ ul .note-container{
 }
 
 /* Background changes (card) */
-ul li.yellow a{
+ul li.yellow .note{
   background: var(--color-yellow);
 }
-ul li.green a{
+ul li.green .note{
   -o-transform:rotate(4deg);
   -webkit-transform:rotate(4deg);
   -moz-transform:rotate(4deg);
   top:5px;
   background:var(--color-green);
 }
-ul li.purple a{
+ul li.purple .note{
   -o-transform:rotate(-3deg);
   -webkit-transform:rotate(-3deg);
   -moz-transform:rotate(-3deg);
   top:-5px;
   background:var(--color-purple);
 }
-ul li.lightblue a{
+ul li.lightblue .note{
   -o-transform:rotate(5deg);
   -webkit-transform:rotate(5deg);
   -moz-transform:rotate(5deg);
@@ -256,7 +272,7 @@ ul li.lightblue a{
   background:var(--color-lightblue);
 }
 
-ul li.red a{
+ul li.red .note{
   background: var(--color-red);
   -o-transform: rotate(2deg);
   -webkit-transform: rotate(2deg);
@@ -264,7 +280,7 @@ ul li.red a{
   top: 10px;
 }
 
-ul li.brown a{
+ul li.brown .note{
   background: var(--color-brown);
   -o-transform:rotate(2deg);
   -webkit-transform:rotate(2deg);
@@ -272,26 +288,31 @@ ul li.brown a{
   opacity:0.8;
 }
 
-ul li.white a{
+ul li.white .note{
   background: var(--color-white);
   -o-transform:rotate(5deg);
   -webkit-transform:rotate(5deg);
   -moz-transform:rotate(5deg);
 }
 
-ul li.darkblue a{
+ul li.darkblue .note{
   background: var(--color-darkblue);
   -o-transform:rotate(-5deg);
   -webkit-transform:rotate(-5deg);
   -moz-transform:rotate(-5deg);
 }
 
-ul li.pink a{
+ul li.pink .note{
   background: var(--color-pink);
   filter:grayscale(50%)
 }
 
-ul li.darkgreen a{
+ul li.darkgreen .note{
   background: var(--color-darkgreen);
+}
+
+.hide {
+  visibility: hidden;
+  display:none;
 }
 
