@@ -103,3 +103,5 @@ inputs.forEach(input => input.addEventListener("change", function(){
 
 	this.parentNode.classList.add("active")
 }))
+
+recoveryLocalStorageData()
