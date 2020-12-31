@@ -123,9 +123,6 @@ function resetItems(){
 			if(itemDataFrequency == 4){
 				day.setDate(day.getDate() + 30)
 			}
-			if(itemDataFrequency == 5){
-				day.setDate(day.getDate() + 15)
-			}
 
 			if(itemIsCompleted){
 				day = day.getFullYear() + "/" + (day.getMonth() + 1) + "/" + day.getDate()
