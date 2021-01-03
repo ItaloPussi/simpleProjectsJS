@@ -46,7 +46,13 @@ pickerDate.min = pickerDate.value = getTodayDateFormated().replaceAll("/", "-")
 // Return or today as string or as a date object
 function getTodayDateFormated(returnDataObject){
 	const dt = new Date()
-	const today = `${dt.getFullYear()}/${(dt.getMonth() + 1)}/${dt.getDate()}`
+	
+	let month = dt.getMonth() + 1
+	month = month < 10 ? `0${month}` : month
+	let day = dt.getDate()
+	day = day < 10 ? `0${day}` : day
+
+	const today = `${dt.getFullYear()}/${month}/${day}`
 	return returnDataObject ? new Date(today) : today
 }
 

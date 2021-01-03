@@ -58,7 +58,7 @@ ul .note-container .note{
   transition: all 0.3s;
 }
 
-ul .note-container a:hover{
+ul .note-container .note:hover{
   transform: scale(1);
   opacity: 1;
   filter: initial;
