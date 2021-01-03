@@ -22,6 +22,7 @@ const archiveBtn = document.querySelector('.archive-btn')
 
 // variables
 let editElement;
+let editElementText;
 let editFlag = false;
 let editId = "";
 let currentId = localStorage.getItem('items') ? Number(localStorage.getItem('currentId'))+1 : 0;
@@ -247,16 +248,18 @@ function createElement(textValue, elementDataID,status, frequency, frequencyDate
 function addItem(e){
 	e.preventDefault()
 
+	const selectedFrequency = dynamicBox.checked ? 6 : document.querySelector('input[type = radio]:checked').value
+
 	if(selectedType === ""){
 		displayAlert("Please select a valid type", "danger")
 		return false;
 	}
-
-	const selectedFrequency = dynamicBox.checked ? 6 : document.querySelector('input[type = radio]:checked').value
-
+	
 	const valueIpt = itemIpt.value
 
 	if (valueIpt && !editFlag){
+		
+
 		createElement(valueIpt, currentId, false,selectedFrequency, false, false, parseInt(selectedType), false)
 		displayAlert('Item add with success!', 'success')
 		resetParams()
@@ -264,7 +267,9 @@ function addItem(e){
 		currentId++
 
 	}else if(valueIpt && editFlag){
-		editElement.textContent = valueIpt
+		editElement.setAttribute("data-type", parseInt(selectedType))
+		editElement.querySelector(".type").setAttribute("data-type", parseInt(selectedType))
+		editElementText.textContent = valueIpt
 		displayAlert('Item edited with success!', 'success')
 		resetParams()
 	}else{
@@ -284,12 +289,16 @@ function changeStatus(clickedId){
 function editItem(targetId){
  	editFlag=true
  	editId=targetId
- 	editElement = document.querySelector(`[data-id="${targetId}"]`).children[0]
+	editElement = document.querySelector(`[data-id="${targetId}"]`)
+	editElementText = editElement.querySelector(".text")
+	 console.log(editElement)
  	submitBtn.textContent = 'edit'
- 	itemIpt.value = editElement.textContent
+ 	itemIpt.value = editElementText.textContent.trim()
  	itemIpt.focus()
  	cancelBtn.classList.remove('hidden')
- 	dynamicBox.disabled = true
+	 dynamicBox.disabled = true
+	 typeSelect.value = editElement.getAttribute("data-type")
+	 selectedType = editElement.getAttribute("data-type")
  	radioIpts.forEach(radio=>{
  		radio.disabled = true
  	})
@@ -297,8 +306,6 @@ function editItem(targetId){
 
 //Delete determined item
 async function deleteItem(targetId){
-	
-
 	const element = document.querySelector(`[data-id="${targetId}"]`)
 	list.removeChild(element)
 	if(list.children.length == 0){
@@ -350,7 +357,8 @@ function resetParams(){
 	radioIpts.forEach(radio=>{
  		radio.disabled = false
  	})
- 	typeSelect.value = ''
+	 typeSelect.value = ''
+	 typeSelect.disabled = false
  	selectedType = ''
  	handleDisplayTasksWithSelectedType()
 }
