@@ -37,7 +37,7 @@ Variables
   --clr-grey-7: hsl(211, 27%, 70%);
   --clr-grey-8: hsl(210, 31%, 80%);
   --clr-grey-9: hsl(212, 33%, 89%);
-  --clr-grey-10: hsl(210, 36%, 96%);
+  --clr-grey-10: hsl(206, 44%, 94%);
   --clr-white: #fff;
   --clr-red-dark: hsl(360, 67%, 44%);
   --clr-red-light: hsl(360, 71%, 66%);
@@ -66,6 +66,8 @@ Global Styles
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
 body {
   font-family: var(--ff-secondary);
@@ -74,6 +76,17 @@ body {
   line-height: 1.5;
   font-size: 0.875rem;
 }
+
+input:focus,
+button:focus,
+a:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border:none;
+  filter: brightness(95%) drop-shadow(0 1px);
+}
+
 ul {
   list-style-type: none;
 }
@@ -385,7 +398,6 @@ input[type="number"]{
   position: absolute;
   left:0;
   top:.7rem;
-  outline:0;
   border:none;
   font-size: 1rem;
   cursor:pointer;
@@ -401,7 +413,6 @@ input[type="number"]{
 .reset-btn{
   position: absolute;
   right:0;
-  outline:0;
   border:none;
   font-size: 1rem;
   cursor:pointer;
@@ -419,7 +430,6 @@ input[type="number"]{
 #task-type, #pickDate{
   color: var(--clr-grey-2);
   border:1px solid var(--clr-primary-1);
-  outline: none;
 }
 
 .type{

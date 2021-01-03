@@ -398,3 +398,4 @@ function recoverLocalStorageData(){
 	})
 }
 
+window.load = recoverLocalStorageData()
