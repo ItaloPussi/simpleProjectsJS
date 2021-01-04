@@ -5,6 +5,17 @@ const addItemButton = document.querySelector(".add-item button")
 const inputTitle = document.querySelector(".add-item .title")
 const textareaContent = document.querySelector(".add-item .content")
 
+const bgLabel = document.querySelector(".bgColorLabel")
+const bgSelector = document.querySelector("#bgColorSelect")
+bgSelector.addEventListener("input", () => {
+	changeBgColor(bgSelector.value)
+	handleSaveLocalStorage()
+})
+
+function changeBgColor(value){
+	document.body.style.background = value
+	bgLabel.style.background = value
+}
 function createNote(index=false,title, content, color, coords = false){
 	index = index!==false || index===0 ? index : notesList.children.length
 	isALink = content.includes("http") || content.includes("www.")
@@ -97,6 +108,9 @@ function handleSaveLocalStorage(){
 		}
 	})
 	localStorage.setItem("notes", JSON.stringify(notes))
+
+	let bg = bgLabel.backgroundColor === '' ? "#666" : bgLabel.style.backgroundColor
+	localStorage.setItem("notesBG", bg)
 }
 
 
@@ -107,6 +121,10 @@ function recoveryLocalStorageData(){
 		createNote(index,note.title, note.content, note.color, note.coords)
 	})
 	addEventsListenersToDrag()
+
+	let bg = localStorage.getItem("notesBG")
+	bg = bg == null ? "#666" : bg
+	changeBgColor(bg)
 
 }
 

@@ -186,6 +186,24 @@ ul .note-container{
   left:-4000px;
 }
 
+/* Background select */
+.bgColorLabel{
+  width:30px;
+  height:30px;
+  background-color:#666;
+  display: inline-block;
+  position: absolute;
+  top:-40px;
+  right:-40px;
+}
+
+.bgColorLabel input{
+  display: none;
+}
+
+.bgColorLabel img {
+  width:100%;
+}
 /*  Color select options */
 #color-select{
   display: flex;

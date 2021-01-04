@@ -12,10 +12,14 @@ type="text/css">
 	<script src="app.js" defer="defer"></script>
 </head>
 <body>
+	<label for="bgColorSelect" class="bgColorLabel">
+		<img src="img/pincel.png" alt="Pincel icon">
+		<input type="color" value="#666666" name="bgColorSelect" id="bgColorSelect">
+	</label>
 	<input type="text" name="" id="copy-aux">
 	<form class="add-item">
 		<input type="text" placeholder="TITLE" class="title">
-		<textarea placeholder="content" class="content"></textarea>
+		<textarea placeholder="content: " class="content"></textarea>
 		<div id="color-select">
 			<label class="white" for="white"><input type="radio" name="color" id="white"></label>
 			<label class="lightblue" for="lightblue"><input type="radio" name="color" id="lightblue"></label>
