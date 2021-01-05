@@ -1,23 +1,30 @@
 # ListMe
 
-✍✍✍ TodoList ou Lista de Afazares é um dos projetos mais comuns em programação. Nem por isso significa que é algo fútil, com ele podemos trabalhar conceitos importantes de qualquer linguagem, além de se tornar um projeto interessante de se utilizar no cotidiano.
+<a href="https://github.com/ItaloPussi/simpleProjectsJS/blob/master/listMe/readme.pt.md">Versão em Português</a> 👈
 
-## Uso
+✍✍✍ TodoList is one of the most common projects in programming. This does not mean that it is futile, with it we can work with important concepts of any language, in addition to becoming an interesting project to use in everyday situations.
 
-Caso deseje testar alguma funcionalidade, basta clonar esse subdiretório e iniciar o arquivo ```index.html```.
+## Functionalities
 
-O app permite que você adicione, edite, exclua ou marque como concluído qualquer item adicionado a lista. 
+    - Create a task and choose between 8 possibilities;
+    - Choose the recurrence of your task: Only, Daily, Weekly, Monthly and weekdays;
+    - With the special dynamic type you can define how long your task will last (in days), in addition to the current day of the same. To use it, fill in the "Dynamic" option, in addition to placing a dollar sign ($) somewhere on the task to identify the day;
+    - Do you want to plan your next week now? Simply schedule the initial display day;
+    - Filter existing tasks according to their type; 
 
+## Use
 
-## Principais conceitos abordados
-	- Inserindo e Recuperando dados do LocalStorage;
-	- Exibição condicional de elementos;
+If you want to use the program, just clone this subdirectory and start the file```index.html```.
+
+## Main concepts covered;
+	- LocalStorage manipulation;
+	- Conditional exibition;
 	- Event Listeners;
-	- Eventos nativos;
-	- Conversão JSON -> String e String -> JSON;
+	- Native events;
+	- Convert JSON -> String and String -> JSON;
 
-## Contribuindo
-Encontrou algum BUG? Sinta-se livre para abrir uma issue. Pull requests também são bem-vindas.
+## Contributing
+Found a BUG? Feel free to open a issue. Pull requests also are welcome.
 
-## Licença
-[MIT](https://choosealicense.com/licenses/mit/)
+## License
+Commercial use of this project is not permitted without the prior authorization of this author.
