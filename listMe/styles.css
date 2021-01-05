@@ -290,7 +290,7 @@
      border-radius: 100%;
 }
  .type[data-type="1"] {
-     background-color: rgba(255, 0, 0, .7);
+     background-color: rgba(220, 34, 29, 0.8);
 }
  .type[data-type="2"] {
      background-color: rgba(0, 255, 0, .6);
