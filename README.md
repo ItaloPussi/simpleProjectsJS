@@ -13,5 +13,6 @@ If you want to test some functionality, just clone the directory, access the cho
 If you want to suggest an interesting project to be done in JS, feel free to open an issue.
 
 ## Licence
-[MIT](https://choosealicense.com/licenses/mit/)
+Each project has a specific license, check the readme in the chosen subfolder to more information.
+If it doesn't contain a readme, treat the subproject with the [MIT](https://choosealicense.com/licenses/mit/) license.
 

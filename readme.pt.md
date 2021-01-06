@@ -12,4 +12,5 @@ Caso deseje testar alguma funcionalidade, basta clonar o subdiretório escolhido
 Caso queira sugerir algum projeto interessante em JS, sinta-se livre para abrir uma issue. 
 
 ## Licença
-[MIT](https://choosealicense.com/licenses/mit/)
+Cada projeto tem uma licença específica, cheque o arquivo readme da subpasta escolhida para mais informações.
+Caso a subpasta não contenha o readme, você poderá tratar o subprojeto de acordo com a licença [MIT](https://choosealicense.com/licenses/mit/).
