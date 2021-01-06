@@ -1,25 +1,30 @@
 # Sticky Notes
 
-📌📌📌📜📃📄
+<a href="https://github.com/ItaloPussi/simpleProjectsJS/blob/master/stickyNotes/readme.pt.md">Versão em Português</a> 👈
 
-Nesse projeto foi simulado virtualmente o funcionamento dos famosos adesivos de anotações. Utilize-o para se lembrar de compromissos e tarefas com uma interface simples e agradável.
+📌📌📌📜📃📄 In this project, the operation of the famous annotation stickers was simulated virtually. Use it to remember appointments and tasks with a simple and pleasant interface.
 
-## Uso
+## Functionalities
 
-Caso deseje testar utilizar o programa pasta executar o arquivo ```index.html```.
-Coloque o que necessitar no adesivo fixado no lado esquerdo superior da tela. Após a criação é possível movimentar sua nota, clicando-a e arrastando para o local desejado.
-Aperte no X ao lado da nota para exclui-la.
+    - Create a note and choose between 10 different colors;
+    - Drag your note and position it wherever you want;
+    - Copy the content by clicking on the icon in the top left of the note; 
+	- Delete it by clicking on the icon in the top right of the note;
+	- Change the background color clicking on the brush in the top right of the page;
 
-## Status
-O projeto está 85% concluído, faltando apenas a possibilidade de edição e escolha de cor da nota.
+## Use
 
-## Principais conceitos abordados
-	- Position Absolute;
-	- Evento drag JS
+If you want to use the program, just clone this subdirectory and start the file```index.html```.
+
+## Main concepts covered;
+	- Event drag JS;
 	- localStorage;
+	- Formatation and manipulation of radio interface;
+	- Clipboard;
 
-## Contribuindo
-Encontrou algum BUG? Sinta-se livre para abrir uma issue. Pull requests também são bem-vindas.
+## Contributing
+Found a BUG? Feel free to open a issue. Pull requests also are welcome.
 
-## Licença
-[MIT](https://choosealicense.com/licenses/mit/)
+## License
+Commercial use of this project is not permitted without the prior authorization of this author.
+
