@@ -16,14 +16,21 @@
 <body class="bg-dark text-white ">
   <header class="bg-secondary text-center p-3 mb-5">
     <h1>WordBeater</h1>
+    <select class="form-select form-select-lg float-right mt-4" name="difficulty" id="difficulty">
+      <option value="easy">easy</option>
+      <option value="medium" selected>normal</option>
+      <option value="hard">hard</option>
+      <option value="master">master</option>
+    </select>
   </header>
+  
   <div class="container text-center">
 
     <!-- Word & Input -->
     <div class="row">
       <div class="col-md-6 mx-auto">
-        <p class="lead">Type The Given Word Within
-          <span class="text-success" id="seconds">5</span> Seconds:</p>
+        <p class="lead">Type the given word within
+          <span id="seconds">3</span> second<span id="pluralSeconds">s</span>:</p>
         <h2 class="display-2 mb-5" id="current-word">hello</h2>
         <input type="text" class="form-control form-control-lg" placeholder="Start typing..." id="word-input" autofocus>
         <h4 class="mt-3" id="message"></h4>

@@ -8,15 +8,24 @@ const timeElement = document.querySelector("#time")
 const scoreElement = document.querySelector("#score")
 const highscoreElement = document.querySelector("#highscore")
 const feedbackElement = document.querySelector("#message")
-
+const difficultyElement = document.querySelector("#difficulty")
+const pluralElement = document.querySelector("#pluralSeconds")
 // Avaliable levels
 const levels = {
     easy: 5,
     medium: 3,
-    hard: 2
+    hard: 2,
+    master: 1
+}
+
+const levelsColors = {
+    easy: "#0275db",
+    medium: '#5cb85c',
+    hard: '#f0ad4e',
+    master: '#d9534f'
 }
 // To change level
-const currentLevel = levels.medium
+let currentLevel = 3;
 
 // Global Variables
 let score = 0
@@ -27,6 +36,10 @@ let isPlaying;
 function init(){
     let highscore = localStorage.getItem("highscoreWordBeater") === null ? 0 : localStorage.getItem("highscoreWordBeater")
     highscoreElement.textContent = highscore
+
+    // Set difficulty
+    difficultyElement.addEventListener("change", setDifficulty)
+    setDifficulty()
 
     // Show the time selected in the UI
     secondsElement.textContent = currentLevel
@@ -40,6 +53,14 @@ function init(){
 
     // Check game status
     setInterval(checkStatus, 50)
+}
+
+// Set the difficulty selected 
+function setDifficulty(){
+    currentLevel = levels[difficultyElement.value]
+    secondsElement.textContent = currentLevel
+    secondsElement.style.color = levelsColors[difficultyElement.value]
+    pluralElement.style.display = difficultyElement.value === 'master' ? 'none' : ''
 }
 
 // Start the match
