@@ -29,8 +29,9 @@ let currentLevel = 3;
 
 // Global Variables
 let score = 0
-let time = currentLevel
+let time = currentLevel-1
 let isPlaying;
+let started = false
 
 //  Initialize game
 function init(){
@@ -50,9 +51,16 @@ function init(){
     showWord(words)
     
     // Start matching on word input
-    inputElement.addEventListener("input", startMatch)
-    // Call countdown every second
-    setInterval(countdown, 1000)
+    inputElement.addEventListener("input", ()=>{
+        if(!started){
+            // Call countdown every second
+            setInterval(countdown, 1000)
+            started = true
+        }
+
+        startMatch()
+    })
+    
 
     // Check game status
     setInterval(checkStatus, 50)
@@ -64,6 +72,7 @@ function setDifficulty(){
     currentLevel = levels[difficultyElement.value]
     secondsElement.textContent = currentLevel
     secondsElement.style.color = levelsColors[difficultyElement.value]
+    timeElement.textContent = currentLevel
     pluralElement.style.display = difficultyElement.value === 'master' ? 'none' : ''
 }
 
