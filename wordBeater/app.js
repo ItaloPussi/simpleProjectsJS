@@ -38,6 +38,9 @@ function init(){
     highscoreElement.textContent = highscore
 
     // Set difficulty
+    if(localStorage.getItem("difficultyWordBeater") != null){
+        difficultyElement.value = localStorage.getItem("difficultyWordBeater")
+    }
     difficultyElement.addEventListener("change", setDifficulty)
     setDifficulty()
 
@@ -57,6 +60,7 @@ function init(){
 
 // Set the difficulty selected 
 function setDifficulty(){
+    localStorage.setItem("difficultyWordBeater", difficultyElement.value)
     currentLevel = levels[difficultyElement.value]
     secondsElement.textContent = currentLevel
     secondsElement.style.color = levelsColors[difficultyElement.value]
