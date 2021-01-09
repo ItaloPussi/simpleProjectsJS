@@ -23,7 +23,7 @@ Caso deseje utilizar o programa, basta clonar esse subdiretório e iniciar o arq
 ## Contribuindo
 Encontrou algum BUG? Sinta-se livre para abrir uma issue. Pull requests também são bem-vindas.
 
-## Credits
+## Créditos
 A base desse projeto está disponível no canal da <a href="https://www.youtube.com/watch?v=Yw-SYSG-028" target="_blank">Traversy Media</a> (Em inglês).
 
 ## Licença
