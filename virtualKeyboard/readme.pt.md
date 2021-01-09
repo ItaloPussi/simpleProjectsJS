@@ -5,7 +5,7 @@
 OMG 😱😱😱! Seu teclado está quebrado? Se sim fique a vontade para utilizar esse teclado virtual simples!
 
 ## Funcionalidades
-    - Digite a palavra que deseje;
+    - Digite a palavra que desejar;
     - Capslook, espaço, apagar, botão de fechar... Tudo isso está disponível!
 
 ## Uso
@@ -13,7 +13,7 @@ Caso deseje utilizar o programa, basta clonar esse subdiretório e iniciar o arq
 
 ## Principais conceitos abordados
 	- Geração dinâmica de HTML;
-    - Uso de objeto como classe
+    - Uso de objeto como classe;
 
 ## Contribuindo
 Encontrou algum BUG? Sinta-se livre para abrir uma issue. Pull requests também são bem-vindas.

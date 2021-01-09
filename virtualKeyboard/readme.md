@@ -9,8 +9,7 @@ OMG 😱😱😱! You keyboard is broken? If so fell free to use this virtual si
     - Capslook, backspace, enter, close button... All this is disponible;
 
 ## Use
-If you want to test the program, just clone this subdirectory and start the file```index.html```.
-After that, just click on the white box.
+If you want to test the program, just clone this subdirectory and start the file ```index.html```. After that, just click on the white box.
 
 ## Main concepts covered;
 	- HTML Dynamic Generation;
