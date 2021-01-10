@@ -7,6 +7,7 @@
     background: #333;
     color: #fff;
     padding: 1rem;
+    width: 100%;
 }
 
 .btn {
@@ -30,4 +31,23 @@
     background: orangered;
     color: white;
     padding: 1rem;
+}
+
+#scale {
+    float: right;
+    margin-right: 30px;
+    margin-top: 10px;
+}
+
+#scale input{
+    width: 3rem;
+    background: none;
+    border: none;
+    color: white;
+    margin-right:5px;
+}
+
+#pdf-render{
+    display: block;
+    margin: 0 auto;
 }

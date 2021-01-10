@@ -81,3 +81,10 @@ pdfjsLib.getDocument(url).promise.then(pdfDoc_ => {
 // Button events
 document.querySelector("#prev-page").addEventListener("click", showPreviousPage)
 document.querySelector("#next-page").addEventListener("click", showNextPage)
+
+// Scale events
+document.querySelector("#scale input").addEventListener("input", function(){
+    if(this.value < 0.25 || this.value > 3) return
+    scale = this.value
+    renderPage(pageNum)
+})
