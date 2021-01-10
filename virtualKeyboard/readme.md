@@ -18,5 +18,8 @@ If you want to test the program, just clone this subdirectory and start the file
 ## Contributing
 Found a BUG? Feel free to open a issue. Pull requests also are welcome.
 
+## Credits
+The base for this project is available on <a href="https://www.youtube.com/watch?v=N3cq0BHDMOY" target="_blank">DCode Channel</a>.
+
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)

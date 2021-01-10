@@ -18,5 +18,8 @@ Caso deseje utilizar o programa, basta clonar esse subdiretório e iniciar o arq
 ## Contribuindo
 Encontrou algum BUG? Sinta-se livre para abrir uma issue. Pull requests também são bem-vindas.
 
+## Créditos
+A base desse projeto está disponível no canal da <a href="https://www.youtube.com/watch?v=N3cq0BHDMOY" target="_blank">DCode</a> (Em inglês).
+
 ## Licença
 [MIT](https://choosealicense.com/licenses/mit/)
