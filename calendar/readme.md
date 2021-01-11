@@ -16,5 +16,8 @@ Click on the arrows to change the month and see the current day with a different
 ## Contributing
 Found a BUG? Feel free to open a issue. Pull requests also are welcome.
 
+## Credits
+The base for this project is available on <a href="https://www.youtube.com/watch?v=o1yMqPyYeAo" target="_blank">Code and Create Channel</a>.
+
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)

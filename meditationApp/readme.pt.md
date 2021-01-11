@@ -20,5 +20,8 @@ Finalmente aperte o botão Play no centro da tela <br />
 ## Contribuindo
 Encontrou algum bug? sinta-se livre para abrir uma issue!
 
+## Créditos
+A base desse projeto está disponível no canal do <a href="https://www.youtube.com/watch?v=oMBXdZzYqEk" target="_blank">Dev Ed</a> (Em inglês).
+
 ## Licença
 [MIT](https://choosealicense.com/licenses/mit/)

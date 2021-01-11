@@ -18,5 +18,8 @@ Para excluir um livro, simplesmente aperte o X, na linha equivalente.
 ## Contribuindo
 Encontrou algum bug? sinta-se livre para abrir uma issue!
 
+## Créditos
+A base desse projeto está disponível no canal da <a href="https://www.youtube.com/watch?v=JaMCxVWtW58" target="_blank">Traversy Media</a> (Em inglês).
+
 ## Licença
 [MIT](https://choosealicense.com/licenses/mit/)

@@ -16,5 +16,8 @@ Apenas abra o arquivo ```index.html``` e escolha a unidade de medida no centro. 
 ## Contribuindo
 Encontrou algum bug? sinta-se livre para abrir uma issue!
 
+## Créditos
+A base desse projeto está disponível no canal da <a href="https://www.youtube.com/watch?v=7l-ZAuU8TXc" target="_blank">Traversy Media</a> (Em inglês).
+
 ## Licença
 [MIT](https://choosealicense.com/licenses/mit/)

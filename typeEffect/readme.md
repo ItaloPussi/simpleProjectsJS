@@ -15,5 +15,8 @@ Just open the ```index.html``` and see the beautiful effect!
 ## Contributing
 Find a bug? If so please open a issue!
 
+## Credits
+The base for this project is available on <a href="https://www.youtube.com/watch?v=PuOGBacTYAY" target="_blank">Dev Ed Channel</a>.
+
 ## Licence
 [MIT](https://choosealicense.com/licenses/mit/)

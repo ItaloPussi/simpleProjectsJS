@@ -18,5 +18,8 @@ To delete a book, simply click the X on the equivalent line.
 ## Contributing
 Find a bug? If so please open a issue!
 
+## Credits
+The base for this project is available on <a href="https://www.youtube.com/watch?v=JaMCxVWtW58" target="_blank">Traversy Media Channel</a>.
+
 ## Licence
 [MIT](https://choosealicense.com/licenses/mit/)

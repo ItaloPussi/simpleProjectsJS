@@ -17,5 +17,8 @@ Abra o arquivo ```index.html``` e aperte o botão de start. Depois disso, simple
 ## Contribuindo
 Encontrou algum bug? sinta-se livre para abrir uma issue!
 
+## Créditos
+A base desse projeto está disponível no canal do <a href="https://www.youtube.com/watch?v=riDzcEQbX6k" target="_blank">Dev Ed</a> (Em inglês).
+
 ## Licença
 [MIT](https://choosealicense.com/licenses/mit/)
