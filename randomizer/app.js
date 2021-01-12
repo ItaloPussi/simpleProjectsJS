@@ -1,23 +1,22 @@
 const itemsContainer = document.querySelector('.items-container')
 const formContainer = document.querySelector('.form-container')
-
 const input = document.querySelector('#input')
-
-const anything = document.querySelectorAll('.item') 
 const randomButton = document.querySelector('.randomButton')
 const resultDiv = document.querySelector('.result')
+
 let items = []
 
 formContainer.addEventListener('submit', addItem)
 itemsContainer.addEventListener('click', removeItem)
 randomButton.addEventListener('click', randomItem)
+
 function renderItem(item){
+	if(item.value === '') return
 	const element = document.createElement('li')
 	element.textContent = item.value
 	element.classList.add('item')
 	element.id+=item.id
 	itemsContainer.appendChild(element)
-
 }
 
 function addItem(e){
@@ -28,6 +27,7 @@ function addItem(e){
 		"id": items.length
 	}
 
+	if(newItem.value === '') return
 	renderItem(newItem)
 	items.push(newItem)
 	input.value=""
@@ -49,6 +49,7 @@ function removeItem(e){
 	items.splice(removeIndex,1)
 	saveLocalStorage()
 }
+
 function saveLocalStorage(){
 	localStorage.setItem('possibilities', JSON.stringify(items))
 }
@@ -66,4 +67,6 @@ function randomItem(){
 	const randomItem = Math.floor(Math.random() * items.length)
 	resultDiv.textContent = items[randomItem].value
 }
+
+window.addEventListener("load", recoveryLocalStorageData)
 

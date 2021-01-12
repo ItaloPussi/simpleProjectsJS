@@ -59,12 +59,14 @@ button[type="button"]{
 	button[type="button"]:hover{
 		background-color: #403e3e;
 	}
+
 .result{
 	font-size: 2rem;
 	width:100%;
 	text-align: center;
 	color:white;
 	text-transform: uppercase;
+	margin-top: 2rem;
 }
 
 ul li{
@@ -74,4 +76,8 @@ ul li{
 	text-align: center;
 	color:lightgrey;
 	cursor:pointer;
+}
+
+ul li:hover{
+	color: red;
 }
