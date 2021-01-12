@@ -1,28 +1,26 @@
 # Randomizer
 
-🤔💡🤔💡🤔💡 As vezes você tem tantas ideias que não sabe qual escolher? Ou simplesmente você gosta de algo aleatório? Com o Randomizer, você pode adicionar
-quantas possibilidades 	quiser e sortear um valor. 
+<a href="https://github.com/ItaloPussi/simpleProjectsJS/blob/master/randomizer/readme.pt.md">Versão em Português</a> 👈
 
-## Uso
+🤔💡🤔💡🤔💡  Sometimes you have so many options that you don't know which to choose? or you just like to choose something random? With the randomizer, you can add  as many possibilities as you like and draw a random value
 
-Caso deseje testar alguma funcionalidade, basta clonar esse subdiretório e iniciar o arquivo ```index.html```.
+## Functionalities
 
-Adicione pelo menos um item à lista para começar, após utilizar a ideia caso deseje excluir-la bastar clicar sobre o texto. 
-Clique no botão ```randomizer``` para escolher um novo valor.
+    - Add items to the list;
+    - Want to delete some option? Just click on it;
+    - Click on the randomizer button to sort a value;
 
-## Status
-O projeto já está funcional, mas o design e algumas outras funcionalidades ainda estão em desenvolvimento.
+## Use
 
-## Principais conceitos abordados
-	- Inserindo e Recuperando dados do LocalStorage;
-	- Event Listeners;
-	- Eventos nativos;
-	- Conversão JSON -> String e String -> JSON;
-	- Biblioteca Math;
-	- Criação de elementos pelo JS;
+If you want to use the program, just clone this subdirectory and start the file```index.html```.
 
-## Contribuindo
-Encontrou algum BUG? Sinta-se livre para abrir uma issue. Pull requests também são bem-vindas.
+## Main concepts covered;
+	- LocalStorage manipulation;
+	- Math library;
+	- Dynamic elements;
 
-## Licença
+## Contributing
+Found a BUG? Feel free to open a issue. Pull requests also are welcome.
+
+## License
 [MIT](https://choosealicense.com/licenses/mit/)
