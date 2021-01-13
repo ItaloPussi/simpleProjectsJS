@@ -1,5 +1,5 @@
 /* ---------------------------- Variables ----------------------------- */
-:root {
+html:not(.dark) {
     /* Primary color and variations */
      --clr-primary-lighter: hsl(205, 86%, 81%);
      --clr-primary: #49a6e9;
@@ -9,10 +9,46 @@
      --clr-grey-2: hsl(211, 39%, 23%);
     /* grey used for paragraphs */
      --clr-grey-3: hsl(210, 22%, 49%);
-     --clr-grey-4: hsl(206, 44%, 94%);
-     --clr-white: #fff;
+     --clr-bg-primary: hsl(206, 44%, 94%);
+     --clr-bg-secondary: #fff;
+     --clr-base: #fff;
+     --clr-base-lighter: #fff;
+     --clr-cancel-dark: hsl(360, 67%, 44%);
+     --clr-cancel-light: hsl(360, 71%, 66%);
      --clr-red-dark: hsl(360, 67%, 44%);
      --clr-red-light: hsl(360, 71%, 66%);
+     --clr-green-dark: hsl(125, 67%, 44%);
+     --clr-green-light: hsl(125, 71%, 66%);
+     --clr-black: #222;
+     --ff-primary: "Roboto", sans-serif;
+     --ff-secondary: "Open Sans", sans-serif;
+     --transition: all .3s linear;
+     --spacing: .25rem;
+     --radius: .5rem;
+     --light-shadow: 0 5px 15px rgba(0, 0, 0, .1);
+     --dark-shadow: 0 5px 15px rgba(0, 0, 0, .2);
+     --max-width: 1170px;
+     --fixed-width: 620px;
+}
+
+html.dark {
+    /* Primary color and variations */
+     --clr-primary-lighter: rgb(45,45,45);
+     --clr-primary: rgb(35,35,35);
+     --clr-primary-darker: rgb(155, 155, 155);
+    /* darkest grey - used for headings */
+     --clr-grey-1: #ccc;
+     --clr-grey-2: #bbb;
+    /* grey used for paragraphs */
+     --clr-grey-3: grey;
+     --clr-bg-primary: rgb(45,45,45);
+     --clr-bg-secondary: rgb(40,40,40);
+     --clr-base: #424242;
+     --clr-base-lighter: #aaa;
+     --clr-cancel-dark:  rgb(35,35,35);
+     --clr-cancel-light:  rgb(45,45,45);
+     --clr-red-dark: rgb(227,77,77);
+     --clr-red-light: rgb(210, 87, 87);
      --clr-green-dark: hsl(125, 67%, 44%);
      --clr-green-light: hsl(125, 71%, 66%);
      --clr-black: #222;
@@ -36,7 +72,7 @@
 }
  body {
      font-family: var(--ff-secondary);
-     background: var(--clr-grey-4);
+     background: var(--clr-bg-primary);
      color: var(--clr-grey-1);
      line-height: 1.5;
      font-size: .875rem;
@@ -77,7 +113,7 @@
      margin: 0 auto;
      max-width: 35rem;
      margin-top: 8rem;
-     background: var(--clr-white);
+     background: var(--clr-bg-secondary);
      border-radius: var(--radius);
      box-shadow: var(--light-shadow);
      transition: var(--transition);
@@ -101,10 +137,21 @@
      color: #721c24;
      background: #f8d7da;
 }
+
+.alert-danger-dark {
+    color: rgb(255, 12, 12);
+    background: #333;
+}
+
  .alert-success {
      color: #155724;
-     background: #d4edda;
+     background: #333;
 }
+
+.alert-success-dark {
+    color: rgb(12, 180, 12);
+     background: #333;
+    }
  .form-control, .frequency-control, #date-control, .dynamic-container{
      display:flex;
      margin-top: 10px;
@@ -132,11 +179,16 @@
 }
  input[type="number"] {
      width: 40px;
+     text-align: center;
+     color: var(--clr-grey-2);
+     border: 1px solid var(--clr-primary-darker);
+     background: var(--clr-base)
+
 }
  #itemInput {
      padding: .25rem;
      padding-left: 1rem;
-     background: var(--clr-grey-4);
+     background: var(--clr-bg-primary);
      border-top-left-radius: var(--radius);
      border-bottom-left-radius: var(--radius);
      border-color: transparent;
@@ -164,20 +216,21 @@
      transition: var(--transition);
      font-size: .85rem;
      margin-left: 10px;
+     color: var(--clr-grey-2)
 }
  .cancel {
-     background: var(--clr-red-light);
+     background: var(--clr-cancel-light);
 }
  .hidden {
      display: none;
 }
  .submit:hover {
      background: var(--clr-primary);
-     color: var(--clr-white);
+     color: var(--clr-base-lighter );
 }
  .cancel:hover {
-     background: var(--clr-red-dark);
-     color: var(--clr-white);
+     background: var(--clr-cancel-dark);
+     color: var(--clr-base-lighter );
 }
  .list-container {
      margin-top: 2rem;
@@ -203,7 +256,7 @@
 }
  .list-item:hover {
      color: var(--clr-grey-3);
-     background: var(--clr-grey-4);
+     background: var(--clr-bg-primary);
 }
  .list-item:hover .title {
      color: var(--clr-grey-3);
@@ -245,7 +298,7 @@
      height: 1.5rem;
      display: grid;
      align-items: center;
-     color: var(--clr-red-light);
+     color: var(--clr-cancel-light);
      margin: 0 auto;
      font-size: .85rem;
      letter-spacing: var(--spacing);
@@ -260,6 +313,7 @@
      cursor: pointer;
      transition: var(--transition);
      color: var(--clr-primary-darker);
+     background:transparent;
 }
  .archive-btn:hover {
      transform: rotateZ(10deg);
@@ -272,16 +326,18 @@
      cursor: pointer;
      transition: var(--transition);
      color: var(--clr-primary-darker);
+     background: transparent;
 }
  .reset-btn:hover {
      transform: rotateZ(60deg);
 }
  .clear-btn:hover {
-     color: var(--clr-red-dark);
+     color: var(--clr-cancel-dark);
 }
- #task-type, #pickDate {
+ #task-type, #pickDate{
      color: var(--clr-grey-2);
      border: 1px solid var(--clr-primary-darker);
+     background: var(--clr-base)
 }
  .type {
      width: 10px;
