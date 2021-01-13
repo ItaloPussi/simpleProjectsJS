@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zipcode finder</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.1/css/bulma.min.css" integrity="sha512-ZRv40llEogRmoWgZwnsqke3HNzJ0kiI0+pcMgiz2bxO6Ew1DVBtWjVn0qjrXdT3+u+pSN36gLgmJiiQ3cQtyzA==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">    <script src="app.js" defer="defer"></script>
+</head>
+<body>
+    <section class="hero hero-body is-dark container">
+        <h1 class="title">US Location Info</h1>
+        <h2 class="subtitle">Enter a zipcode to get the location info</h2>
+        <form id="zipForm">
+            <div class="field">
+                <div class="control has-icons-left has-icons-right">
+                    <input type="text" class="input is-large" id="zip" placeholder="Enter zipcode">
+                    <span class="icon is-small is-left">
+                        <i class="fa fa-map-pin"></i>
+                    </span>
+                    <span class="icon is-small is-right check-icon">
+                        <i class="fa fa-check"></i>
+                    </span>
+                    <span class="icon is-small is-right remove-icon">
+                        <i class="fa fa-times"></i>
+                   </span>
+               </div>
+            </div>
+        </form>
+    </section>
+
+    <br>
+    <div class="container">
+        <div id="output"></div>
+    </div>
+</body>
+</html>
