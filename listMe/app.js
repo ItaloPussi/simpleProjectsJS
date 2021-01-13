@@ -20,6 +20,29 @@ const clearBtn = document.querySelector('.clear-btn')
 const resetBtn = document.querySelector('.reset-btn')
 const archiveBtn = document.querySelector('.archive-btn')
 
+// Darkmode related
+let darkMode = localStorage.getItem("darkmode")
+darkMode = darkMode == null ? true : darkMode
+darkMode = darkMode == 'false' ? false : true
+darkMode = !darkMode
+toggleDarkMode()
+
+const darkSwitch = document.querySelector(".toggle-darkmode")
+darkSwitch.addEventListener("click", toggleDarkMode)
+
+function toggleDarkMode(){
+	darkMode = !darkMode
+	localStorage.setItem("darkmode", darkMode)
+	if(darkMode){
+		document.querySelector("html").classList.add("dark")
+		document.querySelector(".moon").classList.remove("hidden")
+		document.querySelector(".sun").classList.add("hidden")
+	}else {
+		document.querySelector("html").classList.remove("dark")
+		document.querySelector(".moon").classList.add("hidden")
+		document.querySelector(".sun").classList.remove("hidden")
+	}
+}
 // variables
 let editElement;
 let editElementText;

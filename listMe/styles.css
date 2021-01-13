@@ -118,6 +118,7 @@ html.dark {
      box-shadow: var(--light-shadow);
      transition: var(--transition);
      padding: 2rem;
+     position: relative;
 }
  .section-center:hover {
      box-shadow: var(--dark-shadow);
@@ -369,6 +370,29 @@ html.dark {
  .type[data-type="8"] {
      background-color: rgba(0, 0, 0, .6);
 }
+
+.toggle-darkmode {
+    position: absolute;
+    top:10px;
+    right:10px;
+    font-size: 24px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.moon {
+    color: rgba(255,255,255,0.3)
+}
+
+.sun {
+    color: rgba(0,0,0,0.2)
+}
+
+.moon:hover, .sun:hover{
+    opacity: 0.8;
+}
+
  @media screen and (min-width: 800px) {
      h3 {
          font-size: 1.75rem;
