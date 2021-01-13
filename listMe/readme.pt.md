@@ -10,6 +10,7 @@
     - Com o tipo especial dinâmico você poderá definir quanto tempo sua tarefa irá durar (em dias), além do dia atual da mesma. Para utiliza-lo, preencha a opção "Dynamic", além de  colocar um cifrão ($) em algum lugar da task para identificação do dia. 
     - Quer planejar desde já sua próxima semana? Simplesmente agende o dia inicial de display!
     - Filtre as tarefas existentes de acordo com seu tipo; 
+    - Modo claro e modo escuro!
 
 ## Uso
 
