@@ -134,25 +134,25 @@ html.dark {
      letter-spacing: var(--spacing);
      text-transform: capitalize;
 }
- .alert-danger {
+ :not(.dark) .alert-danger {
      color: #721c24;
      background: #f8d7da;
 }
 
-.alert-danger-dark {
+.dark .alert-danger {
     color: rgb(255, 12, 12);
     background: #333;
 }
 
- .alert-success {
+:not(.dark) .alert-success {
      color: #155724;
-     background: #333;
+     background: #d4edda;
 }
 
-.alert-success-dark {
+.dark .alert-success {
     color: rgb(12, 180, 12);
      background: #333;
-    }
+}
  .form-control, .frequency-control, #date-control, .dynamic-container{
      display:flex;
      margin-top: 10px;
@@ -204,6 +204,7 @@ html.dark {
  .submit, .cancel {
      background: var(--clr-primary-lighter);
      border-color: transparent;
+     outline: none;
      flex: 0 0 5rem;
      display: grid;
      align-items: center;
