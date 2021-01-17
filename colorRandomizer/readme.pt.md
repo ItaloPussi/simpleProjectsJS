@@ -2,7 +2,7 @@
 
 <a href="https://github.com/ItaloPussi/simpleProjectsJS/blob/master/calendar/colorRandomizer.md">English Version</a> 👈
 
-Um gerador de cores que gera valores tanto em hex quanto em RGB.
+Um gerador de cores que gera valores em hex, RGB e CMYK.
 
 ## Uso
 

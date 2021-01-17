@@ -2,7 +2,7 @@
 
 <a href="https://github.com/ItaloPussi/simpleProjectsJS/blob/master/colorRandomizer/readme.pt.md">Versão em Português</a> 👈
 
-A color randomizer that generates both hex and RGB values!
+A color randomizer that generates both hex, RGB and CMYK random values!
 
 ## Use
 
