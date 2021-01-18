@@ -369,7 +369,10 @@ html.dark {
      background-color: rgb(255, 123, 0);
 }
  .type[data-type="8"] {
-     background-color: rgba(0, 0, 0, .6);
+     background-color:rgb(161, 128, 74);
+}
+.type[data-type="9"] {
+    background-color: rgba(0, 0, 0, .6);
 }
 
 .toggle-darkmode {
