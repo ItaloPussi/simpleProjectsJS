@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scientific Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <div class="output">
+            <div class="output__prev-operation"></div>
+            <div class="output__current-operation">0</div>
+        </div>
+        <div class="calculator">
+            <div class="calculator-row">
+                <button data-value="rd" class="calculator__btn calculator__btn--double">
+                    Rad | Deg
+                </button>
+                <button data-value="!" class="calculator__btn">
+                    x!
+                </button>
+                <button data-value="(" class="calculator__btn">
+                    (
+                </button>
+                <button data-value=")" class="calculator__btn">
+                    )
+                </button>
+                <button data-value="%" class="calculator__btn">
+                    %
+                </button>
+                <button data-value="ac" class="calculator__btn">
+                    AC
+                </button>
+            </div>
+            <div class="calculator-row">
+                <button data-value="inv" class="calculator__btn">
+                    Inv
+                </button>
+                <button data-value="sin" class="calculator__btn">
+                    sin
+                </button>
+                <button data-value="in" class="calculator__btn">
+                    In
+                </button>
+                <button data-value="7" class="calculator__btn calculator__btn--simple">
+                    7
+                </button>
+                <button data-value="8" class="calculator__btn calculator__btn--simple">
+                    8
+                </button>
+                <button data-value="9" class="calculator__btn calculator__btn--simple">
+                    9
+                </button>
+                <button data-value="/" class="calculator__btn">
+                    /
+                </button>
+            </div>
+            <div class="calculator-row">
+                <button data-value="pi" class="calculator__btn">
+                    π
+                </button>
+                <button data-value="cos" class="calculator__btn">
+                    cos
+                </button>
+                <button data-value="log" class="calculator__btn">
+                    log
+                </button>
+                <button data-value="4" class="calculator__btn calculator__btn--simple">
+                    4
+                </button>
+                <button data-value="5" class="calculator__btn calculator__btn--simple">
+                    5
+                </button>
+                <button data-value="6" class="calculator__btn calculator__btn--simple">
+                    6
+                </button>
+                <button data-value="*" class="calculator__btn">
+                    x
+                </button>
+            </div>
+            <div class="calculator-row">
+                <button data-value="e" class="calculator__btn">
+                    e
+                </button>
+                <button data-value="tan" class="calculator__btn">
+                    tan
+                </button>
+                <button data-value="sqrt" class="calculator__btn">
+                    √
+                </button>
+                <button data-value="1" class="calculator__btn calculator__btn--simple">
+                    1
+                </button>
+                <button data-value="2" class="calculator__btn calculator__btn--simple">
+                    2
+                </button>
+                <button data-value="3" class="calculator__btn calculator__btn--simple">
+                    3
+                </button>
+                <button data-value="-" class="calculator__btn">
+                    -
+                </button>
+            </div>
+            <div class="calculator-row">
+                <button data-value="ans" class="calculator__btn">
+                    Ans
+                </button>
+                <button data-value="exp" class="calculator__btn">
+                    EXP
+                </button>
+                <button data-value="^" class="calculator__btn">
+                    x<sup>y</sup>
+                </button>
+                <button data-value="0" class="calculator__btn calculator__btn--simple">
+                    0
+                </button>
+                <button data-value="." class="calculator__btn calculator__btn--simple calculator__btn--bold">
+                    .
+                </button>
+                <button data-value="=" class="calculator__btn calculator__btn--result calculator__btn--bold">
+                    =
+                </button>
+                <button data-value="+" class="calculator__btn">
+                    +
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
