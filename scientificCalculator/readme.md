@@ -5,7 +5,9 @@
 ➕➖✖➗👨‍🔬 In this project I'll build a powerful Scientific Calculator!
 
 ## Functionalities
-    - Basic operations (+, -, *, /);
+    - Basic operations with float numbers (+, -, *, /);
+    - π;
+    - General percentage functionalities;
     - Display last operation;
     - Division erros handled;
 
@@ -20,6 +22,7 @@ If you wanna see the preview of this project, just access the link (Project in c
 	- Switch;
     - Eval;
     - Dataset;
+    - Try / Catch;
 
 ## Contributing
 Found a BUG? Feel free to open a issue. Pull requests also are welcome.
