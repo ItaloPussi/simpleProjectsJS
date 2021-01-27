@@ -35,6 +35,8 @@ body {
     align-items: flex-end;
     justify-content: flex-end;
     color: grey;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .output__current-operation {
@@ -45,6 +47,8 @@ body {
     justify-content: flex-end;
     font-size: 1.8rem;
     color: black;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .calculator-row {
