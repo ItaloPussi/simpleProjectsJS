@@ -9,105 +9,151 @@ buttons.forEach(button => button.addEventListener("click", identifyClickedButton
 
 // ------------------------- Global Variables -------------------------
 let setLastAnswer = true
-let visible_expression = '0'
-let computer_expression = '0'
 let lastWasAOperation = false
 let lastWasResult = false
 let nextNeedBeAOperator = false
+let result
+let visible_expression = '0'
+let computer_expression = '0'
 // ------------------------- Functions -------------------------
 
+// Set the previous answer to the dom
 function setLastAnswerFunction(text){
     if(setLastAnswer === false) return
     setLastAnswer = false
     prev_operation.textContent = text
 }
 
-function setCurrentExpression(value, type){
-    if(typeof visible_expression == 'number' && (isNaN(visible_expression) || !isFinite(visible_expression)) && type !='result'){
+// Verify if the value in the visible expression is NaN or Infinity
+function resultIsNotAValidNumber(type) {
+    return typeof visible_expression == 'number' && 
+    (isNaN(visible_expression) || !isFinite(visible_expression)) &&
+    type !='result'
+}
+
+// If the current expression is 0 or the last action was to show the result reset the expression
+function blankExpressionIfNecessary(isNecessary = false){
+    if(visible_expression === '0' || lastWasResult || isNecessary){
         visible_expression = ''
         computer_expression = ''
     }
+}
 
-    if(nextNeedBeAOperator && type !='simple_operation' && type != 'result'){
-        visible_expression+=" * "
-        computer_expression+='*'
+// Pick the arg and put in both expressions (Add to or Set to)
+function addSameValuesToBothExpressions(value){
+    visible_expression+=value
+    computer_expression+=value
+}
+
+function setSameValuesToBothExpressions(value){
+    visible_expression = value
+    computer_expression = value
+}
+
+// Pick the args and put within the equivalent variable (Add to or Set to)
+function addDifferentValuesToExpressions(visible, computer){
+    visible_expression+=visible
+    computer_expression+=computer
+}
+
+function setDifferentValuesToExpressions(visible, computer){
+    visible_expression = visible
+    computer_expression = computer
+}
+
+// Slice expressions by determined value
+function sliceExpressions(visible, computer){
+    visible_expression = visible_expression.slice(0, visible)
+    computer_expression = computer_expression.slice(0, computer)
+
+}
+
+// Reset booleans to false
+function resetBooleans(type){
+    if(type != 'result'){
+        lastWasResult = false
+    }
+    
+    if(type != 'simple_operation'){
+        lastWasAOperation = false
+    }
+}
+
+// By the type and the value, changes the expressions 
+function setCurrentExpression(value, type){
+    if(resultIsNotAValidNumber(type)){
+        blankExpressionIfNecessary(true)
+    }
+
+    if(nextNeedBeAOperator && type !='simple_operation' && type != 'result' && type!= 'percentage'){
+        addDifferentValuesToExpressions(" * ", '*')
         nextNeedBeAOperator = false
         lastWasAOperation = true
     }
 
     if(type == 'number') {
-        if(visible_expression === '0' || lastWasResult){
-            visible_expression = ''
-            computer_expression = ''
-        }
-
-        visible_expression+=value
-        computer_expression+=value
-        lastWasAOperation = false
+        blankExpressionIfNecessary()
+        addSameValuesToBothExpressions(value)
     } else if(type == 'simple_operation'){
         if(lastWasAOperation){
-            visible_expression = visible_expression.slice(0, -3)
-            computer_expression = computer_expression.slice(0,-1)
+            sliceExpressions(-3, -1)
         }
         if(visible_expression.length==0){
-            visible_expression = '0'
-            computer_expression = '0'
+            addSameValuesToBothExpressions("0")
         }
 
-        visible_expression = `${visible_expression} ${value} `
-        computer_expression = `${computer_expression}${value}`
+        addDifferentValuesToExpressions(` ${value} `, value)
         lastWasAOperation = true
         nextNeedBeAOperator = false
 
     } else if(type == 'pi'){
-        if(visible_expression === '0' || lastWasResult){
-            visible_expression = ''
-            computer_expression = ''
-            computer_expression+='Math.PI' 
-        }else if(!lastWasAOperation){
-            computer_expression+='*Math.PI' 
-        }
-        visible_expression += 'π'
-    } else if(type == 'dot') {
+        blankExpressionIfNecessary()
+        addDifferentValuesToExpressions('π', 'Math.PI')
+    } else if(type == "e"){
+        blankExpressionIfNecessary()
+        addDifferentValuesToExpressions('e', 'Math.E')
+
+    }else if(type == 'dot') {
         let splited = visible_expression.match(/\S+/g) || []
         splited = splited[splited.length-1]
 
         if(splited.indexOf('.') !=-1) return
-        if(visible_expression === '0' || lastWasResult){
-            visible_expression = ''
-            computer_expression = ''
-        }
+        blankExpressionIfNecessary()
 
-        visible_expression+='.'
-        computer_expression+='.'
-        lastWasAOperation = false
+        addSameValuesToBothExpressions(".")
     } else if(type == 'percentage'){
         if(lastWasAOperation){
-            visible_expression = visible_expression.slice(0, -3)
-            computer_expression = computer_expression.slice(0,-1)
+            sliceExpressions(-3, -1)
         }
-        visible_expression+='%'
-        computer_expression+='/100'
-        lastWasAOperation = false
+
+        let splited = visible_expression.match(/\S+/g) || []
+        let pen_splited = splited[splited.length -2]
+        let ant_splited = splited[splited.length -3]
+
+        addDifferentValuesToExpressions('%', '/100')
+
+        if(splited.length>=3 && (pen_splited.includes("+") || pen_splited.includes("-") )){
+            computer_expression+=`*${ant_splited.replace("%",'/100')}`
+        }
+
+        if(splited.length>=3 && pen_splited.includes("/")){
+            computer_expression+="*10000"
+        }
+        nextNeedBeAOperator = false
     }
 
-    if(type != 'result'){
-        lastWasResult = false
-    }
-
+    resetBooleans(type)
     current_operation.textContent = visible_expression
 }
 
 function evaluateResult() {
-    let result
     try{
         result = eval(computer_expression)
     } catch(e){
         result = NaN
     }
 
-    visible_expression = result
-    computer_expression = result
+    setSameValuesToBothExpressions(+parseFloat(result).toFixed(9))
     setCurrentExpression('','result')
 }
 
@@ -148,7 +194,8 @@ function identifyClickedButton(){
             lastWasResult = true
             break
         case 'pi':
-            setCurrentExpression('π', 'pi')
+        case 'e':
+            setCurrentExpression('', clickedButton)
             nextNeedBeAOperator = true
             break
         case '.':
