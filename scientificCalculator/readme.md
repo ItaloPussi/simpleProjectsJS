@@ -7,7 +7,8 @@
 ## Functionalities
     - Basic operations with float numbers (+, -, *, /);
     - π;
-    - General percentage functionalities;
+    - e (euler);
+    - Percentage;
     - Display last operation;
     - Division erros handled;
 
@@ -16,7 +17,7 @@ If you wanna see the preview of this project, just access the link (Project in c
 <a href="https://italopussi-scientificcalculator.netlify.app/" target="_blank">https://italopussi-scientificcalculator.netlify.app/</a>
 
 ## Status
-![10%](https://progress-bar.dev/10)
+![30%](https://progress-bar.dev/30)
 
 ## Main concepts covered;
 	- Switch;
