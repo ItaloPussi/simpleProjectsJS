@@ -12,9 +12,12 @@ let setLastAnswer = true
 let lastWasAOperation = false
 let lastWasResult = false
 let nextNeedBeAOperator = false
+let nextCannotBeAOperator = false
+let lastWasAFunction = false
 let result
 let visible_expression = '0'
 let computer_expression = '0'
+let pending_parenthesis = 0
 // ------------------------- Functions -------------------------
 
 // Set the previous answer to the dom
@@ -77,6 +80,10 @@ function resetBooleans(type){
     if(type != 'simple_operation'){
         lastWasAOperation = false
     }
+
+    if(type != 'sin' && type != 'cos' && type != 'tan'){
+        lastWasAFunction = false
+    }
 }
 
 // By the type and the value, changes the expressions 
@@ -85,7 +92,7 @@ function setCurrentExpression(value, type){
         blankExpressionIfNecessary(true)
     }
 
-    if(nextNeedBeAOperator && type !='simple_operation' && type != 'result' && type!= 'percentage'){
+    if(nextNeedBeAOperator && type !='simple_operation' && type != 'result' && type!= 'percentage' && type!= 'cp'){
         addDifferentValuesToExpressions(" * ", '*')
         nextNeedBeAOperator = false
         lastWasAOperation = true
@@ -94,7 +101,9 @@ function setCurrentExpression(value, type){
     if(type == 'number') {
         blankExpressionIfNecessary()
         addSameValuesToBothExpressions(value)
+        nextCannotBeAOperator = false
     } else if(type == 'simple_operation'){
+        if(nextCannotBeAOperator) return
         if(lastWasAOperation){
             sliceExpressions(-3, -1)
         }
@@ -107,13 +116,23 @@ function setCurrentExpression(value, type){
         nextNeedBeAOperator = false
 
     } else if(type == 'pi'){
+        if(!lastWasAOperation && computer_expression[computer_expression.length-1] != "("){
+            computer_expression+='*'
+        }
         blankExpressionIfNecessary()
         addDifferentValuesToExpressions('π', 'Math.PI')
+        nextCannotBeAOperator = false
+
     } else if(type == "e"){
+        if(!lastWasAOperation && computer_expression[computer_expression.length-1] != "("){
+            computer_expression+='*'
+        }
         blankExpressionIfNecessary()
         addDifferentValuesToExpressions('e', 'Math.E')
+        nextCannotBeAOperator = false
 
     }else if(type == 'dot') {
+        if(nextCannotBeAOperator) return
         let splited = visible_expression.match(/\S+/g) || []
         splited = splited[splited.length-1]
 
@@ -122,6 +141,7 @@ function setCurrentExpression(value, type){
 
         addSameValuesToBothExpressions(".")
     } else if(type == 'percentage'){
+        if(nextCannotBeAOperator) return
         if(lastWasAOperation){
             sliceExpressions(-3, -1)
         }
@@ -139,14 +159,88 @@ function setCurrentExpression(value, type){
         if(splited.length>=3 && pen_splited.includes("/")){
             computer_expression+="*10000"
         }
-        nextNeedBeAOperator = false
+        nextNeedBeAOperator = true
+
+    } else if(type == 'op'){
+        if(computer_expression[computer_expression.length-1] == "("){
+            computer_expression+='1*'
+        } else if(!lastWasAOperation && !lastWasAFunction){
+            computer_expression+='*'
+        }
+
+        addSameValuesToBothExpressions('(')
+        pending_parenthesis++
+        resetBooleans(type)
+        nextCannotBeAOperator = true
+    } else if(type == 'cp'){
+        if(nextCannotBeAOperator) return
+
+        if(pending_parenthesis === 0 || lastWasAOperation){
+            return false
+        }
+        addSameValuesToBothExpressions(')')
+        pending_parenthesis--
+    } else if(type == 'sin'){
+        if(computer_expression[computer_expression.length-1] == "("){
+            computer_expression+='1*'
+        } else if(!lastWasAOperation){
+            computer_expression+='*'
+        }
+
+        addDifferentValuesToExpressions(' sin', 'Math.sin')
+        lastWasAFunction = true
+        resetBooleans(type)
+        setCurrentExpression('','op')
+    } else if(type == 'cos'){
+        if(computer_expression[computer_expression.length-1] == "("){
+            computer_expression+='1*'
+        } else if(!lastWasAOperation){
+            computer_expression+='*'
+        }
+
+        addDifferentValuesToExpressions(' cos', 'Math.cos')
+        lastWasAFunction = true
+        resetBooleans(type)
+        setCurrentExpression('','op')
+    } else if(type == 'tan'){
+        if(computer_expression[computer_expression.length-1] == "("){
+            computer_expression+='1*'
+        } else if(!lastWasAOperation){
+            computer_expression+='*'
+        }
+
+        addDifferentValuesToExpressions(' tan', 'Math.tan')
+        lastWasAFunction = true
+        resetBooleans(type)
+        setCurrentExpression('','op')
     }
 
     resetBooleans(type)
     current_operation.textContent = visible_expression
 }
 
+// Close open parenthesis
+function closesParenthesis(){
+    current_operation.setAttribute('data-parenthesis', '')
+
+    for(i = 1; i<=pending_parenthesis; i++){
+        computer_expression+=')'
+        visible_expression+=')'
+    }
+}
+
+function showParenthesis(){
+    let parenthesis = ''
+    for(i = 1; i<=pending_parenthesis; i++){
+        parenthesis+=')'
+    }
+
+    current_operation.setAttribute('data-parenthesis', parenthesis)
+    current_operation.style.paddingRight = `${pending_parenthesis*10}px`
+    
+}
 function evaluateResult() {
+    
     try{
         result = eval(computer_expression)
     } catch(e){
@@ -155,6 +249,7 @@ function evaluateResult() {
 
     setSameValuesToBothExpressions(+parseFloat(result).toFixed(9))
     setCurrentExpression('','result')
+    pending_parenthesis = 0
 }
 
 function identifyClickedButton(){
@@ -186,6 +281,8 @@ function identifyClickedButton(){
             setCurrentExpression(clickedButton, 'simple_operation')
             break
         case '=':
+            if(lastWasAOperation) return
+            closesParenthesis()
             if(!lastWasResult){
                 setLastAnswer = true
                 setLastAnswerFunction(`${visible_expression} =`)
@@ -198,14 +295,22 @@ function identifyClickedButton(){
             setCurrentExpression('', clickedButton)
             nextNeedBeAOperator = true
             break
+        case 'sin':
+        case 'cos':
+        case 'tan':
+        case 'op':
+        case 'cp':
+            setCurrentExpression('', clickedButton)
+            break;
         case '.':
             setCurrentExpression('.','dot')
             break
         case '%':
             setCurrentExpression('&', 'percentage')
-            nextNeedBeAOperator = true
             break
         default:
             alert('Sorry, this part is not ready yet!')
     }
+
+    showParenthesis()
 }

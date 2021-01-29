@@ -49,6 +49,23 @@ body {
     color: black;
     white-space: nowrap;
     overflow: hidden;
+    position: relative;
+}
+
+.output__current-operation::after{
+    content: attr(data-parenthesis);
+    position: absolute;
+    color: black;
+    height: 100%;
+    font-size: 1.8rem;
+    line-height: 100%;
+    right: 0;
+    top: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    opacity: .5;
+
 }
 
 .calculator-row {
