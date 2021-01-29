@@ -7,6 +7,8 @@
 ## Funcionalidades
     - Operações Básicas com números decimais (+, -, *, /);
     - π;
+    - ();
+    - Funções Seno, cosseno e tangente;
     - e (Euler);
     - Porcentagem;
     - Veja a última operação;
@@ -17,7 +19,7 @@ Se você quiser visualizar o preview desse projeto, simplesmente acesse o link (
 <a href="https://italopussi-scientificcalculator.netlify.app/" target="_blank">https://italopussi-scientificcalculator.netlify.app/</a>
 
 ## Status
-![30%](https://progress-bar.dev/30)
+![50%](https://progress-bar.dev/30)
 
 ## Principais conceitos abordados
 	- Switch;
