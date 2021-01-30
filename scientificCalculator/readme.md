@@ -8,6 +8,9 @@
     - Basic operations with float numbers (+, -, *, /);
     - ();
     - π;
+    - SQRT;
+    - Log and In;
+    - Exp;
     - Sin, cos and tan functions;
     - e (euler);
     - Percentage;
@@ -19,13 +22,14 @@ If you wanna see the preview of this project, just access the link (Project in c
 <a href="https://italopussi-scientificcalculator.netlify.app/" target="_blank">https://italopussi-scientificcalculator.netlify.app/</a>
 
 ## Status
-![50%](https://progress-bar.dev/30)
+![65%](https://progress-bar.dev/65)
 
 ## Main concepts covered;
 	- Switch;
     - Eval;
     - Dataset;
     - Try / Catch;
+    - Regex;
 
 ## Contributing
 Found a BUG? Feel free to open a issue. Pull requests also are welcome.

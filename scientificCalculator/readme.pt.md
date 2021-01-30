@@ -8,6 +8,9 @@
     - Operações Básicas com números decimais (+, -, *, /);
     - π;
     - ();
+    - Raiz quadrada;
+    - Logarítmo e Logarítmo natural;
+    - Exp;
     - Funções Seno, cosseno e tangente;
     - e (Euler);
     - Porcentagem;
@@ -19,13 +22,14 @@ Se você quiser visualizar o preview desse projeto, simplesmente acesse o link (
 <a href="https://italopussi-scientificcalculator.netlify.app/" target="_blank">https://italopussi-scientificcalculator.netlify.app/</a>
 
 ## Status
-![50%](https://progress-bar.dev/30)
+![65%](https://progress-bar.dev/65)
 
 ## Principais conceitos abordados
 	- Switch;
     - Eval;
     - Dataset;
     - Try / Catch;
+    - Regex;
 
 ## Contribuindo
 Encontrou algum BUG? Sinta-se livre para abrir uma issue. Pull requests também são bem-vindas.
