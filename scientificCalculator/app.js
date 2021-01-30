@@ -14,11 +14,29 @@ let lastWasResult = false
 let nextNeedBeAOperator = false
 let nextCannotBeAOperator = false
 let lastWasAFunction = false
+let usingExp = false;
 let result
 let visible_expression = '0'
 let computer_expression = '0'
 let pending_parenthesis = 0
 // ------------------------- Functions -------------------------
+
+// Math expressions
+function log(x){
+    return Math.log(x) / Math.log(10)
+}
+
+function exp(x, y){
+    z = 10 ** Math.abs(y)
+
+    if(y<0){
+        return x / z
+    } else if(y == 0){
+        return x
+    } else {
+        return x * z
+    }
+}
 
 // Set the previous answer to the dom
 function setLastAnswerFunction(text){
@@ -81,7 +99,7 @@ function resetBooleans(type){
         lastWasAOperation = false
     }
 
-    if(type != 'sin' && type != 'cos' && type != 'tan'){
+    if(type != 'sin' && type != 'cos' && type != 'tan' && type != 'log' && type != 'in' && type != 'sqrt'){
         lastWasAFunction = false
     }
 }
@@ -97,7 +115,31 @@ function setCurrentExpression(value, type){
         nextNeedBeAOperator = false
         lastWasAOperation = true
     }
+    
+    if(usingExp && type!='number'){
+        let lastChunk = visible_expression.split(" ")
+        lastChunk = lastChunk[lastChunk.length-1]
 
+        splitedE = lastChunk.split("E")
+        splitedE = lastChunk[lastChunk.length - 1]
+
+        let minus = visible_expression[visible_expression.length-1] == '-' || splitedE.includes("-")
+        if(minus && value == '-') return
+
+        if(value == '-'){
+            computer_expression+='-'
+            visible_expression+='-'
+            current_operation.textContent = visible_expression
+        }
+
+        const lastNumber = visible_expression.match(/E[0-9]+(?!.*[0-9])$/)
+        if(lastNumber === null) return
+        
+        computer_expression+=")"
+        nextNeedBeAOperator = true
+        usingExp = false
+        
+    }
     if(type == 'number') {
         blankExpressionIfNecessary()
         addSameValuesToBothExpressions(value)
@@ -122,6 +164,7 @@ function setCurrentExpression(value, type){
         blankExpressionIfNecessary()
         addDifferentValuesToExpressions('π', 'Math.PI')
         nextCannotBeAOperator = false
+        nextNeedBeAOperator = true
 
     } else if(type == "e"){
         if(!lastWasAOperation && computer_expression[computer_expression.length-1] != "("){
@@ -130,6 +173,7 @@ function setCurrentExpression(value, type){
         blankExpressionIfNecessary()
         addDifferentValuesToExpressions('e', 'Math.E')
         nextCannotBeAOperator = false
+        nextNeedBeAOperator = true
 
     }else if(type == 'dot') {
         if(nextCannotBeAOperator) return
@@ -180,10 +224,23 @@ function setCurrentExpression(value, type){
         }
         addSameValuesToBothExpressions(')')
         pending_parenthesis--
-    } else if(type == 'sin'){
+    } else if(type == 'sqrt'){
+        blankExpressionIfNecessary()
         if(computer_expression[computer_expression.length-1] == "("){
             computer_expression+='1*'
-        } else if(!lastWasAOperation){
+        } else if(!lastWasAOperation && computer_expression.length!=0){
+            computer_expression+='*'
+        }
+
+        addDifferentValuesToExpressions(' √', 'Math.sqrt')
+        lastWasAFunction = true
+        resetBooleans(type)
+        setCurrentExpression('','op')
+    } else if(type == 'sin'){
+        blankExpressionIfNecessary()
+        if(computer_expression[computer_expression.length-1] == "("){
+            computer_expression+='1*'
+        } else if(!lastWasAOperation && computer_expression.length!=0){
             computer_expression+='*'
         }
 
@@ -192,9 +249,10 @@ function setCurrentExpression(value, type){
         resetBooleans(type)
         setCurrentExpression('','op')
     } else if(type == 'cos'){
+        blankExpressionIfNecessary()
         if(computer_expression[computer_expression.length-1] == "("){
             computer_expression+='1*'
-        } else if(!lastWasAOperation){
+        } else if(!lastWasAOperation && computer_expression.length!=0){
             computer_expression+='*'
         }
 
@@ -203,9 +261,10 @@ function setCurrentExpression(value, type){
         resetBooleans(type)
         setCurrentExpression('','op')
     } else if(type == 'tan'){
+        blankExpressionIfNecessary()
         if(computer_expression[computer_expression.length-1] == "("){
             computer_expression+='1*'
-        } else if(!lastWasAOperation){
+        } else if(!lastWasAOperation && computer_expression.length!=0){
             computer_expression+='*'
         }
 
@@ -213,6 +272,43 @@ function setCurrentExpression(value, type){
         lastWasAFunction = true
         resetBooleans(type)
         setCurrentExpression('','op')
+    } else if(type == 'in'){
+        blankExpressionIfNecessary()
+
+        if(computer_expression[computer_expression.length-1] == "("){
+            computer_expression+='1*'
+        } else if(!lastWasAOperation && computer_expression.length!=0){
+            computer_expression+='*'
+        }
+
+        addDifferentValuesToExpressions(' In', 'Math.log')
+        lastWasAFunction = true
+        resetBooleans(type)
+        setCurrentExpression('','op')
+    } else if(type == 'log'){
+        blankExpressionIfNecessary()
+
+        if(computer_expression[computer_expression.length-1] == "("){
+            computer_expression+='1*'
+        } else if(!lastWasAOperation && computer_expression.length!=0){
+            computer_expression+='*'
+        }
+
+        addDifferentValuesToExpressions(' log', 'log')
+        lastWasAFunction = true
+        resetBooleans(type)
+        setCurrentExpression('','op')
+    } else if(type == 'exp'){
+
+        const lastNumber = visible_expression.match(/[0-9]+(?!.*[0-9])$/)
+        let lastChunk = visible_expression.split(" ")
+        lastChunk = lastChunk[lastChunk.length-1]
+    
+        if(lastNumber == null || lastChunk.includes("E")) return
+
+        computer_expression = computer_expression.replace(/[0-9]+(?!.*[0-9])$/, `exp(${lastNumber[0]},`)
+        visible_expression+="E"
+        usingExp = true
     }
 
     resetBooleans(type)
@@ -240,14 +336,22 @@ function showParenthesis(){
     
 }
 function evaluateResult() {
-    
+    if(usingExp){
+        computer_expression+=")"
+        usingExp = false
+    }
     try{
         result = eval(computer_expression)
     } catch(e){
         result = NaN
     }
 
-    setSameValuesToBothExpressions(+parseFloat(result).toFixed(9))
+
+    if(`${result}`.includes('e-')){
+        setSameValuesToBothExpressions(result)
+    }else {
+        setSameValuesToBothExpressions(+parseFloat(result).toFixed(9))
+    }
     setCurrentExpression('','result')
     pending_parenthesis = 0
 }
@@ -293,20 +397,19 @@ function identifyClickedButton(){
         case 'pi':
         case 'e':
             setCurrentExpression('', clickedButton)
-            nextNeedBeAOperator = true
             break
         case 'sin':
         case 'cos':
         case 'tan':
         case 'op':
         case 'cp':
-            setCurrentExpression('', clickedButton)
-            break;
-        case '.':
-            setCurrentExpression('.','dot')
-            break
-        case '%':
-            setCurrentExpression('&', 'percentage')
+        case 'dot':
+        case 'percentage':
+        case 'log':
+        case 'in':
+        case 'sqrt':
+        case 'exp':
+                setCurrentExpression('', clickedButton)
             break
         default:
             alert('Sorry, this part is not ready yet!')
