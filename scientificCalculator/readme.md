@@ -8,6 +8,8 @@
     - Basic operations with float numbers (+, -, *, /);
     - ();
     - π;
+    - Factorial;
+    - Power;
     - SQRT;
     - Log and In;
     - Exp;
@@ -22,7 +24,7 @@ If you wanna see the preview of this project, just access the link (Project in c
 <a href="https://italopussi-scientificcalculator.netlify.app/" target="_blank">https://italopussi-scientificcalculator.netlify.app/</a>
 
 ## Status
-![65%](https://progress-bar.dev/65)
+![70%](https://progress-bar.dev/70)
 
 ## Main concepts covered;
 	- Switch;

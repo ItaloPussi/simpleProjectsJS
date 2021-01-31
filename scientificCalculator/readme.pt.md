@@ -8,6 +8,8 @@
     - Operações Básicas com números decimais (+, -, *, /);
     - π;
     - ();
+    - Fatorial;
+    - Potência;
     - Raiz quadrada;
     - Logarítmo e Logarítmo natural;
     - Exp;
@@ -22,7 +24,7 @@ Se você quiser visualizar o preview desse projeto, simplesmente acesse o link (
 <a href="https://italopussi-scientificcalculator.netlify.app/" target="_blank">https://italopussi-scientificcalculator.netlify.app/</a>
 
 ## Status
-![65%](https://progress-bar.dev/65)
+![70%](https://progress-bar.dev/70)
 
 ## Principais conceitos abordados
 	- Switch;
