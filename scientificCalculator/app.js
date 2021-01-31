@@ -14,7 +14,8 @@ let lastWasResult = false
 let nextNeedBeAOperator = false
 let nextCannotBeAOperator = false
 let lastWasAFunction = false
-let usingExp = false;
+let usingExp = false
+let usingPow = false
 let result
 let visible_expression = '0'
 let computer_expression = '0'
@@ -36,6 +37,14 @@ function exp(x, y){
     } else {
         return x * z
     }
+}
+
+function fac(x){
+    let res = 1
+    for(i = x; x>1; x--){
+        res = x * res
+    }
+    return res
 }
 
 // Set the previous answer to the dom
@@ -116,6 +125,20 @@ function setCurrentExpression(value, type){
         lastWasAOperation = true
     }
     
+    if(usingPow && (type == 'simple_operation' || type == '^') && value !="-"){
+        computer_expression+=")"
+        usingPow = false
+    }
+
+    if(usingPow && value == '-'){
+        lastChunk = computer_expression.split("**")
+        lastChunk = lastChunk[lastChunk.length-1]
+        if(lastChunk.includes("-")){
+            computer_expression+=")"
+            usingPow = false
+        }
+    }
+    
     if(usingExp && type!='number'){
         let lastChunk = visible_expression.split(" ")
         lastChunk = lastChunk[lastChunk.length-1]
@@ -145,11 +168,14 @@ function setCurrentExpression(value, type){
         addSameValuesToBothExpressions(value)
         nextCannotBeAOperator = false
     } else if(type == 'simple_operation'){
+        if(current_operation.textContent == '0' && value == '-'){
+            setSameValuesToBothExpressions("")
+        }
         if(nextCannotBeAOperator) return
         if(lastWasAOperation){
             sliceExpressions(-3, -1)
         }
-        if(visible_expression.length==0){
+        if(visible_expression.length==0 && value !="-"){
             addSameValuesToBothExpressions("0")
         }
 
@@ -309,6 +335,22 @@ function setCurrentExpression(value, type){
         computer_expression = computer_expression.replace(/[0-9]+(?!.*[0-9])$/, `exp(${lastNumber[0]},`)
         visible_expression+="E"
         usingExp = true
+    } else if(type == '^'){
+
+        const lastNumber = visible_expression.match(/[0-9]+(?!.*[0-9])$/)
+    
+        if(lastNumber == null) return
+
+        computer_expression+="**("
+        visible_expression+="^"
+        usingPow=true
+    }else if(type == 'factorial'){
+        const lastNumber = visible_expression.match(/[0-9]+(?!.*[0-9])$/)
+        if(lastNumber == null) return
+
+        computer_expression = computer_expression.replace(/[0-9]+(?!.*[0-9])$/, `fac(${lastNumber[0]})`)
+        visible_expression+="!"
+        nextNeedBeAOperator = true
     }
 
     resetBooleans(type)
@@ -336,10 +378,12 @@ function showParenthesis(){
     
 }
 function evaluateResult() {
-    if(usingExp){
+    if(usingExp || usingPow){
         computer_expression+=")"
         usingExp = false
+        usingPow = false
     }
+    console.log(computer_expression)
     try{
         result = eval(computer_expression)
     } catch(e){
@@ -409,6 +453,8 @@ function identifyClickedButton(){
         case 'in':
         case 'sqrt':
         case 'exp':
+        case 'factorial':
+        case '^':
                 setCurrentExpression('', clickedButton)
             break
         default:
