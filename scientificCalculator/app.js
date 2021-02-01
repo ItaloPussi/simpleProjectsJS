@@ -16,6 +16,8 @@ let nextCannotBeAOperator = false
 let lastWasAFunction = false
 let usingExp = false
 let usingPow = false
+let inv = false
+let mod = 'deg'
 let result
 let visible_expression = '0'
 let computer_expression = '0'
@@ -45,6 +47,24 @@ function fac(x){
         res = x * res
     }
     return res
+}
+
+// Invert
+function invert(){
+    inv = !inv
+    document.querySelector("[data-value='sin']").innerHTML = inv ? 'sin <sup>-1</sup>' : 'sin'
+    document.querySelector("[data-value='cos']").innerHTML = inv ? 'cos <sup>-1</sup>' : 'cos'
+    document.querySelector("[data-value='tan']").innerHTML = inv ? 'tan <sup>-1</sup>' : 'tan'
+    document.querySelector("[data-value='ans']").innerHTML = inv ? 'Rnd' : 'Ans'
+    document.querySelector("[data-value='in']").innerHTML = inv ? 'e <sup>x</sup>' : 'In'
+    document.querySelector("[data-value='log']").innerHTML = inv ? '10 <sup>x</sup' : 'log'
+    document.querySelector("[data-value='sqrt']").innerHTML = inv ? 'x <sup>2</sup' : '√'
+    document.querySelector("[data-value='^']").innerHTML = inv ? 'soon' : 'x<sup>y</sup>'
+}
+
+function invertRd(){
+    mod = mod == 'deg' ? 'rad' : 'deg'
+    document.querySelector("[data-value='rd']").innerHTML = mod == 'deg' ? 'Rad&nbsp; <span class="less-opacity">| Deg</span>' : '<span class="less-opacity">Rad&nbsp; |</span>&nbsp; Deg'
 }
 
 // Set the previous answer to the dom
@@ -184,7 +204,7 @@ function setCurrentExpression(value, type){
         nextNeedBeAOperator = false
 
     } else if(type == 'pi'){
-        if(!lastWasAOperation && computer_expression[computer_expression.length-1] != "("){
+        if(!lastWasAOperation && computer_expression[computer_expression.length-1] != "(" && computer_expression[computer_expression.length-1] != '*'){
             computer_expression+='*'
         }
         blankExpressionIfNecessary()
@@ -252,16 +272,23 @@ function setCurrentExpression(value, type){
         pending_parenthesis--
     } else if(type == 'sqrt'){
         blankExpressionIfNecessary()
-        if(computer_expression[computer_expression.length-1] == "("){
-            computer_expression+='1*'
-        } else if(!lastWasAOperation && computer_expression.length!=0){
-            computer_expression+='*'
+        
+        if(inv){
+            const lastNumber = visible_expression.match(/[0-9]+(?!.*[0-9])$/)
+            if(!lastNumber) return
+            addDifferentValuesToExpressions("^2", '**2')
+            nextNeedBeAOperator = true
+        }else{
+            if(computer_expression[computer_expression.length-1] == "("){
+                computer_expression+='1*'
+            } else if(!lastWasAOperation && computer_expression.length!=0){
+                computer_expression+='*'
+            }
+            addDifferentValuesToExpressions(' √', 'Math.sqrt')
+            setCurrentExpression('','op')
+            lastWasAFunction = true
         }
-
-        addDifferentValuesToExpressions(' √', 'Math.sqrt')
-        lastWasAFunction = true
         resetBooleans(type)
-        setCurrentExpression('','op')
     } else if(type == 'sin'){
         blankExpressionIfNecessary()
         if(computer_expression[computer_expression.length-1] == "("){
@@ -270,10 +297,17 @@ function setCurrentExpression(value, type){
             computer_expression+='*'
         }
 
-        addDifferentValuesToExpressions(' sin', 'Math.sin')
+        if(inv){
+            addDifferentValuesToExpressions(' arcsin', 'Math.asin')
+        }else {
+            addDifferentValuesToExpressions(' sin', 'Math.sin')
+        }
         lastWasAFunction = true
         resetBooleans(type)
         setCurrentExpression('','op')
+        if(mod == 'rad'){
+            computer_expression+="Math.PI/180*"
+        }
     } else if(type == 'cos'){
         blankExpressionIfNecessary()
         if(computer_expression[computer_expression.length-1] == "("){
@@ -282,10 +316,18 @@ function setCurrentExpression(value, type){
             computer_expression+='*'
         }
 
-        addDifferentValuesToExpressions(' cos', 'Math.cos')
+        if(inv){
+            addDifferentValuesToExpressions(' arccos', 'Math.acos')
+        }else {
+            addDifferentValuesToExpressions(' cos', 'Math.cos')
+        }
+
         lastWasAFunction = true
         resetBooleans(type)
         setCurrentExpression('','op')
+        if(mod == 'rad'){
+            computer_expression+="Math.PI/180*"
+        }
     } else if(type == 'tan'){
         blankExpressionIfNecessary()
         if(computer_expression[computer_expression.length-1] == "("){
@@ -294,36 +336,65 @@ function setCurrentExpression(value, type){
             computer_expression+='*'
         }
 
-        addDifferentValuesToExpressions(' tan', 'Math.tan')
+        if(inv){
+            addDifferentValuesToExpressions(' arctan', 'Math.atan')
+        }else {
+            addDifferentValuesToExpressions(' tan', 'Math.tan')
+        }
         lastWasAFunction = true
         resetBooleans(type)
         setCurrentExpression('','op')
+        if(mod == 'rad'){
+            computer_expression+="Math.PI/180*"
+        }
     } else if(type == 'in'){
         blankExpressionIfNecessary()
 
-        if(computer_expression[computer_expression.length-1] == "("){
-            computer_expression+='1*'
-        } else if(!lastWasAOperation && computer_expression.length!=0){
-            computer_expression+='*'
-        }
+        if(inv){
+            if(!lastWasAOperation && computer_expression.length!=0){
+                addDifferentValuesToExpressions(" * ", '*')
+            }
+            addDifferentValuesToExpressions("e", 'Math.E')
+            lastWasAFunction = false
+            setCurrentExpression("", '^')
 
-        addDifferentValuesToExpressions(' In', 'Math.log')
-        lastWasAFunction = true
-        resetBooleans(type)
-        setCurrentExpression('','op')
+        }else{
+            if(computer_expression[computer_expression.length-1] == "("){
+                computer_expression+='1*'
+            } else if(!lastWasAOperation && computer_expression.length!=0){
+                computer_expression+='*'
+            }
+    
+            addDifferentValuesToExpressions(' In', 'Math.log')
+            lastWasAFunction = true
+            resetBooleans(type)
+            setCurrentExpression('','op')
+        }
+        
     } else if(type == 'log'){
         blankExpressionIfNecessary()
 
-        if(computer_expression[computer_expression.length-1] == "("){
-            computer_expression+='1*'
-        } else if(!lastWasAOperation && computer_expression.length!=0){
-            computer_expression+='*'
-        }
+        if(inv){
+            if(!lastWasAOperation && computer_expression.length!=0){
+                addDifferentValuesToExpressions(" * ", '*')
+            }
+            addSameValuesToBothExpressions("10")
+            resetBooleans(type)
+            setCurrentExpression("", '^')
 
-        addDifferentValuesToExpressions(' log', 'log')
-        lastWasAFunction = true
-        resetBooleans(type)
-        setCurrentExpression('','op')
+        }else{
+            if(computer_expression[computer_expression.length-1] == "("){
+                computer_expression+='1*'
+            } else if(!lastWasAOperation && computer_expression.length!=0){
+                computer_expression+='*'
+            }
+    
+            addDifferentValuesToExpressions(' log', 'log')
+            lastWasAFunction = true
+            setCurrentExpression('','op')
+            resetBooleans(type)
+        }
+       
     } else if(type == 'exp'){
 
         const lastNumber = visible_expression.match(/[0-9]+(?!.*[0-9])$/)
@@ -336,14 +407,20 @@ function setCurrentExpression(value, type){
         visible_expression+="E"
         usingExp = true
     } else if(type == '^'){
-
-        const lastNumber = visible_expression.match(/[0-9]+(?!.*[0-9])$/)
+        if(inv && value == "^"){
+            return false
+            const lastNumber = visible_expression.match(/[0-9]+(?!.*[0-9])$/)
+            if(lastNumber == null) return
+        }else {
+            const lastNumber = visible_expression.match(/[0-9]+(?!.*[0-9])$/)
+            const isE = visible_expression[visible_expression.length-1] == 'e'
+            if(lastNumber == null && !isE) return
     
-        if(lastNumber == null) return
-
-        computer_expression+="**("
-        visible_expression+="^"
-        usingPow=true
+            computer_expression+="**("
+            visible_expression+="^"
+            usingPow=true
+        }
+       
     }else if(type == 'factorial'){
         const lastNumber = visible_expression.match(/[0-9]+(?!.*[0-9])$/)
         if(lastNumber == null) return
@@ -454,8 +531,16 @@ function identifyClickedButton(){
         case 'sqrt':
         case 'exp':
         case 'factorial':
+            setCurrentExpression('', clickedButton)
+            break
         case '^':
-                setCurrentExpression('', clickedButton)
+            setCurrentExpression("^", clickedButton)
+            break
+        case 'inv':
+            invert()
+            break
+        case 'rd':
+            invertRd()
             break
         default:
             alert('Sorry, this part is not ready yet!')

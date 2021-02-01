@@ -12,6 +12,14 @@ body {
     font-family: "open-sans", Arial, sans-serif;
 }
 
+sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+    top: -0.3em;
+}
+
 .container {
     margin-top: 10rem;
     width: 590px;
@@ -110,4 +118,8 @@ body {
 
 .calculator__btn--bold {
     font-weight: bold;
+}
+
+.less-opacity {
+    opacity: 0.5;
 }
