@@ -16,15 +16,17 @@
     - Sin, cos and tan functions;
     - e (euler);
     - Percentage;
+    - Rad/Deg mode;
     - Display last operation;
     - Division erros handled;
+    - Invert button;
 
 ## Use
 If you wanna see the preview of this project, just access the link (Project in construction):
 <a href="https://italopussi-scientificcalculator.netlify.app/" target="_blank">https://italopussi-scientificcalculator.netlify.app/</a>
 
 ## Status
-![70%](https://progress-bar.dev/70)
+![80%](https://progress-bar.dev/80)
 
 ## Main concepts covered;
 	- Switch;

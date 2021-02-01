@@ -16,15 +16,17 @@
     - Funções Seno, cosseno e tangente;
     - e (Euler);
     - Porcentagem;
+    - Modo Radianos / Degree;
     - Veja a última operação;
     - Erros de divisão corrígidos;
+    - Botão Inverter;
 
 ## Uso
 Se você quiser visualizar o preview desse projeto, simplesmente acesse o link (projeto em construção):
 <a href="https://italopussi-scientificcalculator.netlify.app/" target="_blank">https://italopussi-scientificcalculator.netlify.app/</a>
 
 ## Status
-![70%](https://progress-bar.dev/70)
+![80%](https://progress-bar.dev/80)
 
 ## Principais conceitos abordados
 	- Switch;
