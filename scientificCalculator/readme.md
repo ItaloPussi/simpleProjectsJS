@@ -20,13 +20,15 @@
     - Display last operation;
     - Division erros handled;
     - Invert button;
+    - Cache of the last answer;
+    - Delete button;
 
 ## Use
 If you wanna see the preview of this project, just access the link (Project in construction):
 <a href="https://italopussi-scientificcalculator.netlify.app/" target="_blank">https://italopussi-scientificcalculator.netlify.app/</a>
 
 ## Status
-![80%](https://progress-bar.dev/80)
+![90%](https://progress-bar.dev/90)
 
 ## Main concepts covered;
 	- Switch;
