@@ -148,9 +148,12 @@ function resetItems() {
 		if (itemDataFrequency == 1 && itemIsCompleted) {
 			list.removeChild(item)
 		}
-		if (itemDataFrequency > 2 && itemDataFrequency != 6) {
-			let day = getTodayDateFormated(true)
+		if (itemDataFrequency >= 2 && itemDataFrequency != 6) {
+			let day = new Date(item.getAttribute("data-frequencydate"))
 
+			if(itemDataFrequency == 2) {
+				day.setDate(day.getDate() + 1)
+			}
 			if (itemDataFrequency == 3) {
 				day.setDate(day.getDate() + 7)
 			}
@@ -219,7 +222,7 @@ function createElement(textValue, elementDataID, status, frequency, frequencyDat
 			element.style.display = "none"
 		}
 	}
-	if (frequency > 2 && frequency != 6 && frequency != 7) {
+	if (frequency > 1 && frequency != 6 && frequency != 7) {
 		frequencyDayValue = frequencyDate ? frequencyDate : getTodayDateFormated(false)
 
 		element = createAttb(element, "data-frequencyDate", frequencyDayValue)
@@ -239,7 +242,6 @@ function createElement(textValue, elementDataID, status, frequency, frequencyDat
 		const max = document.querySelector("input[name=max]").value
 
 		textValue = textValue.replace("$", current)
-		textValue += ` (${max})`
 
 		element = createAttb(element, "data-current", current)
 		element = createAttb(element, "data-max", max)
@@ -250,6 +252,7 @@ function createElement(textValue, elementDataID, status, frequency, frequencyDat
 
 		element = createAttb(element, "data-current", dynamics.currentValue)
 		element = createAttb(element, "data-max", dynamics.maxValue)
+
 	}
 
 	element.innerHTML = `
