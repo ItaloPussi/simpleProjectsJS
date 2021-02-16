@@ -60,7 +60,7 @@ function invert() {
     document.querySelector("[data-value='in']").innerHTML = inv ? 'e <sup>x</sup>' : 'In'
     document.querySelector("[data-value='log']").innerHTML = inv ? '10 <sup>x</sup' : 'log'
     document.querySelector("[data-value='sqrt']").innerHTML = inv ? 'x <sup>2</sup' : '√'
-    document.querySelector("[data-value='^']").innerHTML = inv ? 'soon' : 'x<sup>y</sup>'
+    document.querySelector("[data-value='^']").innerHTML = inv ? '<sup>x</sup>√y' : 'x<sup>y</sup>'
 }
 
 function invertRd() {
@@ -229,7 +229,7 @@ function setCurrentExpression(value, type) {
         lastWasAOperation = true
     }
 
-    if (usingPow && (type == 'simple_operation' || type == '^') && value != "-") {
+    if (usingPow && (type != "number" && type!="pi" && type!="e") && value != "-") {
         computer_expression += ")"
         usingPow = false
     }
@@ -489,9 +489,11 @@ function setCurrentExpression(value, type) {
         usingExp = true
     } else if (type == '^') {
         if (inv && value == "^") {
-            return false
             const lastNumber = visible_expression.match(/[0-9]+(?!.*[0-9])$/)
-            if (lastNumber == null) return
+            if (lastNumber == null)  return
+            computer_expression = computer_expression.replace(/[0-9]+(?!.*[0-9])$/, `Math.pow(${lastNumber[0]},1/`)
+            visible_expression+="√"
+            usingPow = true
         } else {
             const lastNumber = visible_expression.match(/[0-9]+(?!.*[0-9])$/)
             const isE = visible_expression[visible_expression.length - 1] == 'e'
