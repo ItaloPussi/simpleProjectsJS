@@ -111,7 +111,7 @@ html.dark {
  .section-center {
      width: 90vw;
      margin: 0 auto;
-     max-width: 35rem;
+     max-width: 36rem;
      margin-top: 8rem;
      background: var(--clr-bg-secondary);
      border-radius: var(--radius);

@@ -161,6 +161,10 @@ function resetItems() {
 				day.setDate(day.getDate() + 30)
 			}
 
+			if (itemDataFrequency == 5) {
+				day.setDate(day.getDate() + 14)
+			}
+
 			if (itemIsCompleted) {
 				day = day.getFullYear() + "/" + (day.getMonth() + 1) + "/" + day.getDate()
 				item.setAttribute("data-frequencyDate", day)
