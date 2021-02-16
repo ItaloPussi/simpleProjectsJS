@@ -28,7 +28,7 @@ Se você quiser visualizar o preview desse projeto, simplesmente acesse o link (
 <a href="https://italopussi-scientificcalculator.netlify.app/" target="_blank">https://italopussi-scientificcalculator.netlify.app/</a>
 
 ## Status
-![90%](https://progress-bar.dev/90)
+![100%](https://progress-bar.dev/100)
 
 ## Principais conceitos abordados
 	- Switch;

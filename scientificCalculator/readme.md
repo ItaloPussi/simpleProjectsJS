@@ -28,7 +28,7 @@ If you wanna see the preview of this project, just access the link (Project in c
 <a href="https://italopussi-scientificcalculator.netlify.app/" target="_blank">https://italopussi-scientificcalculator.netlify.app/</a>
 
 ## Status
-![90%](https://progress-bar.dev/90)
+![100%](https://progress-bar.dev/100)
 
 ## Main concepts covered;
 	- Switch;
