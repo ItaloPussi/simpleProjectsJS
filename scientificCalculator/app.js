@@ -25,11 +25,14 @@ let pending_parenthesis = 0
 const transactions = []
     // ------------------------- Functions -------------------------
 
-// Math expressions
+// MATH EXPRESSIONS--------------------------------
+
+// Log of X in the base 10
 function log(x) {
     return Math.log(x) / Math.log(10)
 }
 
+// Exp of X
 function exp(x, y) {
     z = 10 ** Math.abs(y)
 
@@ -42,6 +45,7 @@ function exp(x, y) {
     }
 }
 
+// Calculate Factorial of X
 function fac(x) {
     let res = 1
     for (i = x; x > 1; x--) {
@@ -49,8 +53,9 @@ function fac(x) {
     }
     return res
 }
+//-------------------------------------------------
 
-// Invert
+// Invert the functions
 function invert() {
     inv = !inv
     document.querySelector("[data-value='sin']").innerHTML = inv ? 'sin <sup>-1</sup>' : 'sin'
@@ -63,6 +68,8 @@ function invert() {
     document.querySelector("[data-value='^']").innerHTML = inv ? '<sup>x</sup>√y' : 'x<sup>y</sup>'
 }
 
+
+// Invert between rad and deg
 function invertRd() {
     mod = mod == 'deg' ? 'rad' : 'deg'
     document.querySelector("[data-value='rd']").innerHTML = mod == 'deg' ? 'Rad&nbsp; <span class="less-opacity">| Deg</span>' : '<span class="less-opacity">Rad&nbsp; |</span>&nbsp; Deg'
@@ -189,7 +196,7 @@ function sliceExpressions(visible, computer) {
 
 }
 
-// Reset booleans to false
+// Reset booleans by the last type
 function resetBooleans(type) {
     if (type != 'result') {
         lastWasResult = false
@@ -535,6 +542,7 @@ function closesParenthesis() {
     }
 }
 
+// Using CSS After element and JS, show parenthesis to be closed.
 function showParenthesis() {
     let parenthesis = ''
     for (i = 1; i <= pending_parenthesis; i++) {
@@ -552,7 +560,7 @@ function evaluateResult() {
         usingExp = false
         usingPow = false
     }
-    console.log(computer_expression)
+    
     try {
         result = eval(computer_expression)
     } catch (e) {
