@@ -148,21 +148,31 @@ function resetItems() {
 		if (itemDataFrequency == 1 && itemIsCompleted) {
 			list.removeChild(item)
 		}
-		if (itemDataFrequency >= 2 && itemDataFrequency != 6) {
+		if (itemDataFrequency >= 2) {
 			let day = new Date(item.getAttribute("data-frequencydate"))
 
 			if(itemDataFrequency == 2) {
 				day.setDate(day.getDate() + 1)
 			}
-			if (itemDataFrequency == 3) {
+			else if (itemDataFrequency == 3) {
 				day.setDate(day.getDate() + 7)
 			}
-			if (itemDataFrequency == 4) {
+			else if (itemDataFrequency == 4) {
 				day.setDate(day.getDate() + 30)
 			}
-
-			if (itemDataFrequency == 5) {
+			else if (itemDataFrequency == 5) {
 				day.setDate(day.getDate() + 14)
+			}
+			else if (itemDataFrequency == 6) {
+				day.setDate(day.getDate() + 1)
+			}
+			else if(itemDataFrequency == 7){
+				while (true){
+					day.setDate(day.getDate() + 1)
+					if(day.getDay() != 0 && day.getDay() != 6){
+						break
+					}
+				}
 			}
 
 			if (itemIsCompleted) {
@@ -217,7 +227,7 @@ function createElement(textValue, elementDataID, status, frequency, frequencyDat
 		element = createAttb(element, "data-displayDay", initialDisplayDay)
 	}
 
-
+	// If frequency equals to "Weekday"
 	if (frequency == 7) {
 		const today = getTodayDateFormated(true)
 		weekday = parseInt(today.getDay())
@@ -226,7 +236,9 @@ function createElement(textValue, elementDataID, status, frequency, frequencyDat
 			element.style.display = "none"
 		}
 	}
-	if (frequency > 1 && frequency != 6 && frequency != 7) {
+
+	// If frequency is not set to "only"
+	if (frequency > 1) {
 		frequencyDayValue = frequencyDate ? frequencyDate : getTodayDateFormated(false)
 
 		element = createAttb(element, "data-frequencyDate", frequencyDayValue)
@@ -241,6 +253,8 @@ function createElement(textValue, elementDataID, status, frequency, frequencyDat
 		}
 	}
 
+
+	// Frequency equals to "dynamic" | Creating task first time
 	if (frequency == 6 && !dynamics) {
 		const current = document.querySelector("input[name=current]").value
 		const max = document.querySelector("input[name=max]").value
@@ -252,6 +266,7 @@ function createElement(textValue, elementDataID, status, frequency, frequencyDat
 
 
 	}
+	// Frequency equals to "dynamic" | Creating task by the Nth time.
 	else if (frequency == 6 && dynamics) {
 
 		element = createAttb(element, "data-current", dynamics.currentValue)
