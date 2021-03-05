@@ -43,6 +43,13 @@
 				<button type="button" class="cancel hidden">Cancelar</button>
 			</div>
 			<div class="frequency-control">
+				<div>
+					<label for="each-radio">
+						<input type="radio" name="frequency" id="each-radio" value="8">Each </label>
+					<label for="each" style="display:none; margin: 0 10px;flex:2;">
+						<input type="number" name="each" id="each" placeholder="N"> Days </label>
+				</div>
+				
 				<label for="only">
 					<input type="radio" name="frequency" id="only" checked="checked" value="1">Only </label>
 				<label for="daily">
@@ -53,8 +60,6 @@
 					<input type="radio" name="frequency" id="weekly" value="3">Weekly </label>
 				<label for="monthly">
 					<input type="radio" name="frequency" id="monthly" value="4">Monthly </label>
-				<label for="biweekly">
-					<input type="radio" name="frequency" id="biweekly" value="5">Biweekly </label>
 				</div>
 			<div class="dynamic-container">
 				<label for="dynamic">

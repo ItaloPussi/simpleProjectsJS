@@ -60,6 +60,8 @@ resetBtn.addEventListener("click", resetItems)
 dynamicBox.addEventListener("change", handleDynamicOptionsDisplay)
 archiveBtn.addEventListener("click", handleDisplayAllTasks)
 
+radioIpts.forEach(radio => radio.addEventListener("change", handleRadioChange))
+
 typeSelect.addEventListener("change", (e) => {
 	selectedType = e.target.value
 	handleDisplayTasksWithSelectedType()
@@ -67,6 +69,18 @@ typeSelect.addEventListener("change", (e) => {
 
 pickerDate.min = pickerDate.value = getTodayDateFormated().replaceAll("/", "-")
 
+// 
+function handleRadioChange(){
+	if(document.querySelector('input[type = radio]:checked').value == "8"){
+		document.querySelector("label[for = weekly]").style.display = "none"
+		document.querySelector("label[for = monthly]").style.display = "none"
+		document.querySelector("label[for = each]").style.display = "inline-flex"
+	}else{
+		document.querySelector("label[for = weekly]").style.display = "inline-flex"
+		document.querySelector("label[for = monthly]").style.display = "inline-flex"
+		document.querySelector("label[for = each]").style.display = "none"
+	}
+}
 // Return or today as string or as a date object
 function getTodayDateFormated(returnDataObject) {
 	const dt = new Date()
@@ -173,6 +187,8 @@ function resetItems() {
 						break
 					}
 				}
+			} else if(itemDataFrequency == 8){
+				day.setDate(day.getDate() + parseInt(item.getAttribute("data-each")))
 			}
 
 			if (itemIsCompleted) {
@@ -204,7 +220,7 @@ function createAttb(element, attbName, attbValue) {
 }
 
 //Create a element by receiving a value and a valid ID
-function createElement(textValue, elementDataID, status, frequency, frequencyDate, dynamics, taskType, initialDisplayDay) {
+function createElement(textValue, elementDataID, status, frequency, frequencyDate, dynamics, taskType, initialDisplayDay, each) {
 	let element = document.createElement('article')
 	element.classList.add('list-item')
 
@@ -225,6 +241,13 @@ function createElement(textValue, elementDataID, status, frequency, frequencyDat
 		}
 
 		element = createAttb(element, "data-displayDay", initialDisplayDay)
+	}
+
+	// If frequency equals to "Each N days"
+	if (frequency == 8 && each){
+		element = createAttb(element, "data-each", each)
+	} else if(frequency == 8){
+		element = createAttb(element, "data-each", document.querySelector("input[name=each]").value)
 	}
 
 	// If frequency equals to "Weekday"
@@ -420,11 +443,16 @@ function handleLocalStorage() {
 	const items = [...list.children]
 	const itemsContent = items.map(item => {
 		dynamics = false;
+		each = false;
 		if (item.getAttribute("data-frequency") == 6) {
 			dynamics = {
 				"currentValue": item.getAttribute("data-current"),
 				"maxValue": item.getAttribute("data-max")
 			}
+		}
+
+		if (item.getAttribute("data-frequency") == 8) {
+			each = item.getAttribute("data-each")
 		}
 		return {
 			"id": item.getAttribute('data-id'),
@@ -435,6 +463,7 @@ function handleLocalStorage() {
 			dynamics,
 			"type": item.getAttribute("data-type"),
 			"initialDisplayDay": item.getAttribute("data-displayDay"),
+			each,
 		}
 	})
 	localStorage.setItem('items', JSON.stringify(itemsContent))
@@ -446,7 +475,7 @@ function recoverLocalStorageData() {
 	if (!items) return
 
 	items.map(item => {
-		createElement(item.value, item.id, item.completed, item.frequency, item.frequencyDate, item.dynamics, item.type, item.initialDisplayDay)
+		createElement(item.value, item.id, item.completed, item.frequency, item.frequencyDate, item.dynamics, item.type, item.initialDisplayDay, item.each)
 	})
 }
 

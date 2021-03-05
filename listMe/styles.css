@@ -47,7 +47,7 @@ html.dark {
      --clr-base-lighter: #aaa;
      --clr-cancel-dark:  rgb(35,35,35);
      --clr-cancel-light:  rgb(45,45,45);
-     --clr-red-dark: rgb(227,77,77);
+     --clr-red-dark: hsl(360, 67%, 44%);
      --clr-red-light: rgb(210, 87, 87);
      --clr-green-dark: hsl(125, 67%, 44%);
      --clr-green-light: hsl(125, 71%, 66%);
@@ -300,7 +300,7 @@ html.dark {
      height: 1.5rem;
      display: grid;
      align-items: center;
-     color: var(--clr-cancel-light);
+     color: var(--clr-red-light);
      margin: 0 auto;
      font-size: .85rem;
      letter-spacing: var(--spacing);
@@ -334,7 +334,7 @@ html.dark {
      transform: rotateZ(60deg);
 }
  .clear-btn:hover {
-     color: var(--clr-cancel-dark);
+     color: var(--clr-red-dark);
 }
  #task-type, #pickDate{
      color: var(--clr-grey-2);
