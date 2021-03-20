@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://bootswatch.com/4/yeti/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/45e1853909.js" crossorigin="anonymous"></script>
+    <title>Recommended-me App</title>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="display-4 text-center">
+            <i class="fas fa-list text-primary"></i>
+            <span class="text-primary">Recommended  - </span> me
+        </h1>
+        <form id="recomendation-form">
+
+            <div class="form-group">
+                <label for="title" class="title">Title</label>
+                <input type="text" id="title" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="type" class="type">Type</label>
+                <select class="custom-select" id="type">
+                    <option value="Book">Book</option>
+                    <option value="Movie">Movie</option>
+                    <option value="Series">Series</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="source" class="source">Source</label>
+                <input type="text" id="source" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="note" class="note">Note</label>
+                <textarea class="form-control" id="note"></textarea>
+            </div>
+
+            <input type="submit" value="Add recomendation" class="btn btn-primary btn-block">
+        </form>
+        <table class="table table-striped mt-5">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Type</th>
+                    <th>Source</th>
+                    <th>Note</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="recomendation-list">
+
+            </tbody>
+        </table>
+    </div>
+
+    <script src="app.js" defer="defer"></script>
+</body>
+</html>
