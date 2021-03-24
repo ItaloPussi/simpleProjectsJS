@@ -13,6 +13,7 @@ Para excluir uma recomendação, simplesmente aperte o X, na linha equivalente.
 	- LocalStorage;
 	- Bootstrap;
 	- Classes;
+	- Sort;
 	- Método static;
 
 ## Contribuindo

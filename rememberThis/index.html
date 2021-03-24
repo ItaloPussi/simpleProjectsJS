@@ -5,13 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://bootswatch.com/4/yeti/bootstrap.min.css">
     <script src="https://kit.fontawesome.com/45e1853909.js" crossorigin="anonymous"></script>
-    <title>Recommended-me App</title>
+    <title>Remember-This App</title>
+    <style>
+        table thead tr th {
+            cursor: pointer
+        }
+    </style>
 </head>
 <body>
     <div class="container mt-4">
         <h1 class="display-4 text-center">
             <i class="fas fa-list text-primary"></i>
-            <span class="text-primary">Recommended  - </span> me
+            <span class="text-primary">Remember  - </span> this
         </h1>
         <form id="recomendation-form">
 
@@ -41,14 +46,23 @@
 
             <input type="submit" value="Add recomendation" class="btn btn-primary btn-block">
         </form>
-        <table class="table table-striped mt-5">
+        <table class="table table-striped mt-5" style="position: relative;">
             <thead>
                 <tr>
-                    <th>Title</th>
-                    <th>Type</th>
-                    <th>Source</th>
-                    <th>Note</th>
-                    <th></th>
+                    <th data-col="title">
+                        Title <i class="fas fa-sort text-dark"></i>
+                    </th>
+                    <th data-col="type">
+                        Type <i class="fas fa-sort text-dark"></i>
+                    </th>
+                    <th data-col="source">
+                        Source <i class="fas fa-sort text-dark"></i>
+                    </th>
+                    <th data-col="note">
+                        Note <i class="fas fa-sort text-dark"></i>
+                    </th>
+                    <th>
+                    </th>
                 </tr>
             </thead>
             <tbody id="recomendation-list">

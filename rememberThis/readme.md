@@ -13,6 +13,7 @@ To delete a recomendation, simply click the X on the equivalent line.
 	- LocalStorage;
 	- Bootstrap;
 	- Class;
+	- Sort;
 	- Static methods;
 
 ## Contributing

@@ -1,3 +1,5 @@
+const entries = []
+
 // Recomendation Class: Represents a unique recomendation
 class Recomendation {
     constructor(title, type, source, note){
@@ -10,8 +12,21 @@ class Recomendation {
 
 // UI Class: Handle UI Tasks
 class UI {
-    static displayRecomendations(){
-        const recomendations = Store.getRecomendations()
+    static displayRecomendations(col=false){
+        let recomendations = Store.getRecomendations()
+        if(col && !entries[col]){
+            recomendations = recomendations.sort((a,b)=>{
+                if(a[col] < b[col]) {return -1}
+                if(a[col] > b[col]) {return 1}
+                return 0
+            })
+        } else if(col && entries[col]){
+            recomendations = recomendations.sort((a,b)=>{
+                if(a[col] < b[col]) {return 1}
+                if(a[col] > b[col]) {return -1}
+                return 0
+            })  
+        }
         recomendations.forEach(recomendation => UI.addRecomendationToList(recomendation))
     }
 
@@ -118,8 +133,18 @@ document.querySelector("#recomendation-list").addEventListener("click", (e) =>{
     UI.deleteRecomendation(e.target)
 
     // Remove recomendation from store
-    Store.deleteRecomendation(e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling,textContent)
+    Store.deleteRecomendation(e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.textContent)
 
     // Success Message
     UI.showAlert("Recomendation deleted with success", "success")
+})
+
+// Event: sort recommendations
+document.querySelectorAll("[data-col]").forEach(element => {
+    element.addEventListener("click", (e)=>{
+        const col = e.target.dataset.col
+        document.querySelector("#recomendation-list").innerHTML = ''
+        UI.displayRecomendations(col)
+        entries[col] = entries[col] ? false : true
+    }) 
 })
