@@ -1,0 +1,75 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+	 width: 100%;
+	 display: flex;
+	 justify-content: center;
+	 align-items: center;
+	 min-height: 100vh;
+	 background-color: #353a47;
+}
+ .container .cube-container {
+	 width: 300px;
+	 height: 300px;
+	 perspective: 600px;
+}
+ .container .cube-container .cube {
+	 width: 100%;
+	 height: 100%;
+	 position: absolute;
+	 display: flex;
+	 justify-content: center;
+	 align-items: center;
+	 transform-style: preserve-3d;
+	 transform: translateZ(-150px) rotateX(-25deg) rotateY(-50deg);
+}
+
+.container .cube-container .cube .face .square {
+    width: 33.33%;
+    border: 1px solid black;
+}
+ .container .cube-container .cube .face {
+	 position: absolute;
+	 height: 300px;
+	 width: 300px;
+	 display: flex;
+     flex-direction: row;
+     flex-wrap: wrap;
+	 background-color: rgba(255, 255, 255, 0.5);
+	 border: solid 3px black;
+}
+ .container .cube-container .cube .face.front {
+	 transform: rotateY(0deg) translateZ(150px);
+     background: red;
+}
+ .container .cube-container .cube .face.back {
+	 transform: rotateY(180deg) translateZ(150px);
+     background: green;
+
+}
+ .container .cube-container .cube .face.top {
+	 transform: rotateX(90deg) translateZ(150px);
+     background: blue;
+
+}
+ .container .cube-container .cube .face.bottom {
+	 transform: rotateX(-90deg) translateZ(150px);
+     background: yellow;
+
+}
+ .container .cube-container .cube .face.left {
+	 transform: rotateY(90deg) translateZ(150px);
+     background: orange;
+
+}
+ .container .cube-container .cube .face.right {
+	 transform: rotateY(-90deg) translateZ(150px);
+     background: white
+}
+ body, html {
+	 margin: 0;
+}
