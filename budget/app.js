@@ -123,9 +123,32 @@ function renderData(data){
 function updateUI(){
     clearHTML()
     items.forEach(item => renderData(item))
+
+    const totalIncome = reducer("income")
+
+    const totalOutcome = reducer("expense")
+
+    document.querySelector(".income-total").textContent = "$"+totalIncome
+    document.querySelector(".outcome-total").textContent = "$"+totalOutcome
+    document.querySelector(".balance .value").innerHTML = `${totalIncome-totalOutcome <0 ? '-' : ''} <small>$</small> ${Math.abs(totalIncome-totalOutcome)}`
+    document.querySelector(".balance .value").style.color = totalIncome-totalOutcome >= 0 ? "#0F0" : '#f0624d'
+    
     saveItemsOnLocalStorage()
+
+    if(totalIncome == 0 && totalOutcome == 0) return
+    pieChart(totalIncome, totalOutcome)
+
 }
 
+function reducer(type){
+    return items.reduce((acc, cur)=>{
+        if(cur.type != type){
+            return acc
+        }
+
+        return acc+parseFloat(cur.amount)
+    },0)
+}
 function clearHTML(){
     incomeList.innerHTML = ''
     expenseList.innerHTML = ''
@@ -133,7 +156,6 @@ function clearHTML(){
 }
 
 function whereItClicked(e){
-    console.log(e.target)
     if(e.target.id == 'edit'){
         editItem(e.target.parentNode)
     } else if(e.target.id == 'delete'){
@@ -155,7 +177,6 @@ function retriveItemsOfLocalStorage(){
             }
         })
         items.push(...retrivedData)
-        console.log(items)
         updateUI()
     }
 }

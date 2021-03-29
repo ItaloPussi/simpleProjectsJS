@@ -104,7 +104,7 @@ input[type=number] {
     opacity: 0.5;
 }
 .budget-header .account .income .income-total{
-    color: #FFF;
+    color: #0F0;
     font-family: 'Gilroy Bold';
 }
 
@@ -223,7 +223,7 @@ input[type=number] {
 }
 
 .budget-dashboard #all ul.list li.income{
-
+    color: #0f0;
 }
 .budget-dashboard #all ul.list li.expense{
     color: #f0624d;
@@ -410,6 +410,7 @@ input[type=number] {
     margin-bottom: 10px;;
     word-wrap: break-word;
     font-family: 'Gilroy Bold';
+    color: #0f0;
 }
 
 .budget-dashboard #income ul.list li #edit{

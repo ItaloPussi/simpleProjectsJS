@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Budget App - JavaScript</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" defer></script>
+    <script src="charts.js" defer></script>
     <script src="app.js" defer></script>
+
 </head>
 <body>
     <div class="budget-container">
@@ -30,10 +33,12 @@
                         <small>$</small>0
                     </div>
                 </div>
-                <div class="chart"></div>
+                <div class="chart">
+                    <canvas></canvas>
+                </div>
                 <div class="outcome">
                     <div class="title">
-                        Income
+                        Outcome
                     </div>
                     <div class="outcome-total">
                         <small>$</small>0
