@@ -11,26 +11,37 @@
 
 </head>
 <body>
-    <div class="budget-container">
+    <div class="budget-container">''
         <div class="app-title">
             <a href="">Budget<b>App</b></a>
         </div>
         <div class="budget-header">
-            <div class="balance">
-                <div class="title">
-                    Balance
+            <div class="balance-container">
+                <div class="balance">
+                    <div class="title">
+                        Balance
+                    </div>
+                    <div class="value">
+                        <small>R$</small>0
+                    </div>
                 </div>
-                <div class="value">
-                    <small>$</small>0
+                <div class="investment">
+                    <div class="title">
+                        Investments
+                    </div>
+                    <div class="value">
+                        <small>R$</small>0
+                    </div>
                 </div>
             </div>
+            
             <div class="account">
                 <div class="income">
                     <div class="title">
                         Income
                     </div>
                     <div class="income-total">
-                        <small>$</small>0
+                        <small>R$</small>0
                     </div>
                 </div>
                 <div class="chart">
@@ -41,7 +52,7 @@
                         Outcome
                     </div>
                     <div class="outcome-total">
-                        <small>$</small>0
+                        <small>R$</small>0
                     </div>
                 </div>
             </div>
@@ -51,21 +62,30 @@
             <div class="toggle">
                 <div class="tab1">Expenses</div>
                 <div class="tab2">Income</div>
-                <div class="tab3 active">All</div>
+                <div class="tab3">Investments</div>
+                <div class="tab4 active">All</div>
             </div>
             <div class="hide" id="income">
                 <ul class="list"></ul>
                 <div class="input">
                     <input type="text" id="income-title-input" name="title" placeholder="Title">
-                    <input type="number" id="income-amount-input" name="amount" placeholder="$0">
+                    <input type="number" id="income-amount-input" name="amount" placeholder="R$0">
                     <div class="add-income"><img src="icon/plus.png" alt=""></div>
+                </div>
+            </div>
+            <div class="hide" id="investment">
+                <ul class="list"></ul>
+                <div class="input">
+                    <input type="text" id="investment-title-input" name="title" placeholder="Title">
+                    <input type="number" id="investment-amount-input" name="amount" placeholder="R$0">
+                    <div class="add-investment"><img src="icon/plus.png" alt=""></div>
                 </div>
             </div>
             <div class="hide" id="expense">
                 <ul class="list"></ul>
                 <div class="input">
                     <input type="text" id="expense-title-input" name="title" placeholder="Title">
-                    <input type="number" id="expense-amount-input" name="amount" placeholder="$0">
+                    <input type="number" id="expense-amount-input" name="amount" placeholder="R$0">
                     <div class="add-expense"><img src="icon/plus.png" alt=""></div>
                 </div>
             </div>
