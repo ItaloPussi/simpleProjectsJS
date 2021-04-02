@@ -1,8 +1,12 @@
 // VARIABLES --------------------------------------------------------------
-const items = []
+const allItems = []
 
+//  DICTIONARYS ------------------------------------------------------------
+const monthsByNumber = ["","Jan","Feb","Mar","Abr","May","Jun","Jul","Aug","Sept","Oct","Nov","Dez"]
 // QUERY SELECTORS---------------------------------------------------------
 const toggleItemsElements = document.querySelectorAll(".toggle div")
+
+const monthSelector = document.querySelector("#month")
 
 // Tabs
 const incomeTab = document.querySelector("#income")
@@ -34,9 +38,9 @@ const investmentAdd = document.querySelector(".add-investment")
 // FUNCTIONS---------------------------------------------------------------
 
 function deleteItem(itemNode){
-    const index = items.findIndex(item => item.id == itemNode.id)
-    items.splice(index, 1)
-    updateUI()
+    const index = allItems.findIndex(item => item.id == itemNode.id)
+    allItems.splice(index, 1)
+    applyFilter()
 }
 
 function editItem(itemNode) {
@@ -89,14 +93,15 @@ function addIncome() {
 
     const data = {
         id: new Date().getTime(),
+        creationDate: getTodayDateFormated(),
         title: incomeTitleInput.value,
         amount: incomeAmountInput.value,
         type: 'income',
         list: incomeList
     }
 
-    items.push(data)
-    updateUI()
+    allItems.push(data)
+    applyFilter()
 
     incomeTitleInput.value = ''
     incomeAmountInput.value = ''
@@ -107,14 +112,15 @@ function addInvestment() {
 
     const data = {
         id: new Date().getTime(),
+        creationDate: getTodayDateFormated(),
         title: investmentTitleInput.value,
         amount: investmentAmountInput.value,
         type: 'investment',
         list: investmentList
     }
 
-    items.push(data)
-    updateUI()
+    allItems.push(data)
+    applyFilter()
 
     investmentTitleInput.value = ''
     investmentAmountInput.value = ''
@@ -125,14 +131,15 @@ function addExpense() {
 
     const data = {
         id: new Date().getTime(),
+        creationDate: getTodayDateFormated(),
         title: expenseTitleInput.value,
         amount: expenseAmountInput.value,
         type: 'expense',
         list: expenseList
     }
 
-    items.push(data)
-    updateUI()
+    allItems.push(data)
+    applyFilter()
 
     expenseTitleInput.value = ''
     expenseAmountInput.value = ''
@@ -152,19 +159,19 @@ function renderData(data){
         allList.insertAdjacentHTML("afterbegin", entry)
 }
 
-function updateUI(){
+function updateUI(items){
     clearHTML()
     items.forEach(item => renderData(item))
 
-    const totalInvestment = reducer("investment")
-    const totalIncome = reducer("income")
+    const totalInvestment = reducer("investment", items)
+    const totalIncome = reducer("income", items)
     const totalEarnings = totalInvestment + totalIncome
-    const totalOutcome = reducer("expense")
+    const totalOutcome = reducer("expense", items)
 
     document.querySelector(".income-total").textContent = "$"+totalIncome
     document.querySelector(".outcome-total").textContent = "$"+totalOutcome
     document.querySelector(".balance-container .balance .value").innerHTML = `${totalIncome-totalOutcome <0 ? '-' : ''} <small>R$</small> ${Math.abs(totalIncome-totalOutcome)}`
-    document.querySelector(".balance-container .balance .value").style.color = totalEarnings-totalOutcome >= 0 ? "#0F0" : '#f0624d'
+    document.querySelector(".balance-container .balance .value").style.color = totalIncome-totalOutcome >= 0 ? "#0F0" : '#f0624d'
 
     document.querySelector(".balance-container .investment .value").innerHTML = `<small>R$</small> ${Math.abs(totalInvestment)}`
     document.querySelector(".balance-container .investment .value").style.color = '#3939cc'
@@ -176,7 +183,23 @@ function updateUI(){
 
 }
 
-function reducer(type){
+function applyFilter(){
+    let monthYear = monthSelector.value
+    let month = monthYear.slice(0,2)
+    let year = monthYear.slice(2,6)
+
+    const items = allItems.filter(item=>{
+        const date = new Date(item.creationDate)
+        if(date.getMonth()+1 == month && date.getFullYear() == year){
+            return true
+        }
+        return false
+    })
+
+    updateUI(items)
+}
+
+function reducer(type, items){
     return items.reduce((acc, cur)=>{
         if(cur.type != type){
             return acc
@@ -185,6 +208,7 @@ function reducer(type){
         return acc+parseFloat(cur.amount)
     },0)
 }
+
 function clearHTML(){
     incomeList.innerHTML = ''
     expenseList.innerHTML = ''
@@ -201,7 +225,61 @@ function whereItClicked(e){
 }
 
 function saveItemsOnLocalStorage(){
-    localStorage.setItem("budgetAppItems", JSON.stringify(items))
+    localStorage.setItem("budgetAppItems", JSON.stringify(allItems))
+}
+
+function getTodayDateFormated(){
+    const today = new Date()
+    return `${addZeroToLeft(today.getMonth()+1)}/${addZeroToLeft(today.getDate())}/${today.getFullYear()}`
+}
+
+function configDatePicker(){
+    const today = new Date()
+    const month = today.getMonth()
+    const year = today.getFullYear()
+
+    monthSelector.value = `${addZeroToLeft(month+1)}${year}`
+
+    applyFilter()
+}
+
+function addZeroToLeft(num){
+    return num < 10 ? `0${num}` : num
+}
+
+function generatePickerDates(){
+    monthSelector.innerHTML=""
+
+    const min = new Date(allItems[0].id)
+    const minMonth = min.getMonth()+1
+    const minYear = min.getFullYear()
+
+    const today = new Date()
+    const todayMonth = today.getMonth()
+    const todayYear = today.getFullYear()
+
+    for(let y=minYear;y<=todayYear;y++){
+        if(y == todayYear){
+            for(m=minMonth;m<=todayMonth+1;m++){
+                monthSelector.innerHTML+=`<option value="${addZeroToLeft(m)}${y}">${monthsByNumber[m]}/${y}</option>`
+            }
+            if(todayMonth+2!=13){
+                monthSelector.innerHTML+=`<option value="${addZeroToLeft(todayMonth+2)}${y}">${monthsByNumber[todayMonth+2]}/${y}</option>`
+            }else{
+                monthSelector.innerHTML+=`<option value="${addZeroToLeft(1)}${y+1}">${monthsByNumber[1]}/${y+1}</option>`
+            }
+        }else if(y==minYear){
+            for(m=minMonth; m<=12;m++){
+                monthSelector.innerHTML+=`<option value="${addZeroToLeft(m)}${y}">${monthsByNumber[m]}/${y}</option>`
+            }
+        } else {
+            for(m=1; m<=12; m++){
+                monthSelector.innerHTML+=`<option value="${addZeroToLeft(m)}${y}">${monthsByNumber[m]}/${y}</option>`
+            }
+        }
+    }
+
+    configDatePicker()
 }
 
 function retriveItemsOfLocalStorage(){
@@ -213,8 +291,8 @@ function retriveItemsOfLocalStorage(){
                 list: data.type == "income" ? incomeList : (data.type == "expense" ? expenseList : investmentList)
             }
         })
-        items.push(...retrivedData)
-        updateUI()
+        allItems.push(...retrivedData)
+        generatePickerDates()
     }
 }
 // EVENT LISTENERS---------------------------------------------------------
@@ -227,5 +305,7 @@ incomeTab.addEventListener("click", whereItClicked)
 expenseTab.addEventListener("click", whereItClicked)
 investmentTab.addEventListener("click", whereItClicked)
 allTab.addEventListener("click", whereItClicked)
+
+monthSelector.addEventListener("change", applyFilter)
 
 retriveItemsOfLocalStorage()

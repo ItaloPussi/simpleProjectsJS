@@ -82,7 +82,7 @@ input[type=number] {
 
 .budget-header .account{
     display: block;
-    width: 350px;
+    width: 100%;
     margin: 35px auto 0;
     line-height: 1.7em;
     text-align: center;
@@ -124,12 +124,17 @@ input[type=number] {
     border-radius: 30px 30px 0 0;
 }
 
+.budget-dashboard .dash-title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 20px 0 20px;
+}
 .budget-dashboard .dash-title{
     display: inline-block;
     color: #1a0034;
     font-size: 1.7em;
     margin-left: 20px;
-    margin-top: 30px;
     font-family: 'Gilroy Bold';
 }
 
@@ -367,4 +372,9 @@ input[type=number] {
 
 .budget-dashboard #investment ul.list li .entry{
     color: #3939cc;
+}
+
+canvas {
+    max-width: 150px;
+    max-height: 150px;
 }
