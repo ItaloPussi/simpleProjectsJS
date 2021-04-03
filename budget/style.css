@@ -41,7 +41,7 @@ input[type=number] {
 
 .budget-container{
     position: absolute;
-    width: 400px;
+    width: 500px;
     height: 780px;
     top: 50%;
     left: 50%;
@@ -50,7 +50,7 @@ input[type=number] {
 }
 
 .budget-container .app-title{
-    margin-top: 45px;
+    margin-top: 90px;
     margin-left: 20px;
 }
 
@@ -92,7 +92,7 @@ input[type=number] {
 .budget-header .account .income, .chart, .outcome{
     height: 50px;
     display: inline-block;
-    width: 100px;
+    width: 130px;
     vertical-align: middle;
 }
 
@@ -139,13 +139,14 @@ input[type=number] {
 }
 
 .toggle{
-    display: block;
-    margin-top: 30px;
-    margin-left: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 30px 20px 0;
+    width: 80%;
 }
 
 .toggle .tab1, .tab2, .tab3, .tab4{
-    display: inline-block;
     cursor: pointer;
     font-size: 1.1em;
     color: #1a0034;
@@ -247,24 +248,20 @@ input[type=number] {
 .budget-dashboard #income .input,
 .budget-dashboard #investment .input{
     position: absolute;
-    display: block;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
     width: 100%;
     bottom: 0;
     border-top: 1px solid #ccc;
-}
-
-.budget-dashboard #expense .input *,
-.budget-dashboard #income .input *,
-.budget-dashboard #investment .input *{
-    display: inline-block;
-    vertical-align: middle;
 }
 
 .budget-dashboard #expense .input input#expense-title-input,
 .budget-dashboard #income .input input#income-title-input,
 .budget-dashboard #investment .input input#investment-title-input{
     height: 40px;
-    width : 150px;
+    width : 130px;
     padding-left: 10px;
     font-size: 1.2em;
     font-family: 'Gilroy';
@@ -278,7 +275,7 @@ input[type=number] {
 .budget-dashboard #income .input input#income-amount-input,
 .budget-dashboard #investment .input input#investment-amount-input{
     height: 40px;
-    width : 110px;
+    width : 100px;
     padding-left: 10px;
     font-size: 1.2em;
     font-family: 'Gilroy';
@@ -291,8 +288,8 @@ input[type=number] {
 .budget-dashboard #expense .input .add-expense img,
 .budget-dashboard #income .input .add-expense img,
 .budget-dashboard #investment .input .add-expense img{
-    width: 40px;
-    height: 40px;
+    width: 16px;
+    height: 16px;
     cursor: pointer;
 }
 

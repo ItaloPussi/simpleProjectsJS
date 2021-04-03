@@ -23,16 +23,19 @@ const allList = document.querySelector("#all .list")
 // Income ADD stuff
 const incomeTitleInput = document.querySelector("#income-title-input")
 const incomeAmountInput = document.querySelector("#income-amount-input")
+const incomeDateInput = document.querySelector("#income-date-input")
 const incomeAdd = document.querySelector(".add-income")
 
 // Expense ADD stuff
 const expenseTitleInput = document.querySelector("#expense-title-input")
 const expenseAmountInput = document.querySelector("#expense-amount-input")
+const expenseDateInput = document.querySelector("#expense-date-input")
 const expenseAdd = document.querySelector(".add-expense")
 
 // Investment ADD stuff
 const investmentTitleInput = document.querySelector("#investment-title-input")
 const investmentAmountInput = document.querySelector("#investment-amount-input")
+const investmentDateInput = document.querySelector("#investment-date-input")
 const investmentAdd = document.querySelector(".add-investment")
 
 // FUNCTIONS---------------------------------------------------------------
@@ -93,7 +96,7 @@ function addIncome() {
 
     const data = {
         id: new Date().getTime(),
-        creationDate: getTodayDateFormated(),
+        competenceDate: formatDate(incomeDateInput.value),
         title: incomeTitleInput.value,
         amount: incomeAmountInput.value,
         type: 'income',
@@ -112,7 +115,7 @@ function addInvestment() {
 
     const data = {
         id: new Date().getTime(),
-        creationDate: getTodayDateFormated(),
+        competenceDate: formatDate(investmentDateInput.value),
         title: investmentTitleInput.value,
         amount: investmentAmountInput.value,
         type: 'investment',
@@ -131,7 +134,7 @@ function addExpense() {
 
     const data = {
         id: new Date().getTime(),
-        creationDate: getTodayDateFormated(),
+        competenceDate: formatDate(expenseDateInput.value),
         title: expenseTitleInput.value,
         amount: expenseAmountInput.value,
         type: 'expense',
@@ -183,13 +186,18 @@ function updateUI(items){
 
 }
 
-function applyFilter(){
+async function applyFilter(selectingDate=false){
+    if(!selectingDate){
+        await sortItems()
+        generatePickerDates()
+    }
+    
     let monthYear = monthSelector.value
     let month = monthYear.slice(0,2)
     let year = monthYear.slice(2,6)
 
     const items = allItems.filter(item=>{
-        const date = new Date(item.creationDate)
+        const date = new Date(item.competenceDate)
         if(date.getMonth()+1 == month && date.getFullYear() == year){
             return true
         }
@@ -199,6 +207,14 @@ function applyFilter(){
     updateUI(items)
 }
 
+
+function sortItems(){
+    allItems.sort(function(a,b){
+        const aD = new Date(a.competenceDate)
+        const bD = new Date(b.competenceDate)
+        return aD-bD
+    })
+}
 function reducer(type, items){
     return items.reduce((acc, cur)=>{
         if(cur.type != type){
@@ -228,6 +244,11 @@ function saveItemsOnLocalStorage(){
     localStorage.setItem("budgetAppItems", JSON.stringify(allItems))
 }
 
+function formatDate(value){
+    const date = new Date(value)
+    return `${addZeroToLeft(date.getMonth()+1)}/${addZeroToLeft(date.getDate())}/${date.getFullYear()}`
+}
+
 function getTodayDateFormated(){
     const today = new Date()
     return `${addZeroToLeft(today.getMonth()+1)}/${addZeroToLeft(today.getDate())}/${today.getFullYear()}`
@@ -240,7 +261,6 @@ function configDatePicker(){
 
     monthSelector.value = `${addZeroToLeft(month+1)}${year}`
 
-    applyFilter()
 }
 
 function addZeroToLeft(num){
@@ -250,23 +270,27 @@ function addZeroToLeft(num){
 function generatePickerDates(){
     monthSelector.innerHTML=""
 
-    const min = new Date(allItems[0].id)
+    const min = new Date(allItems[0].competenceDate)
     const minMonth = min.getMonth()+1
     const minYear = min.getFullYear()
 
-    const today = new Date()
-    const todayMonth = today.getMonth()
-    const todayYear = today.getFullYear()
+    const max = new Date(allItems[allItems.length -1].competenceDate)
+    const maxMonth = max.getMonth()+1
+    const maxYear = max.getFullYear()
 
-    for(let y=minYear;y<=todayYear;y++){
-        if(y == todayYear){
-            for(m=minMonth;m<=todayMonth+1;m++){
-                monthSelector.innerHTML+=`<option value="${addZeroToLeft(m)}${y}">${monthsByNumber[m]}/${y}</option>`
-            }
-            if(todayMonth+2!=13){
-                monthSelector.innerHTML+=`<option value="${addZeroToLeft(todayMonth+2)}${y}">${monthsByNumber[todayMonth+2]}/${y}</option>`
+    console.log(minMonth, minYear)
+    console.log(maxMonth, maxYear)
+
+    for(let y=minYear;y<=maxYear;y++){
+        if(y == maxYear){
+            if(minYear == maxYear){
+                for(m=minMonth;m<=maxMonth;m++){
+                    monthSelector.innerHTML+=`<option value="${addZeroToLeft(m)}${y}">${monthsByNumber[m]}/${y}</option>`
+                }
             }else{
-                monthSelector.innerHTML+=`<option value="${addZeroToLeft(1)}${y+1}">${monthsByNumber[1]}/${y+1}</option>`
+                for(m=1;m<=maxMonth;m++){
+                    monthSelector.innerHTML+=`<option value="${addZeroToLeft(m)}${y}">${monthsByNumber[m]}/${y}</option>`
+                }
             }
         }else if(y==minYear){
             for(m=minMonth; m<=12;m++){
@@ -292,7 +316,7 @@ function retriveItemsOfLocalStorage(){
             }
         })
         allItems.push(...retrivedData)
-        generatePickerDates()
+        applyFilter()
     }
 }
 // EVENT LISTENERS---------------------------------------------------------
@@ -306,6 +330,6 @@ expenseTab.addEventListener("click", whereItClicked)
 investmentTab.addEventListener("click", whereItClicked)
 allTab.addEventListener("click", whereItClicked)
 
-monthSelector.addEventListener("change", applyFilter)
+monthSelector.addEventListener("change", ()=>{applyFilter(true)})
 
 retriveItemsOfLocalStorage()
