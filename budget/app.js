@@ -43,6 +43,7 @@ const investmentAdd = document.querySelector(".add-investment")
 function deleteItem(itemNode){
     const index = allItems.findIndex(item => item.id == itemNode.id)
     allItems.splice(index, 1)
+    saveItemsOnLocalStorage()
     applyFilter()
 }
 
@@ -191,6 +192,7 @@ async function applyFilter(selectingDate=false){
         await sortItems()
         generatePickerDates()
     }
+
     
     let monthYear = monthSelector.value
     let month = monthYear.slice(0,2)
@@ -245,7 +247,7 @@ function saveItemsOnLocalStorage(){
 }
 
 function formatDate(value){
-    const date = new Date(value)
+    const date = new Date(value.replace("-","/"))
     return `${addZeroToLeft(date.getMonth()+1)}/${addZeroToLeft(date.getDate())}/${date.getFullYear()}`
 }
 
@@ -268,6 +270,7 @@ function addZeroToLeft(num){
 }
 
 function generatePickerDates(){
+    if(allItems.length==0) return
     monthSelector.innerHTML=""
 
     const min = new Date(allItems[0].competenceDate)
@@ -277,9 +280,6 @@ function generatePickerDates(){
     const max = new Date(allItems[allItems.length -1].competenceDate)
     const maxMonth = max.getMonth()+1
     const maxYear = max.getFullYear()
-
-    console.log(minMonth, minYear)
-    console.log(maxMonth, maxYear)
 
     for(let y=minYear;y<=maxYear;y++){
         if(y == maxYear){
