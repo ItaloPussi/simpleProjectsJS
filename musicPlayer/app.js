@@ -4,6 +4,10 @@ const prevBtn = document.querySelector("#prev")
 const playBtn = document.querySelector("#play")
 const nextBtn = document.querySelector("#next")
 
+const volumeBtn = document.querySelector("#volume")
+let isMuted = false;
+let currentVolume = 1
+
 const audio = document.querySelector("#audio")
 const progressContainer = document.querySelector(".progress-container")
 const progress = document.querySelector(".progress")
@@ -94,3 +98,34 @@ audio.addEventListener("timeupdate", updateProgress)
 progressContainer.addEventListener("click", setProgress)
 
 audio.addEventListener("ended", nextSong)
+
+volumeBtn.addEventListener("click", function(){
+    isMuted = !isMuted
+
+    if(isMuted){
+        volumeBtn.querySelector("i.fas").classList.add("fa-volume-mute")
+        volumeBtn.querySelector("i.fas").classList.remove("fa-volume-up")
+        audio.volume = 0
+
+    } else {
+        volumeBtn.querySelector("i.fas").classList.remove("fa-volume-mute")
+        volumeBtn.querySelector("i.fas").classList.add("fa-volume-up")
+        audio.volume = 1
+
+    }
+})
+
+window.addEventListener("wheel", (e)=>{
+    const currentScroll = e.deltaY
+    
+    if(currentScroll > 0){
+        currentVolume= currentVolume - 0.025;
+    } else {
+        currentVolume= currentVolume + 0.025;
+    }
+
+    currentVolume = currentVolume > 1 ? 1 : currentVolume
+    currentVolume = currentVolume < 0 ? 0 : currentVolume
+    audio.volume = currentVolume
+
+})
