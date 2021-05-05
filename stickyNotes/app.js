@@ -5,6 +5,9 @@ const addItemButton = document.querySelector(".add-item button")
 const inputTitle = document.querySelector(".add-item .title")
 const textareaContent = document.querySelector(".add-item .content")
 
+let isEditing = false
+let edit = {}
+
 const bgLabel = document.querySelector(".bgColorLabel")
 const bgSelector = document.querySelector("#bgColorSelect")
 bgSelector.addEventListener("input", () => {
@@ -16,6 +19,7 @@ function changeBgColor(value){
 	document.body.style.background = value
 	bgLabel.style.background = value
 }
+
 function createNote(index=false,title, content, color, coords = false){
 	index = index!==false || index===0 ? index : notesList.children.length
 	isALink = content.includes("http") || content.includes("www.")
@@ -31,6 +35,9 @@ function createNote(index=false,title, content, color, coords = false){
 				</button>
 				<button type="button" class="link-btn" onClick="window.open('${content}')">
 					<img src="img/clip.png" />
+				</button>
+				<button type="button" class="edit-btn" onClick="editNote('${index}')">
+					<img src="img/edit.png" />
 				</button>
 			</a>
 		</li>`
@@ -54,20 +61,45 @@ function createNote(index=false,title, content, color, coords = false){
 	notesList.children[notesList.children.length-1].setAttributeNode(attbLeft)
 	notesList.children[notesList.children.length-1].style.left = `${coords ? coords.left : '250px'}`
 	addEventsListenersToDrag()
+
+	if(isEditing){
+		isEditing = false
+		edit = {}
+		addItemButton.textContent = "ADD NOTE"
+	}
 }
 
-
-function openLink(link){
-	
-}
 function deleteNote(index){
-	console.log(this)
 	Array.from(notesList.children).forEach(note=>{
 		if(note.dataset.index == index){
 			notesList.removeChild(note)
 		}
 	})
 	handleSaveLocalStorage()
+}
+
+function editNote(index){
+	Array.from(notesList.children).forEach(note=>{
+		if(note.dataset.index == index){
+			isEditing = true
+			edit = {
+				index: note.dataset.index,
+				coords: {
+					top: note.dataset.top,
+					left: note.dataset.left
+				}
+			}
+			inputTitle.value = note.children[0].children[1].textContent
+			textareaContent.value = note.children[0].children[2].innerHTML.replaceAll(/\<br\>/g, '\n')
+			addItemButton.textContent = "EDIT NOTE"
+			
+			let event = new Event("change")
+			document.querySelector(`input#${note.dataset.color}`).dispatchEvent(event)
+			document.querySelectorAll("input[type=radio]").forEach(input => input.removeAttribute("checked"))
+			document.querySelector(`#${note.dataset.color}`).setAttribute("checked", 'checked')
+			notesList.removeChild(note)
+		}
+	})
 }
 
 function copyNote(index){
@@ -88,6 +120,7 @@ function dragEnd(e){
 	this.setAttribute("data-left",`${e.pageX-180}px`)
 	handleSaveLocalStorage()
 }
+
 function addEventsListenersToDrag(){
 	Array.from(notesList.children).forEach(note=>note.addEventListener("dragend", dragEnd))
 }
@@ -133,7 +166,13 @@ addItemButton.addEventListener("click",(e)=>{
 	let content = textareaContent.value.replace(/\n\r?/g, '<br />')
 	let color = document.querySelector('input[name="color"]:checked').id;
 
-	createNote(false,inputTitle.value, content, color)
+	if(isEditing){
+		createNote(edit.index,inputTitle.value, content, color, edit.coords)
+
+	} else {
+		createNote(false,inputTitle.value, content, color)
+	}
+
 	inputTitle.value = ''
 	textareaContent.value = ''
 	handleSaveLocalStorage()
