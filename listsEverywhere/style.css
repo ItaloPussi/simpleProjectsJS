@@ -1,0 +1,131 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    overflow: hidden;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+}
+
+/* Adding styles */
+.add-list {
+    background: rgb(230, 67, 67);
+    width: 100%;
+    height: 20vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-list .add-container {
+    height: 2.5rem;
+    display: flex;
+}
+
+.add-list .add-container input {
+    height: 100%;
+    width: 20rem;
+    outline: none;
+    border: none;
+    border-right: 1px solid #ccc;
+    padding: 0 1rem;
+    color: #1d1d1d;
+    font-size: 1rem;
+}
+
+.add-list .add-container select {
+    outline: none;
+    border: none;
+    text-transform: uppercase;
+    padding: 0 1rem;
+}
+
+.add-list .add-container button {
+    outline: none;
+    border: none;
+    padding: 0.6rem 1rem;
+    color: white;
+    background: #333;
+    cursor: pointer
+}
+
+.add-list .add-container button:hover {
+    background: #1d1d1d;
+}
+
+.add-list .add-container input:focus{
+    border-left: 2px solid #1d1d1d;
+}
+
+.add-list .add-container select:focus {
+    border-left: 1px solid #1d1d1d;
+}
+
+.add-list .add-container button:focus {
+    background: #1d1d1d;
+}
+
+.lists-container {
+    height: 80vh;
+    padding: 5rem 3rem 0 3rem;
+    background: #1d1d1d;
+}
+
+.lists {
+    min-width: 100%;
+    width: auto;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    padding-bottom: 1rem;
+}
+
+.list {
+    background: white;
+    width: 300px;
+    margin: 0 1rem;
+    flex-shrink: 0;
+    background: #eee;
+    overflow: hidden;
+}
+
+.list h2{
+    font-family: 'Itim', cursive;
+    font-size: 1.2rem;
+    text-align: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid #bbb;
+}
+
+.list ul {
+    max-width: 100%;
+    height: 80%;
+    padding: 1rem 0 1rem 1.7rem;
+    overflow-y: scroll;
+}
+
+.list ul li {
+    font-size: 1rem;
+    text-transform: uppercase;
+    padding: 0.5rem 0;
+    font-family: "Pangolin", cursive;
+    cursor: pointer;
+    color: #1d1d1d;
+}
+
+.list ul li:hover {
+    border-bottom: 1px solid #aaa;
+}
+
+.list ul li::marker{
+    color: #aaa;
+}
