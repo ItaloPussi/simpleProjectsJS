@@ -7,7 +7,9 @@
     <title>Lists Everywhere</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Itim&family=Pangolin&display=swap" rel="stylesheet"></head>
+    <link href="https://fonts.googleapis.com/css2?family=Itim&family=Pangolin&display=swap" rel="stylesheet">
+    <script src="app.js" defer="defer"></script>
+</head>
 <body>
     <div class="container">
         <div class="add-list">
@@ -15,69 +17,15 @@
                 <input 
                     type="text"
                     placeholder="Type the note:"
+                    id="listInput"
                 >
                 <select name="listType" id="listType">
-                    <option value="Programmation Ideas">Programmation Ideas</option>
                 </select>
-                <button>ACRESCENTAR</button>
+                <button type="button" id="addBtn">ADD</button>
             </div>
         </div>
         <div class="lists-container">
-            <div class="lists">
-                <div class="list">
-                    <h2>PROGRAMATION IDEAS</h2>
-                    <ul class="list-inner">
-                        <li>Idea 1</li>
-                        <li>Idea 2</li>
-                        <li>Idea 3</li>
-                        <li>Idea 4</li>
-                        <li>Idea 5</li>
-                        <li>Idea 6</li>
-                        <li>Idea 7</li>
-                        <li>Idea 8</li>
-                        <li>Idea 9</li>
-                        <li>Idea 10</li>
-                        <li>Idea 11</li>
-                        <li>Idea 12</li>
-                        <li>Idea 13</li>
-                        <li>Idea 14</li>
-                        <li>Idea 15</li>
-                    </ul>
-                </div>
-                <div class="list">
-                    <h2>WORK PROJECTS</h2>
-                    <ul class="list-inner">
-                        <li>Project 1</li>
-                        <li>Project 2</li>
-                        <li>Project 3</li>
-                        <li>Project 4</li>
-                        <li>Project 5</li>
-                        <li>Project 6</li>
-                    </ul>
-                </div>
-                <div class="list">
-                    <h2>PERSONAL THOUGHTS</h2>
-                    <ul class="list-inner">
-                        <li>Thought 1</li>
-                        <li>Thought 2</li>
-                        <li>Thought 3</li>
-                        <li>Thought 4</li>
-                        <li>Thought 5</li>
-                        <li>Thought 6</li>
-                    </ul>
-                </div>
-                <div class="list">
-                    <h2>GROCERIES LIST</h2>
-                    <ul class="list-inner">
-                        <li>Item 1</li>
-                        <li>Item 2</li>
-                        <li>Item 3</li>
-                        <li>Item 4</li>
-                        <li>Item 5</li>
-                        <li>Item 6</li>
-                    </ul>
-                </div>
-            </div>
+            <div class="lists"></div>
         </div>
     </div>
 </body>
