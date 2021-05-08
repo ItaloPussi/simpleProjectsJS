@@ -11,8 +11,19 @@
     <script src="app.js" defer="defer"></script>
 </head>
 <body>
+    <div class="modal-container">
+        <div class="modal">
+            <button class="close-modal">X</button>
+            <input 
+                type="text"
+                placeholder="Type the list name:"
+            >
+            <button class="create-list btn">Create List</button>
+        </div>
+    </div>
     <div class="container">
-        <div class="add-list">
+        <div class="add">
+            <button class="add-list">+</button>
             <div class="add-container">
                 <input 
                     type="text"
@@ -21,7 +32,7 @@
                 >
                 <select name="listType" id="listType">
                 </select>
-                <button type="button" id="addBtn">ADD</button>
+                <button type="button" id="addBtn" class="btn">ADD</button>
             </div>
         </div>
         <div class="lists-container">

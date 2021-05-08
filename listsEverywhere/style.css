@@ -14,22 +14,49 @@ body {
     height: 100%;
 }
 
+.btn {
+    outline: none;
+    border: none;
+    padding: 0.6rem 1rem;
+    color: white;
+    background: #333;
+    cursor: pointer
+}
+
+.btn:hover {
+    background: #1d1d1d;
+}
+
 /* Adding styles */
-.add-list {
+.add {
     background: rgb(230, 67, 67);
     width: 100%;
     height: 20vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
 
-.add-list .add-container {
+.add .add-list {
+    position: absolute;
+    font-size: 3rem;
+    font-family: cursive;
+    background: none;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    right: 10px;
+    top: -10px;
+    color: white;
+}
+
+.add .add-container {
     height: 2.5rem;
     display: flex;
 }
 
-.add-list .add-container input {
+.add .add-container input {
     height: 100%;
     width: 20rem;
     outline: none;
@@ -40,35 +67,22 @@ body {
     font-size: 1rem;
 }
 
-.add-list .add-container select {
+.add .add-container select {
     outline: none;
     border: none;
     text-transform: uppercase;
     padding: 0 1rem;
 }
 
-.add-list .add-container button {
-    outline: none;
-    border: none;
-    padding: 0.6rem 1rem;
-    color: white;
-    background: #333;
-    cursor: pointer
-}
-
-.add-list .add-container button:hover {
-    background: #1d1d1d;
-}
-
-.add-list .add-container input:focus{
+.add .add-container input:focus{
     border-left: 2px solid #1d1d1d;
 }
 
-.add-list .add-container select:focus {
+.add .add-container select:focus {
     border-left: 1px solid #1d1d1d;
 }
 
-.add-list .add-container button:focus {
+.add .add-container button:focus {
     background: #1d1d1d;
 }
 
@@ -85,7 +99,7 @@ body {
     display: flex;
     justify-content: flex-start;
     overflow-y: hidden;
-    overflow-x: scroll;
+    overflow-x: auto;
     padding-bottom: 1rem;
 }
 
@@ -96,6 +110,19 @@ body {
     flex-shrink: 0;
     background: #eee;
     overflow: hidden;
+    position: relative;
+}
+
+.list button {
+    position: absolute;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #444;
+    font-size: 1rem;
+    right: 5px;
+    top: 5px;
+    cursor: pointer;
 }
 
 .list h2{
@@ -128,4 +155,57 @@ body {
 
 .list ul li::marker{
     color: #aaa;
+}
+
+.modal-container{
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.65);
+    z-index: 10;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-container.visible{
+    display: flex;
+}
+
+.modal-container .modal {
+    background: white;
+    width: 50%;
+    max-width: 400px;
+    height: 200px;
+    margin-top: -50px;
+    transform: translate(-50% 50%);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-container .modal input{
+    border: none;
+    border-bottom: 1px solid #aaa;
+    width: 90%;
+    padding: 10px;
+    outline: none;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    color: #1d1d1d;
+}
+
+.modal-container .modal .close-modal {
+    position: absolute;
+    color: red;
+    border: none;
+    outline: none;
+    top: 5px;
+    right: 5px;
+    font-size: 1rem;
+    cursor: pointer;
 }
