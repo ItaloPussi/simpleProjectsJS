@@ -58,7 +58,6 @@ body {
 
 .add .add-container input {
     height: 100%;
-    width: 20rem;
     outline: none;
     border: none;
     border-right: 1px solid #ccc;
@@ -177,7 +176,8 @@ body {
 .modal-container .modal {
     background: white;
     width: 50%;
-    max-width: 400px;
+    max-width: 500px;
+    min-width: 300px;
     height: 200px;
     margin-top: -50px;
     transform: translate(-50% 50%);
@@ -204,8 +204,40 @@ body {
     color: red;
     border: none;
     outline: none;
+    background: transparent;
     top: 5px;
     right: 5px;
     font-size: 1rem;
     cursor: pointer;
+}
+
+@media (max-width: 700px){
+    .add .add-container {
+        height: auto;
+        flex-direction: column;
+    }
+
+    .add .add-container > *{
+        height: 2.5rem;
+    }
+
+    .add .add-container input {
+        padding: 0.5rem;
+        border-bottom: 1px solid #333;
+    }
+
+    .lists-container {
+        height: 100%;
+        padding-top: 3rem;
+    }
+    
+    .list{
+        width: calc(100vw - 7rem);
+        max-height: 400px;
+    }
+
+    .add {
+        height: auto;
+        padding: 2rem 0;
+    }
 }
