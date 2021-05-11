@@ -1,0 +1,64 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    min-height: 100vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 720px;
+    transform: translateY(-25%);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+input, 
+select {
+    outline: none;
+    border: 1px solid #e5e5e5;
+}
+
+input:focus,
+select:focus {
+    border: 1px solid #1d1d1d;
+}
+
+.text-field {
+    min-height: 200px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    outline: none;
+}
+
+.text-field:focus {
+    border: 1px solid #333;
+}
+
+.options-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 1rem;
+}
+
+.options-bar .option {
+    cursor: pointer;
+    outline: none;
+    background: none;
+    border: 1px solid #e5e5e5;
+    padding: 5px 7px;
+    margin-right: 5px;
+}
+
+.options-bar .option.active {
+    border: 1px solid #1d1d1d;
+}
+
+.options-bar input {
+    width: 50px;
+}
