@@ -30,25 +30,33 @@
             </div>
             
             <div class="option-group">
-                <select id="font-familys">
-                    <option value="arial" selected>Arial</option>
-                    <option value="calibri">Calibri</option>
+                <select data-command="fontName" class="optionWithArgument">
+                    <option value="arial">Arial</option>
+                    <option value="times">Times</option>
+                    <option value="times new roman">Times New Roman</option>
+                    <option value="courier new">Courier New</option>
+                    <option value="courier">Courier</option>
+                    <option value="verdana">Verdana</option>
+                    <option value="georgia">Georgia</option>
+                    <option value="palatino">Palatino</option>
+                    <option value="garamond">Garamond</option>
+                    <option value="bookman">Bookman</option>
+                    <option value="tahoma">Tahoma</option>
+                    <option value="trebuchet ms">Trebuchet MS</option>
+                    <option value="arial black">Arial Black</option>
+                    <option value="impact">Impact</option>
+                    <option value="comic sans ms">Comic Sans MS</option>
                 </select>
 
-                <input type="text" list="font-sizes" value="12" />
-                <datalist id="font-sizes">
-                    <option>8</option>
-                    <option>10</option>
-                    <option>12</option>
-                    <option>14</option>
-                    <option>16</option>
-                    <option>20</option>
-                    <option>28</option>
-                    <option>40</option>
-                    <option>52</option>
-                    <option>64</option>
-                    <option>80</option>
-                </datalist>
+                <select class="optionWithArgument" value="12" data-command="fontSize">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option selected>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                </select>
             </div>
 
             <div class="option-group">
