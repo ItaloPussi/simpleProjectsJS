@@ -1,7 +1,6 @@
 body {
     display: flex;
     justify-content: center;
-    align-items: center;
     width: 100vw;
     height: 100vh;
     overflow: hidden;
@@ -47,6 +46,11 @@ select:focus {
     align-items: center;
     justify-content: space-around;
     padding: 1rem;
+    flex-wrap: wrap;
+}
+
+.options-bar .option-group {
+    margin: 1rem 1rem 1rem 0;
 }
 
 .options-bar .option {
@@ -64,4 +68,17 @@ select:focus {
 
 .options-bar input {
     width: 50px;
+}
+
+/* Font Color */
+.fontColorLabel input{
+    display: none;
+}
+
+.fontColorLabel {
+    cursor: pointer;
+    padding: 2px;
+    border-bottom-width: 3px;
+    border-bottom-style: solid;
+    border-bottom-color: #000;
 }
