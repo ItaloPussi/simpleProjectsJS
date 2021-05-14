@@ -3,9 +3,10 @@ const optionsWithArgument = document.querySelectorAll(".optionWithArgument")
 
 const textField = document.querySelector("#text-field")
 const fontColorLabel = document.querySelector(".fontColorLabel")
+const lock = document.querySelector("#lock")
 
 // Handle show if option is active or not
-const optionsValues = ["bold", "italic", "underline", "strikeThrough", "justifyLeft", "justifyRight", "justifyCenter", "justifyFull", "insertunorderedlist", "insertorderedlist"]
+const optionsValues = ["bold", "italic", "underline", "strikeThrough", "justifyLeft", "justifyRight", "justifyCenter", "justifyFull", "insertunorderedlist", "insertorderedlist", "superscript", "subscript", "indent"]
 
 // Util: convert a number to hexdecimal
 const convertNumberToHex = (number) => {
@@ -56,7 +57,20 @@ function handleOptionClick(e){
         command = e.target.dataset.command
     }
 
-    document.execCommand(command, false, null)
+    if(command == "createLink"){
+        let url = window.prompt("Enter a url:", "http://")
+        
+        if(url == " " || url == null) return
+
+        if(!url.startsWith("http")){
+            alert("Error. Please insert http or https too.")
+            return
+        }
+
+        document.execCommand(command, false, url)
+    } else {
+        document.execCommand(command, false, null)
+    }
     textField.focus()
 }
 
@@ -71,8 +85,29 @@ function handleOptionInput(e){
 
 }
 
+function lockText(){
+    textField.setAttribute("contenteditable", "false")
+    lock.classList.add("active")
+}
+
+function unlockText(){
+    textField.setAttribute("contenteditable", "true")
+    lock.classList.remove("active")
+    textField.focus()
+}
+
 options.forEach(option => option.addEventListener("click", handleOptionClick))
 optionsWithArgument.forEach(option => option.addEventListener("change", handleOptionInput))
 window.addEventListener("click", verifyIfOptionIsActive)
 window.addEventListener("keydown", verifyIfOptionIsActive)
+
+window.addEventListener("keydown", (e) => {e.key == "Control" && lockText()})
+window.addEventListener("keyup", (e) => {e.key == "Control" && unlockText()})
+lock.addEventListener("click", ()=>{
+    if(lock.classList.contains("active")){
+        unlockText()
+    } else {
+        lockText()
+    }
+})
 textField.focus()

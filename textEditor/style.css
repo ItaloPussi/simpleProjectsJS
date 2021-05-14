@@ -70,7 +70,15 @@ select:focus {
     width: 50px;
 }
 
+/* Button with style */
+.wrapperNotVisible {
+    background: transparent;
+    border: none;
+    outline: none;
+}
+
 /* Font Color */
+
 .fontColorLabel input{
     display: none;
 }
