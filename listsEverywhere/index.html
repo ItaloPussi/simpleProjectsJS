@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Itim&family=Pangolin&display=swap" rel="stylesheet">
+    <script src="./firebase.js" defer="defer"></script>
     <script src="app.js" defer="defer"></script>
 </head>
 <body>
@@ -24,6 +25,7 @@
     <div class="container">
         <div class="add">
             <button class="add-list">+</button>
+            <button class="upload-button">*</button>
             <div class="add-container">
                 <input 
                     type="text"
@@ -39,5 +41,8 @@
             <div class="lists"></div>
         </div>
     </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-storage.js"></script>
 </body>
 </html>

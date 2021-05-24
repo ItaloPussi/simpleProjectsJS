@@ -4,6 +4,7 @@ const listType = document.querySelector("#listType")
 const addBtn = document.querySelector("#addBtn")
 const lists = document.querySelector(".lists")
 const addListBtn = document.querySelector(".add-list")
+const uploadButton = document.querySelector(".upload-button")
 
 const modalContainer = document.querySelector(".modal-container")
 const modalCloseBtn = document.querySelector(".modal-container .close-modal")
@@ -105,13 +106,19 @@ function generateSelectOptions(){
     })
 }
 
-function handleSaveToLocalStorage(){
+function handleSaveToLocalStorage(firebaseError = false){
     const items = generateItemsListUpdated()
     if(items.length == 0){
         localStorage.removeItem("listsEverywhere@lists")
+        localStorage.removeItem("listsEverywhere@timestamp")
         currentId = 1
     }else {
         localStorage.setItem("listsEverywhere@lists", JSON.stringify(items))
+        localStorage.setItem("listsEverywhere@timestamp", new Date().getTime())
+    }
+
+    if(firebaseError){
+        alert("Ohh something is wrong with your firebase connection. Check it! But for now your lists were saved on localStorage.")
     }
 }
 
@@ -152,7 +159,59 @@ function closeModal(){
     modalContainer.classList.remove("visible")
 }
 
-handleFetchFromLocalStorage()
+// Control the data to firebase
+function handleUploadFirebase(){
+    const items = generateItemsListUpdated()
+    if(items.length == 0){
+        currentId = 1
+    }
+
+	var blob = new Blob([JSON.stringify(items)], {type: "application/json"})
+	storage.put(blob).then(function(snapshot){
+		window.alert("Save with success")
+	}).catch(e=> {
+        handleSaveToLocalStorage(true)
+	})
+}
+
+async function verifySync(items){
+    firebaseFileMeta= await storage.getMetadata()
+    firebaseFileLastUpload = await new Date(firebaseFileMeta.updated)
+
+    localStorageData = await localStorage.getItem("listsEverywhere@timestamp") || false
+    if(localStorageData !== false){
+        localStorageLastUpload = await new Date(+localStorageData)
+        if(localStorageLastUpload > firebaseFileLastUpload){
+            handleFetchFromLocalStorage()
+            return false
+        }
+    }
+
+    displayLists(items)
+    generateSelectOptions(items)
+    currentId = parseInt(items[items.length -1].listId.split("-")[1])+1 || 1
+}
+
+//Retrieve the data from localStorage
+async function recoverFirebaseData() {
+	let items = '';
+	storage.getDownloadURL().then(async function(url){
+		var xhr = new XMLHttpRequest();
+		xhr.onload = async function(event) {
+            var json= xhr.response;
+            items = JSON.parse(json)
+            if (!items) return
+            verifySync(items)
+		};
+        xhr.onerror = function(event) {
+            handleFetchFromLocalStorage()
+        }
+		xhr.open('GET', url);
+		xhr.send()
+	  }).catch(()=>{
+        handleFetchFromLocalStorage()
+      })
+}
 
 addListBtn.addEventListener("click", openModal)
 createListBtn.addEventListener("click", createList)
@@ -165,3 +224,7 @@ modalContainer.addEventListener("click", (e)=>{
 
 addBtn.addEventListener("click", addItem)
 lists.addEventListener("click", verifyRemoval)
+
+uploadButton.addEventListener("click", handleUploadFirebase)
+
+window.load = recoverFirebaseData()

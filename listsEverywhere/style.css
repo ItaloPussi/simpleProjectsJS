@@ -51,6 +51,19 @@ body {
     color: white;
 }
 
+.add .upload-button {
+    position: absolute;
+    font-size: 3rem;
+    font-family: cursive;
+    background: none;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    left: 10px;
+    top: 0px;
+    color: white;
+}
+
 .add .add-container {
     height: 2.5rem;
     display: flex;
