@@ -24,13 +24,16 @@
 <br />
 
 <p> To test the application just access the link: <a href="https://italopussi-listseverywhere.netlify.app/">https://italopussi-listseverywhere.netlify.app/</a></p>
- 
+
+<p>If you want to connect it to firebase and have access to your lists from anywhere, edit the file firebase.js and enter the configuration variables. Don't forget to enable the project's storage.</p>
+
 <h2 id="technologys">Tecnologys</h2>
 
 <ul>
   <li>CSS Overflow</li>
   <li>Modal</li>
   <li>Local Storage</li>
+  <li>Firebase</li>
 </ul>
 
 <h2 id="contributing">Contributing</h2>

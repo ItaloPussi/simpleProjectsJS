@@ -24,13 +24,16 @@
 <br />
 
 <p>Caso queira visualizar a aplicação em produção acesse esse link: <a href="https://italopussi-listseverywhere.netlify.app/">https://italopussi-listseverywhere.netlify.app/</a></p>
- 
+
+Se você quiser conecta-la ao firebase e ter acesso a suas listas de qualquer lugar edite o arquivo firebase.js e insira as variáveis de configuração. Não se esqueça de habilitar o storage do projeto no firebase.
+
 <h2 id="tecnologias">Tecnologias</h2>
 
 <ul>
   <li>CSS Overflow</li>
   <li>Modal</li>
   <li>Local Storage</li>
+  <li>Firebase</li>
 </ul>
 
 <h2 id="contribuicao">Contribuição</h2>
