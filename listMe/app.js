@@ -18,7 +18,9 @@ const submitBtn = document.querySelector('.submit')
 const cancelBtn = document.querySelector('.cancel')
 const clearBtn = document.querySelector('.clear-btn')
 const resetBtn = document.querySelector('.reset-btn')
+const uploadBtn = document.querySelector('.upload-btn')
 const archiveBtn = document.querySelector('.archive-btn')
+const screenshotBtn = document.querySelector('.screenshot-btn')
 
 // Darkmode related
 let darkMode = localStorage.getItem("darkmode")
@@ -43,24 +45,26 @@ function toggleDarkMode(){
 		document.querySelector(".sun").classList.remove("hidden")
 	}
 }
+
 // variables
 let editElement;
 let editElementText;
 let editFlag = false;
 let editId = "";
-let currentId = localStorage.getItem('items') ? Number(localStorage.getItem('currentId')) + 1 : 0;
+let currentId = localStorage.getItem('listme@items') ? Number(localStorage.getItem('listme@currentId')) + 1 : 0;
 let selectedType = ''
 let showAllTasks = false
+let screenshotContainer = document.querySelector(".screenshot-container")
 
 //Event listeners
 form.addEventListener('submit', addItem)
 cancelBtn.addEventListener('click', resetParams)
 clearBtn.addEventListener('click', clearAllItems)
 resetBtn.addEventListener("click", resetItems)
+uploadBtn.addEventListener("click", handleUploadFirebase)
 dynamicBox.addEventListener("change", handleDynamicOptionsDisplay)
 archiveBtn.addEventListener("click", handleDisplayAllTasks)
-
-radioIpts.forEach(radio => radio.addEventListener("change", handleRadioChange))
+screenshotBtn.addEventListener("click", handleMakeScreenshot)
 
 typeSelect.addEventListener("change", (e) => {
 	selectedType = e.target.value
@@ -69,18 +73,35 @@ typeSelect.addEventListener("change", (e) => {
 
 pickerDate.min = pickerDate.value = getTodayDateFormated().replaceAll("/", "-")
 
-// 
-function handleRadioChange(){
-	if(document.querySelector('input[type = radio]:checked').value == "8"){
-		document.querySelector("label[for = weekly]").style.display = "none"
-		document.querySelector("label[for = monthly]").style.display = "none"
-		document.querySelector("label[for = each]").style.display = "inline-flex"
-	}else{
-		document.querySelector("label[for = weekly]").style.display = "inline-flex"
-		document.querySelector("label[for = monthly]").style.display = "inline-flex"
-		document.querySelector("label[for = each]").style.display = "none"
+async function handleMakeScreenshot(){
+	function filter(node){
+		return node !== clearBtn
 	}
+
+	document.body.classList.add("screenshot-time")
+
+	document.querySelectorAll(".list-item .title").forEach(node => {
+		if(node.classList.contains("completed")){
+			node.parentNode.style.display = "flex"
+		} else {
+			node.parentNode.style.display = "none"
+		}	
+	})
+
+	setTimeout(()=>{
+		domtoimage
+		.toBlob(screenshotContainer, {filter: filter})
+		.then(function(blob){
+			saveAs(blob, `Day${dayOfTheYear(new Date(pickerDate.value))}.png`); 
+			document.body.classList.remove("screenshot-time")
+
+			document.querySelectorAll(".list-item").forEach(node => {
+				node.style.display = "flex"	
+			})
+		})
+	},1000)
 }
+
 // Return or today as string or as a date object
 function getTodayDateFormated(returnDataObject) {
 	const dt = new Date()
@@ -94,7 +115,18 @@ function getTodayDateFormated(returnDataObject) {
 	return returnDataObject ? new Date(today) : today
 }
 
-// Verifiy if today is a weekday
+// Format a given date
+function formatDate(date){
+	let month = date.getMonth() + 1
+	month = month < 10 ? `0${month}` : month
+	let day = date.getDate()
+	day = day < 10 ? `0${day}` : day
+
+	const today = `${date.getFullYear()}/${month}/${day}`
+	return today
+}
+
+// Verify if today is a weekday
 function todayIsWeekday() {
 	const weekday = getTodayDateFormated(true).getDay()
 	return weekday == 0 || weekday == 6 ? false : true
@@ -103,6 +135,16 @@ function todayIsWeekday() {
 //Date one is greater than date two?
 function compareTwoDates(date1, date2) {
 	return date1 > date2
+}
+
+// Return the day of the year for a given date
+function dayOfTheYear(date){
+	var convertedDate = new Date(date);
+	var start = new Date(convertedDate.getFullYear(), 0, 0);
+	var diff = convertedDate - start;
+	var oneDay = 1000 * 60 * 60 * 24;
+	var day = Math.floor(diff / oneDay) + 1;
+	return day
 }
 
 function handleDisplayAllTasks() {
@@ -187,8 +229,6 @@ function resetItems() {
 						break
 					}
 				}
-			} else if(itemDataFrequency == 8){
-				day.setDate(day.getDate() + parseInt(item.getAttribute("data-each")))
 			}
 
 			if (itemIsCompleted) {
@@ -220,7 +260,7 @@ function createAttb(element, attbName, attbValue) {
 }
 
 //Create a element by receiving a value and a valid ID
-function createElement(textValue, elementDataID, status, frequency, frequencyDate, dynamics, taskType, initialDisplayDay, each) {
+function createElement(textValue, elementDataID, status, frequency, frequencyDate, dynamics, taskType, initialDisplayDay) {
 	let element = document.createElement('article')
 	element.classList.add('list-item')
 
@@ -241,13 +281,6 @@ function createElement(textValue, elementDataID, status, frequency, frequencyDat
 		}
 
 		element = createAttb(element, "data-displayDay", initialDisplayDay)
-	}
-
-	// If frequency equals to "Each N days"
-	if (frequency == 8 && each){
-		element = createAttb(element, "data-each", each)
-	} else if(frequency == 8){
-		element = createAttb(element, "data-each", document.querySelector("input[name=each]").value)
 	}
 
 	// If frequency equals to "Weekday"
@@ -286,15 +319,12 @@ function createElement(textValue, elementDataID, status, frequency, frequencyDat
 
 		element = createAttb(element, "data-current", current)
 		element = createAttb(element, "data-max", max)
-
-
 	}
+
 	// Frequency equals to "dynamic" | Creating task by the Nth time.
 	else if (frequency == 6 && dynamics) {
-
 		element = createAttb(element, "data-current", dynamics.currentValue)
 		element = createAttb(element, "data-max", dynamics.maxValue)
-
 	}
 
 	element.innerHTML = `
@@ -336,7 +366,7 @@ function addItem(e) {
 		createElement(valueIpt, currentId, false, selectedFrequency, false, false, parseInt(selectedType), false)
 		displayAlert('Item add with success!', 'success')
 		resetParams()
-		localStorage.setItem('currentId', currentId)
+		localStorage.setItem('listme@currentId', currentId)
 		currentId++
 
 	}
@@ -385,11 +415,13 @@ async function deleteItem(targetId) {
 	list.removeChild(element)
 	if (list.children.length == 0) {
 		container.classList.remove('show-container')
-		localStorage.removeItem("items")
-		localStorage.removeItem("currentId")
+		localStorage.removeItem("listme@items")
+		localStorage.removeItem("listme@currentId")
+		localStorage.setItem("listme@timestamp", new Date().getTime())
+	} else {
+		handleLocalStorage()
 	}
 	displayAlert('Item removed with success', 'success')
-	handleLocalStorage()
 	resetParams()
 }
 
@@ -400,8 +432,9 @@ function clearAllItems() {
 	if (confirm != "CONFIRMAR") return
 	container.classList.remove('show-container')
 	list.innerHTML = ''
-	localStorage.removeItem("items")
-	localStorage.removeItem("currentId")
+	localStorage.removeItem("listme@items")
+	localStorage.removeItem("listme@currentId")
+	localStorage.setItem("listme@timestamp", new Date().getTime())
 	resetParams()
 	displayAlert('Removed all items', 'success')
 	currentId = 1
@@ -438,21 +471,16 @@ function resetParams() {
 	handleDisplayTasksWithSelectedType()
 }
 
-//Control the data input on LocalStorage
-function handleLocalStorage() {
+// Control the data to firebase
+function handleUploadFirebase(){
 	const items = [...list.children]
 	const itemsContent = items.map(item => {
 		dynamics = false;
-		each = false;
 		if (item.getAttribute("data-frequency") == 6) {
 			dynamics = {
 				"currentValue": item.getAttribute("data-current"),
 				"maxValue": item.getAttribute("data-max")
 			}
-		}
-
-		if (item.getAttribute("data-frequency") == 8) {
-			each = item.getAttribute("data-each")
 		}
 		return {
 			"id": item.getAttribute('data-id'),
@@ -463,20 +491,105 @@ function handleLocalStorage() {
 			dynamics,
 			"type": item.getAttribute("data-type"),
 			"initialDisplayDay": item.getAttribute("data-displayDay"),
-			each,
 		}
 	})
-	localStorage.setItem('items', JSON.stringify(itemsContent))
-}
 
-//Retrieve the data from localStorage
-function recoverLocalStorageData() {
-	const items = JSON.parse(localStorage.getItem('items'))
-	if (!items) return
+	var blob = new Blob([JSON.stringify(itemsContent)], {type: "application/json"})
 
-	items.map(item => {
-		createElement(item.value, item.id, item.completed, item.frequency, item.frequencyDate, item.dynamics, item.type, item.initialDisplayDay, item.each)
+	storage.put(blob).then(function(snapshot){
+		window.alert("Save with success")
+	}).catch(e=> {
+		console.log('Error', e)
+		handleLocalStorage(true)
 	})
 }
 
-window.load = recoverLocalStorageData()
+//Control the data input on LocalStorage
+function handleLocalStorage(firebaseError = false) {
+	const items = [...list.children]
+	const itemsContent = items.map(item => {
+		dynamics = false;
+		if (item.getAttribute("data-frequency") == 6) {
+			dynamics = {
+				"currentValue": item.getAttribute("data-current"),
+				"maxValue": item.getAttribute("data-max")
+			}
+		}
+		return {
+			"id": item.getAttribute('data-id'),
+			"value": item.children[0].textContent.replaceAll("\n", "").replaceAll("\t", ""),
+			"completed": item.children[0].classList.length > 1 ? true : false,
+			"frequency": item.getAttribute("data-frequency"),
+			"frequencyDate": item.getAttribute("data-frequencyDate") ? item.getAttribute("data-frequencyDate") : false,
+			dynamics,
+			"type": item.getAttribute("data-type"),
+			"initialDisplayDay": item.getAttribute("data-displayDay"),
+		}
+	})
+	localStorage.setItem("listme@timestamp", new Date().getTime())
+	localStorage.setItem('listme@items', JSON.stringify(itemsContent))
+
+	if(firebaseError){
+        displayAlert("Failed to upload tasks. Saved on LocalStorage.", "danger")
+    }
+}
+
+// Verify which version is the more recent
+async function verifySync(items){
+    firebaseFileMeta= await storage.getMetadata()
+    firebaseFileLastUpload = await new Date(firebaseFileMeta.updated)
+
+    localStorageData = await localStorage.getItem("listme@timestamp") || false
+    if(localStorageData !== false){
+        localStorageLastUpload = await new Date(+localStorageData)
+        if(localStorageLastUpload > firebaseFileLastUpload){
+            handleFetchFromLocalStorage()
+            return false
+        }
+    }
+
+	items.map(item => {
+		createElement(item.value, item.id, item.completed, item.frequency, item.frequencyDate, item.dynamics, item.type, item.initialDisplayDay)
+	})
+	currentId = Math.max.apply(Math, items.map(function(item) { return item.id; })) + 1
+	if(!isFinite(currentId)){
+		currentId = 0
+	}
+}
+
+function handleFetchFromLocalStorage(){
+    let items = localStorage.getItem("listme@items") || null
+    if(items){
+        items = JSON.parse(items)
+        items.map(item => {
+			createElement(item.value, item.id, item.completed, item.frequency, item.frequencyDate, item.dynamics, item.type, item.initialDisplayDay)
+		})
+		currentId = Math.max.apply(Math, items.map(function(item) { return item.id; })) + 1
+		if(!isFinite(currentId)){
+			currentId = 0
+		}
+    }
+}
+
+
+//Retrieve the data from firebase
+function recoverFirebaseData() {
+	let items = '';
+	storage.getDownloadURL().then(async function(url){
+		var xhr = new XMLHttpRequest();
+		xhr.onload = function(event) {
+		  var json= xhr.response;
+		  items = JSON.parse(json)
+		  if (!items) return
+		  verifySync(items)
+		};
+		xhr.onerror = function(event) {
+            handleFetchFromLocalStorage()
+        }
+		xhr.open('GET', url);
+		xhr.send()
+	  }).catch(()=>{
+        handleFetchFromLocalStorage()
+      })
+	}
+window.load = recoverFirebaseData();

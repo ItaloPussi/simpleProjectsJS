@@ -8,7 +8,6 @@
     - Crie uma tarefa e escolha o tipo dentre 8 possibilidades existentes;
     - Escolha a recorrência de sua tarefa: Única, Diária, semanal, mensal e dias uteis (segunda á sexta);
     - Com o tipo especial dinâmico você poderá definir quanto tempo sua tarefa irá durar (em dias), além do dia atual da mesma. Para utiliza-lo, preencha a opção "Dynamic", além de  colocar um cifrão ($) em algum lugar da task para identificação do dia. 
-    - Quer que sua tarefa apareça a cada X dias? Agora você pode com o tipo especial "Each";
     - Quer planejar desde já sua próxima semana? Simplesmente agende o dia inicial de display!
     - Filtre as tarefas existentes de acordo com seu tipo; 
     - Modo claro e modo escuro!
