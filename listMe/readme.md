@@ -1,4 +1,4 @@
-<h1 align="center">ListMe</h1
+<h1 align="center">ListMe</h1>
 
 <div align="right">
     <a href="https://github.com/ItaloPussi/simpleProjectsJS/blob/master/listMe/readme.pt.md">Versão em Português</a>
@@ -24,14 +24,14 @@
 <p>After that you'll need to deploy the application on a private server. For instance: netlify connected with your Github accont.</p>
 
 <h2 id="functionalities">Functionalities</h2>
-    - Create a task and choose between 8 possibilities;
-    - Choose the recurrence of your task: Only, Daily, Weekly, Monthly and weekdays;
-    - With the special dynamic type you can define how long your task will last (in days), in addition to the current day of the same. To use it, fill in the "Dynamic" option, in addition to placing a dollar sign ($) somewhere on the task to identify the day;
-    - Do you want to plan your next week now? Simply schedule the initial display day;
-    - Filter existing tasks according to their type; 
-    - Take an automatic screenshot of completed tasks of your day;
-    - Connect the project to firebase and access your tasks from anywhere. Don't wanna do that? Just continue to save your tasks locally;
-    - Dark and Light mode!
+- Create a task and choose between 8 possibilities; <br>
+- Choose the recurrence of your task: Only, Daily, Weekly, Monthly and weekdays;<br>
+- With the special dynamic type you can define how long your task will last (in days), in addition to the current day of the same. To use it, fill in the "Dynamic" option, in addition to placing a dollar sign ($) somewhere on the task to identify the day;<br>
+- Do you want to plan your next week now? Simply schedule the initial display day;<br>
+- Filter existing tasks according to their type; <br>
+- Take an automatic screenshot of completed tasks of your day;<br>
+- Connect the project to firebase and access your tasks from anywhere. Don't wanna do that? Just continue to save your tasks locally;<br>
+- Dark and Light mode!<br>
 
 <h2 id="technologys">Techonologys</h2>
 <ul>
