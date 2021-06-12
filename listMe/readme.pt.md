@@ -1,4 +1,4 @@
-<h1 align="center">ListMe</h1
+<h1 align="center">ListMe</h1>
 
 <div align="right">
     <a href="https://github.com/ItaloPussi/simpleProjectsJS/blob/master/listMe/readme.md">English Version</a>
@@ -24,14 +24,14 @@
 <p>Após isso, você precisará realizar o deploy da sua aplicação em algum servidor próprio. Como o netlify conectado ao seu Github.</p>
 
 <h2 id="funcionalidades">Funcionalidades</h2>
-    - Crie uma tarefa e escolha o tipo dentre 9 possibilidades existentes;
-    - Escolha a recorrência de sua tarefa: Única, Diária, semanal, mensal, quinzenal e dias uteis (segunda á sexta);
-    - Com o tipo especial dinâmico você poderá definir quanto tempo sua tarefa irá durar (em dias), além do dia atual da mesma. Para utiliza-lo, preencha a opção "Dynamic", além de  colocar um cifrão ($) em algum lugar da task para identificação do dia. 
-    - Quer planejar desde já sua próxima semana? Simplesmente agende o dia inicial de display!
-    - Filtre as tarefas existentes de acordo com seu tipo; 
-    - Tire uma screenshot automática das tarefas completadas em seu dia;
-    - Conecte o projeto ao Firebase e acesse suas tarefas de qualquer lugar. Não quer? Simplesmente continue salvando-as localmente;
-    - Modo claro e modo escuro!
+- Crie uma tarefa e escolha o tipo dentre 9 possibilidades existentes;<br>
+- Escolha a recorrência de sua tarefa: Única, Diária, semanal, mensal, quinzenal e dias uteis (segunda á sexta);<br>
+- Com o tipo especial dinâmico você poderá definir quanto tempo sua tarefa irá durar (em dias), além do dia atual da mesma. Para utiliza-lo, preencha a opção "Dynamic", além de  colocar um cifrão ($) em algum lugar da task para identificação do dia. <br>
+- Quer planejar desde já sua próxima semana? Simplesmente agende o dia inicial de display!<br>
+- Filtre as tarefas existentes de acordo com seu tipo; <br>
+- Tire uma screenshot automática das tarefas completadas em seu dia;<br>
+- Conecte o projeto ao Firebase e acesse suas tarefas de qualquer lugar. Não quer? Simplesmente continue salvando-as localmente;<br>
+- Modo claro e modo escuro!<br>
 
 <h2 id="tecnologias">Tecnologias</h2>
 <ul>
